@@ -1,0 +1,37 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\Smaga\\Desktop\\Restino-master\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{5D1FCCC1-1E0E-436B-A3C4-0BC917232222}|Restino.Api\\Restino.Api.csproj|c:\\users\\smaga\\desktop\\restino-master\\restino.api\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{5D1FCCC1-1E0E-436B-A3C4-0BC917232222}|Restino.Api\\Restino.Api.csproj|solutionrelative:restino.api\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 229,
+          "SelectedChildIndex": 0,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "appsettings.json",
+              "DocumentMoniker": "C:\\Users\\Smaga\\Desktop\\Restino-master\\Restino.Api\\appsettings.json",
+              "RelativeDocumentMoniker": "Restino.Api\\appsettings.json",
+              "ToolTip": "C:\\Users\\Smaga\\Desktop\\Restino-master\\Restino.Api\\appsettings.json",
+              "RelativeToolTip": "Restino.Api\\appsettings.json",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAB4AAAAXAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2025-03-09T16:36:36.738Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
