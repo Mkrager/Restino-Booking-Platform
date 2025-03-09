@@ -22,14 +22,17 @@ This project is a web platform similar to Booking, where users can publish and b
 
 2. **Login:**
    - After registration, users can log in using their email and password.
-  
-3. **Booking Accommodations:**
+
+3. :**Password Reset:**
+   - Users can reset their passwords by receiving a verification code via email. The code is sent through **SendGrid** to ensure secure password recovery.
+
+4. **Booking Accommodations:**
    - Users can search for accommodations and reserve them.
     
-4. **Accommodation Management:**
+5. **Accommodation Management:**
    - Users can create new accommodations, update their details, and delete them as needed.
    
-5. **Administrator Functionality:**
+6. **Administrator Functionality:**
    - Administrators can create new accommodation categories and manage any data on the platform, including publishing, editing, or deleting accommodations, and managing users and their access rights.
 ## How to Run the Project Locally
 
