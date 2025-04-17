@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Restino.Application.DTOs.Authentication;
 using Restino.Application.Features.Accounts.Commands.Registration;
 using Restino.Application.Features.Accounts.Queries.Authentication;
+using Restino.Application.Features.Accounts.Queries.AuthenticationVerifyTwoFactorCode;
 
 namespace Restino.Api.Controllers
 {
@@ -17,6 +18,18 @@ namespace Restino.Api.Controllers
             { 
                 Email = request.Email, 
                 Password = request.Password 
+            });
+
+            return Ok(dtos);
+        }
+
+        [HttpPost("authenticateTwoFactor")]
+        public async Task<ActionResult<AuthenticationResponse>> AuthenticateTwoFactorAsync(VerifyCodeRequest request)
+        {
+            var dtos = await mediator.Send(new AuthenticationVerifyTwoFactorCodeQuery()
+            {
+                Email = request.Email,
+                TwoFactorCode = request.TwoFactorCode
             });
 
             return Ok(dtos);

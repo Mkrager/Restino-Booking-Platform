@@ -10,12 +10,12 @@
     <menu>
         <h1 class="h1-1">
             Hello, <br>
-            <a class="nickname">@JwtHelper.GetUserNameFromToken()</a>
+            <a class="nickname">@JwtHelper.GetClaimFromToken("sub")</a>
         </h1>
 
         <div class="menu-links">
             <a asp-controller="User" asp-action="SendPasswordResetCode" class="menu-btn">Reset password</a>
-            @* <a href="" class="menu-btn">Add two factor authentication</a> *@
+            <a asp-controller="User" asp-action="TwoFactorManager" class="menu-btn">Manage two factor authentication</a>
             <a asp-controller="Accommodation" asp-action="Create" class="menu-btn">Add accommodation</a>
             <a asp-controller="Account" asp-action="Logout" class="menu-btn menu-btn-danger">Logout</a>
         </div>
@@ -65,7 +65,7 @@
                         {
                             <div class="account-item">
                                 <div class="account-content">
-                                    <h2 class="hot-title">Accommodation: @reservation.AccommodationName</h2>
+                                    <h2 class="hot-title">Accommodation: @reservation.Accommodation.AccommodationName</h2>
                                     <p class="hot-description">Check-in date: @reservation.CheckInDate</p>
                                     <p class="hot-description">Check-out date: @reservation.CheckOutDate</p>
                                     <p class="hot-description">Customer note: @reservation.CustomerNote</p>

@@ -75,15 +75,5 @@ namespace Restino.Api.IntegrationTests.Base
         {
             return CreateClient();
         }
-        public async Task ResetDatabaseAsync()
-        {
-            using var scope = Services.CreateScope();
-            var context = scope.ServiceProvider.GetRequiredService<RestinoIdentityDbContext>();
-
-            var connection = context.Database.GetDbConnection();
-            await connection.OpenAsync();
-            await _respawner.ResetAsync(connection);
-        }
-
     }
 }

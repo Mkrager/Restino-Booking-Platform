@@ -1,0 +1,19 @@
+﻿@model VerifyTwoFactorCodeResponse
+
+<div class="form">
+    <form asp-action="VerifyTwoFactor" method="post" role="form" id="loginForm">
+        <h1>Enter your two-factor authentication code</h1>
+        @* <h1 class="message">@message</h1> *@
+
+        <div asp-validation-summary="All" class="error-text"></div>
+
+        <input asp-for="Email" class="form-input" type="hidden" placeholder="Email" readonly />
+
+        <div class="form-password">
+            <input asp-for="TwoFactorCode" class="form-input" type="code" placeholder="Code" />
+            <span asp-validation-for="TwoFactorCode" class="error-text"></span>
+        </div>
+
+        <input type="submit" class="form-btn" value="Login" />
+    </form>
+</div>

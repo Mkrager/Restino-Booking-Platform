@@ -15,3 +15,4 @@ C:\Users\Smaga\Desktop\Restino-master\Restino.Infrastructure\obj\Debug\net8.0\Re
 C:\Users\Smaga\Desktop\Restino-master\Restino.Infrastructure\obj\Debug\net8.0\refint\Restino.Infrastructure.dll
 C:\Users\Smaga\Desktop\Restino-master\Restino.Infrastructure\obj\Debug\net8.0\Restino.Infrastructure.pdb
 C:\Users\Smaga\Desktop\Restino-master\Restino.Infrastructure\obj\Debug\net8.0\ref\Restino.Infrastructure.dll
+C:\Users\Smaga\Desktop\Restino-master\Restino.Infrastructure\obj\Debug\net8.0\Restino.Infrastructure.sourcelink.json

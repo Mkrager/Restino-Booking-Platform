@@ -48,6 +48,10 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWNjb3VudFxSZWdpc3Rlci5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
+[C:/Users/Smaga/Desktop/Restino-master/Restino.App/Views/Account/VerifyTwoFactor.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWNjb3VudFxWZXJpZnlUd29GYWN0b3IuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Users/Smaga/Desktop/Restino-master/Restino.App/Views/Admin/Panel.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cUGFuZWwuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
@@ -98,6 +102,18 @@ build_metadata.AdditionalFiles.CssScope =
 
 [C:/Users/Smaga/Desktop/Restino-master/Restino.App/Views/User/SendPasswordResetCode.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXNlclxTZW5kUGFzc3dvcmRSZXNldENvZGUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Smaga/Desktop/Restino-master/Restino.App/Views/User/SendTwoFactorCodeAuthForAdd.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXNlclxTZW5kVHdvRmFjdG9yQ29kZUF1dGhGb3JBZGQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Smaga/Desktop/Restino-master/Restino.App/Views/User/SendTwoFactorCodeAuthForDelete.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXNlclxTZW5kVHdvRmFjdG9yQ29kZUF1dGhGb3JEZWxldGUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Smaga/Desktop/Restino-master/Restino.App/Views/User/TwoFactorManager.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXNlclxUd29GYWN0b3JNYW5hZ2VyLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/Smaga/Desktop/Restino-master/Restino.App/Views/_ViewImports.cshtml]

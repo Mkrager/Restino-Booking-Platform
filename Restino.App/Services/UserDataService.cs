@@ -1,6 +1,5 @@
 ﻿using Restino.App.Contracts;
 using Restino.App.ViewModels;
-using System.Linq;
 using System.Net.Http.Headers;
 using System.Text.Json;
 
@@ -141,6 +140,90 @@ namespace Restino.App.Services
             try
             {
                 var request = new HttpRequestMessage(HttpMethod.Put, $"https://localhost:7288/api/User/ChangePassword/{newPassword}/{email}/{code}");
+
+                var response = await _httpClient.SendAsync(request);
+
+                if (response.IsSuccessStatusCode)
+                {
+                    var responseContent = await response.Content.ReadAsStringAsync();
+
+                    return new ApiResponse<bool>(System.Net.HttpStatusCode.OK, true);
+                }
+
+                var errorContent = await response.Content.ReadAsStringAsync();
+
+                var errorMessages = JsonSerializer.Deserialize<Dictionary<string, string>>(errorContent) ??
+                                    new Dictionary<string, string> { { "error", errorContent } };
+
+                return new ApiResponse<bool>(System.Net.HttpStatusCode.BadRequest, false, errorMessages.GetValueOrDefault("error"));
+            }
+            catch (Exception ex)
+            {
+                return new ApiResponse<bool>(System.Net.HttpStatusCode.BadRequest, false, ex.Message);
+            }
+        }
+
+        public async Task<ApiResponse<bool>> AddTwoFactorAsync(string email, string twoFactorCode)
+        {
+            try
+            {
+                var request = new HttpRequestMessage(HttpMethod.Put, $"https://localhost:7288/api/User/AddTwoFactorAuthCode/{email}/{twoFactorCode}");
+
+                var response = await _httpClient.SendAsync(request);
+
+                if (response.IsSuccessStatusCode)
+                {
+                    var responseContent = await response.Content.ReadAsStringAsync();
+
+                    return new ApiResponse<bool>(System.Net.HttpStatusCode.OK, true);
+                }
+
+                var errorContent = await response.Content.ReadAsStringAsync();
+
+                var errorMessages = JsonSerializer.Deserialize<Dictionary<string, string>>(errorContent) ??
+                                    new Dictionary<string, string> { { "error", errorContent } };
+
+                return new ApiResponse<bool>(System.Net.HttpStatusCode.BadRequest, false, errorMessages.GetValueOrDefault("error"));
+            }
+            catch (Exception ex)
+            {
+                return new ApiResponse<bool>(System.Net.HttpStatusCode.BadRequest, false, ex.Message);
+            }
+        }
+
+        public async Task<ApiResponse<bool>> DeleteTwoFactorAsync(string email, string twoFactorCode)
+        {
+            try
+            {
+                var request = new HttpRequestMessage(HttpMethod.Delete, $"https://localhost:7288/api/User/DeleteTwoFactorAuthCode/{email}/{twoFactorCode}");
+
+                var response = await _httpClient.SendAsync(request);
+
+                if (response.IsSuccessStatusCode)
+                {
+                    var responseContent = await response.Content.ReadAsStringAsync();
+
+                    return new ApiResponse<bool>(System.Net.HttpStatusCode.OK, true);
+                }
+
+                var errorContent = await response.Content.ReadAsStringAsync();
+
+                var errorMessages = JsonSerializer.Deserialize<Dictionary<string, string>>(errorContent) ??
+                                    new Dictionary<string, string> { { "error", errorContent } };
+
+                return new ApiResponse<bool>(System.Net.HttpStatusCode.BadRequest, false, errorMessages.GetValueOrDefault("error"));
+            }
+            catch (Exception ex)
+            {
+                return new ApiResponse<bool>(System.Net.HttpStatusCode.BadRequest, false, ex.Message);
+            }
+        }
+
+        public async Task<ApiResponse<bool>> SendTwoFactorCodeAsync(string email)
+        {
+            try
+            {
+                var request = new HttpRequestMessage(HttpMethod.Post, $"https://localhost:7288/api/User/SendTwoFactorAuthCode/{email}");
 
                 var response = await _httpClient.SendAsync(request);
 

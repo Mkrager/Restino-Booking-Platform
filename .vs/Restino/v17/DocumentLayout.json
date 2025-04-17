@@ -3,12 +3,12 @@
   "WorkspaceRootPath": "C:\\Users\\Smaga\\Desktop\\Restino-master\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{BB31127F-C48B-4DAD-B960-1D20F388DCF9}|Restino.App\\Restino.App.csproj|c:\\users\\smaga\\desktop\\restino-master\\restino.app\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
-      "RelativeMoniker": "D:0:0:{BB31127F-C48B-4DAD-B960-1D20F388DCF9}|Restino.App\\Restino.App.csproj|solutionrelative:restino.app\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+      "AbsoluteMoniker": "D:0:0:{06A2459D-2E34-4618-9186-B9AC1D74B2CE}|Restino.Identity\\Restino.Identity.csproj|c:\\users\\smaga\\desktop\\restino-master\\restino.identity\\service\\authenticationservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{06A2459D-2E34-4618-9186-B9AC1D74B2CE}|Restino.Identity\\Restino.Identity.csproj|solutionrelative:restino.identity\\service\\authenticationservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{5D1FCCC1-1E0E-436B-A3C4-0BC917232222}|Restino.Api\\Restino.Api.csproj|c:\\users\\smaga\\desktop\\restino-master\\restino.api\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
-      "RelativeMoniker": "D:0:0:{5D1FCCC1-1E0E-436B-A3C4-0BC917232222}|Restino.Api\\Restino.Api.csproj|solutionrelative:restino.api\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+      "AbsoluteMoniker": "D:0:0:{06A2459D-2E34-4618-9186-B9AC1D74B2CE}|Restino.Identity\\Restino.Identity.csproj|c:\\users\\smaga\\desktop\\restino-master\\restino.identity\\models\\applicationuser.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{06A2459D-2E34-4618-9186-B9AC1D74B2CE}|Restino.Identity\\Restino.Identity.csproj|solutionrelative:restino.identity\\models\\applicationuser.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -23,28 +23,27 @@
             {
               "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "appsettings.json",
-              "DocumentMoniker": "C:\\Users\\Smaga\\Desktop\\Restino-master\\Restino.App\\appsettings.json",
-              "RelativeDocumentMoniker": "Restino.App\\appsettings.json",
-              "ToolTip": "C:\\Users\\Smaga\\Desktop\\Restino-master\\Restino.App\\appsettings.json",
-              "RelativeToolTip": "Restino.App\\appsettings.json",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
-              "WhenOpened": "2025-03-09T16:38:49.825Z",
+              "Title": "AuthenticationService.cs",
+              "DocumentMoniker": "C:\\Users\\Smaga\\Desktop\\Restino-master\\Restino.Identity\\Service\\AuthenticationService.cs",
+              "RelativeDocumentMoniker": "Restino.Identity\\Service\\AuthenticationService.cs",
+              "ToolTip": "C:\\Users\\Smaga\\Desktop\\Restino-master\\Restino.Identity\\Service\\AuthenticationService.cs",
+              "RelativeToolTip": "Restino.Identity\\Service\\AuthenticationService.cs",
+              "ViewState": "AgIAAA0AAAAAAAAAAAA8wB0AAAAmAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-06T18:38:57.413Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 1,
-              "Title": "appsettings.json",
-              "DocumentMoniker": "C:\\Users\\Smaga\\Desktop\\Restino-master\\Restino.Api\\appsettings.json",
-              "RelativeDocumentMoniker": "Restino.Api\\appsettings.json",
-              "ToolTip": "C:\\Users\\Smaga\\Desktop\\Restino-master\\Restino.Api\\appsettings.json",
-              "RelativeToolTip": "Restino.Api\\appsettings.json",
-              "ViewState": "AgIAABwAAAAAAAAAAAAQwBYAAAAfAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
-              "WhenOpened": "2025-03-09T16:36:36.738Z",
-              "EditorCaption": ""
+              "Title": "ApplicationUser.cs",
+              "DocumentMoniker": "C:\\Users\\Smaga\\Desktop\\Restino-master\\Restino.Identity\\Models\\ApplicationUser.cs",
+              "RelativeDocumentMoniker": "Restino.Identity\\Models\\ApplicationUser.cs",
+              "ToolTip": "C:\\Users\\Smaga\\Desktop\\Restino-master\\Restino.Identity\\Models\\ApplicationUser.cs",
+              "RelativeToolTip": "Restino.Identity\\Models\\ApplicationUser.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-06T18:35:42.552Z"
             }
           ]
         }

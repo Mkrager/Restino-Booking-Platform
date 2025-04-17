@@ -182,5 +182,89 @@ namespace Restino.Identity.Service
 
             var updateResult = await _userManager.UpdateAsync(user);
         }
+
+        public async Task AddTwoFactorAsync(string email, string twoFactorCode)
+        {
+            var user = await _userManager.FindByEmailAsync(email);
+
+            if (user == null)
+            {
+                throw new Exception("User not found.");
+            }
+
+            if (twoFactorCode != user.TwoFactorCode)
+                throw new Exception("Incorrect code");
+
+            if (user.TwoFactorCodeDuration <= DateTime.Now)
+                throw new Exception("Code expired");
+
+            user.TwoFactorCode = null;
+            user.TwoFactorCodeDuration = null;
+            user.TwoFactorEnabled = true;
+
+            var updateResult = await _userManager.UpdateAsync(user);
+        }
+
+        public async Task DeleteTwoFactorAsync(string email, string twoFactorCode)
+        {
+            var user = await _userManager.FindByEmailAsync(email);
+
+            if (user == null)
+            {
+                throw new Exception("User not found.");
+            }
+
+            if (twoFactorCode != user.TwoFactorCode)
+                throw new Exception("Incorrect code");
+
+            if (user.TwoFactorCodeDuration <= DateTime.Now)
+                throw new Exception("Code expired");
+
+            user.TwoFactorCode = null;
+            user.TwoFactorCodeDuration = null;
+            user.TwoFactorEnabled = false;
+
+            var updateResult = await _userManager.UpdateAsync(user);
+        }
+
+        public async Task SendTwoFactorCodeAsync(string email)
+        {
+            var user = await _userManager.FindByEmailAsync(email);
+
+            if (user == null)
+            {
+                throw new Exception("User not found.");
+            }
+
+            var chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+
+            var random = new Random();
+            var randomCode = new string(Enumerable.Range(0, 6).Select(_ => chars[random.Next(chars.Length)]).ToArray());
+
+            user.TwoFactorCode = randomCode;
+            user.TwoFactorCodeDuration = DateTime.Now.AddMinutes(10);
+
+            var updateResult = await _userManager.UpdateAsync(user);
+
+            if (!updateResult.Succeeded)
+                throw new Exception("Failed");
+
+            var emailContent = $"Your two-factor authentication code is {randomCode}. It will expire in 10 minutes.";
+
+            var emailToSend = new Email
+            {
+                To = user.Email,
+                Subject = "Two-factor authentication code",
+                Body = emailContent
+            };
+
+            bool emailSent = await _emailService.SendEmail(emailToSend);
+
+            if (!emailSent)
+            {
+                throw new Exception("Email sending failed.");
+            }
+
+        }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Restino.App.Contracts;
 using Restino.App.Services;
+using Restino.App.ViewModels;
 
 namespace Restino.App.Controllers
 {
@@ -42,15 +43,47 @@ namespace Restino.App.Controllers
         public async Task<IActionResult> Login(string email, string password)
         {
             var login = await _authenticationService.Authenticate(email, password);
-            TempData["Message"] = HandleResponse<bool>(login);
+            TempData["Message"] = HandleResponse<LoginRequest>(login);
 
-            if (login.Data)
+            if(login.Data == null)
+            {
+                return View();
+            }
+
+            if (login.Data.TwoFactorRequired)
+            {
+                return RedirectToAction("VerifyTwoFactor", new { email = email });
+            }
+
+            if (login.IsSuccess)
             {
                 return RedirectToAction("Index", "Home");
             }
 
             return View();
         }
+
+        [HttpGet]
+        public IActionResult VerifyTwoFactor(string email)
+        {
+            var model = new VerifyTwoFactorCodeResponse { Email = email };
+            return View(model);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> VerifyTwoFactor(string email, string twoFactorCode)
+        {
+            var login = await _authenticationService.AuthenticateTwoFactor(email, twoFactorCode);
+            TempData["Message"] = HandleResponse<LoginRequest>(login);
+
+            if (login.IsSuccess)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+
+            return View();
+        }
+
 
         [HttpGet]
         public async Task<IActionResult> Overview(string accountId)

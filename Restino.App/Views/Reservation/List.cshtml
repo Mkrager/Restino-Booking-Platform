@@ -3,7 +3,7 @@
 @model List<ReservationListViewModel>
 
 @{
-    var userRole = JwtHelper.GetUserRoleFromToken();
+    var userRole = JwtHelper.GetClaimFromToken("roles");
 }
 
 @if (HttpContextAccessor.HttpContext.Request.Cookies.ContainsKey("access_token") && userRole == "Admin")

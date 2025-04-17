@@ -28,3 +28,4 @@ C:\Users\Smaga\Desktop\Restino-master\Restino.Application\obj\Debug\net8.0\Resti
 C:\Users\Smaga\Desktop\Restino-master\Restino.Application\obj\Debug\net8.0\refint\Restino.Application.dll
 C:\Users\Smaga\Desktop\Restino-master\Restino.Application\obj\Debug\net8.0\Restino.Application.pdb
 C:\Users\Smaga\Desktop\Restino-master\Restino.Application\obj\Debug\net8.0\ref\Restino.Application.dll
+C:\Users\Smaga\Desktop\Restino-master\Restino.Application\obj\Debug\net8.0\Restino.Application.sourcelink.json

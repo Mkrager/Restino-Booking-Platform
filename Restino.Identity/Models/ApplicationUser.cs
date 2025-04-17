@@ -7,5 +7,7 @@ namespace Restino.Identity.Models
         public string FirstName { get; set; } = string.Empty;
         public string LastName { get; set; } = string.Empty;
         public string? Code { get; set; }
+        public string? TwoFactorCode { get; set; }
+        public DateTime? TwoFactorCodeDuration { get; set; }
     }
 }

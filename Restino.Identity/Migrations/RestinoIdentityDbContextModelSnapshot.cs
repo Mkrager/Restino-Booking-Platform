@@ -211,6 +211,12 @@ namespace Restino.Identity.Migrations
                     b.Property<string>("SecurityStamp")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("TwoFactorCode")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("TwoFactorCodeDuration")
+                        .HasColumnType("datetime2");
+
                     b.Property<bool>("TwoFactorEnabled")
                         .HasColumnType("bit");
 

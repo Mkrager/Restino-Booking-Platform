@@ -6,5 +6,6 @@ namespace Restino.Application.Contracts.Identity
     {
         Task<AuthenticationResponse> AuthenticateAsync(AuthenticationRequest response);
         Task<RegistrationResponse> RegisterAsync(RegistrationRequest response);
+        Task<AuthenticationResponse> VerifyTwoFactorCodeAsync(VerifyCodeRequest response);
     }
 }

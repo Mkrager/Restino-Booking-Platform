@@ -3,7 +3,7 @@
 @inject JwtHelper JwtHelper
 
 @{
-    var userRole = JwtHelper.GetUserRoleFromToken();
+    var userRole = JwtHelper.GetClaimFromToken("roles");
 }
 
 <div class="element">

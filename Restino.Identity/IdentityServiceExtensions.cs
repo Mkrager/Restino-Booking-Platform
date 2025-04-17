@@ -90,7 +90,6 @@ namespace Restino.Identity
                 }
             }
 
-            // Створення адміністратора
             var adminEmail = "admin@gmail.com";
             var adminUser = await userManager.FindByEmailAsync(adminEmail);
 
@@ -113,7 +112,6 @@ namespace Restino.Identity
                 }
             }
 
-            // Створення тестового користувача
             var testUserEmail = "testuser@gmail.com";
             var testUser = await userManager.FindByEmailAsync(testUserEmail);
 

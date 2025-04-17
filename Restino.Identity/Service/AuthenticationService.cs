@@ -4,6 +4,7 @@ using Microsoft.IdentityModel.Tokens;
 using Restino.Application.Contracts.Identity;
 using Restino.Application.DTOs.Authentication;
 using Restino.Identity.Models;
+using System.Collections.ObjectModel;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
@@ -15,12 +16,14 @@ namespace Restino.Identity.Service
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly JwtSettings _jwtSettings;
+        private readonly IUserService _userService;
 
-        public AuthenticationService(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager, IOptions<JwtSettings> jwtSettings)
+        public AuthenticationService(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager, IOptions<JwtSettings> jwtSettings, IUserService userService)
         {
             _jwtSettings = jwtSettings.Value;
             _userManager = userManager;
             _signInManager = signInManager;
+            _userService = userService;
         }
         public async Task<AuthenticationResponse> AuthenticateAsync(AuthenticationRequest request)
         {
@@ -35,6 +38,19 @@ namespace Restino.Identity.Service
 
             if (!result.Succeeded)
             {
+                if (result.RequiresTwoFactor)
+                {
+                    await _userService.SendTwoFactorCodeAsync(user.Email);
+
+                    return new AuthenticationResponse
+                    {
+                        Id = user.Id,
+                        Email = user.Email,
+                        UserName = user.UserName,
+                        TwoFactorRequired = true
+                    };
+                }
+
                 throw new Exception($"Password or email invalid.");
             }
 
@@ -54,6 +70,34 @@ namespace Restino.Identity.Service
 
             return response;
         }
+
+        public async Task<AuthenticationResponse> VerifyTwoFactorCodeAsync(VerifyCodeRequest request)
+        {
+            var user = await _userManager.FindByEmailAsync(request.Email);
+
+            if (user == null || request.TwoFactorCode != user.TwoFactorCode)
+            {
+                throw new Exception("Invalid email or code.");
+            }
+
+            if (user.TwoFactorCodeDuration < DateTime.Now)
+            {
+                throw new Exception("Code duration end.");
+            }
+
+            JwtSecurityToken jwtSecurityToken = await GenerateToken(user);
+
+            AuthenticationResponse response = new AuthenticationResponse
+            {
+                Id = user.Id,
+                Token = new JwtSecurityTokenHandler().WriteToken(jwtSecurityToken),
+                Email = user.Email,
+                UserName = user.UserName
+            };
+
+            return response;
+        }
+
 
         public async Task<RegistrationResponse> RegisterAsync(RegistrationRequest request)
         {
@@ -117,7 +161,8 @@ namespace Restino.Identity.Service
                 new Claim(JwtRegisteredClaimNames.Sub, user.UserName),
                 new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
                 new Claim(JwtRegisteredClaimNames.Email, user.Email),
-                new Claim("uid", user.Id)
+                new Claim("uid", user.Id),
+                new Claim("EnabledTwoFactorAuth", user.TwoFactorEnabled.ToString())
             }
             .Union(userClaims)
             .Union(roleClaims);

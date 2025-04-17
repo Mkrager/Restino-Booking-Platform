@@ -1,0 +1,43 @@
+﻿@inject JwtHelper JwtHelper
+
+<form id="addTwoFactorAuth" role="form" asp-action="ConfirmAddingTwoFactorAuth" method="post">
+    <div class="form">
+        @* <h1 class="message">@message</h1> *@
+        <div asp-validation-summary="All" class="error-text"></div>
+
+        <label for="Code" class="update-title">Code</label>
+        <input type="text" name="Code" id="Code" class="form-input" />
+
+        <button type="submit" class="form-btn">Add two factor</button>
+    </div>
+</form>
+
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            $('#addTwoFactorAuth').submit(function (event) {
+                event.preventDefault();
+
+            var code = $('#Code').val();
+            var model = {
+                Email: '@JwtHelper.GetClaimFromToken("email")',
+                Code: code
+            };
+
+            $.ajax({
+                url: '@Url.Action("ConfirmAddingTwoFactorAuth", "User")',
+                type: 'Put',
+                contentType: 'application/json',
+                data: JSON.stringify(model),
+                success: function(response) {
+                    window.location.href = response.redirectUrl;
+                },
+                error: function(xhr, status, error) {
+                    alert("Error: " + error);
+                }
+            });
+            });
+        });
+    </script>
+}
+

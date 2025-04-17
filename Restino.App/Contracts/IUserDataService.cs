@@ -11,5 +11,8 @@ namespace Restino.App.Contracts
         Task<ApiResponse<bool>> DeleteUser(string id);
         Task<ApiResponse<bool>> SendPasswordResetCodeAsync(string email);
         Task<ApiResponse<bool>> ChangePasswordAsync(string email, string newPassword, string code);
+        Task<ApiResponse<bool>> AddTwoFactorAsync(string email, string twoFactorCode);
+        Task<ApiResponse<bool>> DeleteTwoFactorAsync(string email, string twoFactorCode);
+        Task<ApiResponse<bool>> SendTwoFactorCodeAsync(string email);
     }
 }

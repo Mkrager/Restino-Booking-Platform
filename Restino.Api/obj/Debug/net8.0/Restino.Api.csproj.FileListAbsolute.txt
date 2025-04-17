@@ -372,3 +372,5 @@ C:\Users\Smaga\Desktop\Restino-master\Restino.Api\bin\Debug\net8.0\SendGrid.dll
 C:\Users\Smaga\Desktop\Restino-master\Restino.Api\bin\Debug\net8.0\StarkbankEcdsa.dll
 C:\Users\Smaga\Desktop\Restino-master\Restino.Api\bin\Debug\net8.0\Restino.Infrastructure.dll
 C:\Users\Smaga\Desktop\Restino-master\Restino.Api\bin\Debug\net8.0\Restino.Infrastructure.pdb
+C:\Users\Smaga\Desktop\Restino-master\Restino.Api\bin\Debug\net8.0\appsettings.json
+C:\Users\Smaga\Desktop\Restino-master\Restino.Api\obj\Debug\net8.0\Restino.Api.sourcelink.json

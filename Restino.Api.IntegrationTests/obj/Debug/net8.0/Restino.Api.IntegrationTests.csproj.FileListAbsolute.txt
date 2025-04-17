@@ -597,7 +597,6 @@ C:\Users\Smaga\Desktop\Restino-master\Restino.Api.IntegrationTests\bin\Debug\net
 C:\Users\Smaga\Desktop\Restino-master\Restino.Api.IntegrationTests\bin\Debug\net8.0\appsettings.json
 C:\Users\Smaga\Desktop\Restino-master\Restino.Api.IntegrationTests\bin\Debug\net8.0\Restino.Api.deps.json
 C:\Users\Smaga\Desktop\Restino-master\Restino.Api.IntegrationTests\bin\Debug\net8.0\Restino.Api.runtimeconfig.json
-C:\Users\Smaga\Desktop\Restino-master\Restino.Api.IntegrationTests\bin\Debug\net8.0\appsettings.Development.json
 C:\Users\Smaga\Desktop\Restino-master\Restino.Api.IntegrationTests\bin\Debug\net8.0\Restino.Api.staticwebassets.endpoints.json
 C:\Users\Smaga\Desktop\Restino-master\Restino.Api.IntegrationTests\bin\Debug\net8.0\Restino.Api.exe
 C:\Users\Smaga\Desktop\Restino-master\Restino.Api.IntegrationTests\bin\Debug\net8.0\MvcTestingAppManifest.json

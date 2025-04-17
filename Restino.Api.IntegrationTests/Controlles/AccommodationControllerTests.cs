@@ -10,7 +10,7 @@ using System.Text.Json;
 
 namespace Restino.Api.IntegrationTests.Controlles
 {
-    //[Collection("SequentialTests")]
+    [Collection("SequentialTests")]
     public class AccommodationControllerTests : IClassFixture<CustomWebApplicationFactory<Program>>
     {
         private readonly CustomWebApplicationFactory<Program> _factory;

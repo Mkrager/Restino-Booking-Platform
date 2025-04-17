@@ -34,3 +34,4 @@ C:\Users\Smaga\Desktop\Restino-master\Restino.Persistence\obj\Debug\net8.0\Resti
 C:\Users\Smaga\Desktop\Restino-master\Restino.Persistence\obj\Debug\net8.0\refint\Restino.Persistence.dll
 C:\Users\Smaga\Desktop\Restino-master\Restino.Persistence\obj\Debug\net8.0\Restino.Persistence.pdb
 C:\Users\Smaga\Desktop\Restino-master\Restino.Persistence\obj\Debug\net8.0\ref\Restino.Persistence.dll
+C:\Users\Smaga\Desktop\Restino-master\Restino.Persistence\obj\Debug\net8.0\Restino.Persistence.sourcelink.json

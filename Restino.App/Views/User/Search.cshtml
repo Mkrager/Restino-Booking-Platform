@@ -3,7 +3,7 @@
 @inject IHttpContextAccessor HttpContextAccessor
 
 @{
-    var userRole = JwtHelper.GetUserRoleFromToken();
+    var userRole = JwtHelper.GetClaimFromToken("roles");
     var accommodations = TempData["Accommodations"] as List<AccommodationUserListViewModel>;
 }
 

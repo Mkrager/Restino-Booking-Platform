@@ -87,6 +87,41 @@ namespace Restino.App.Controllers
             return Json(new { redirectToUrl = Url.Action("Index", "Home") });
         }
 
+        [HttpGet]
+        public IActionResult TwoFactorManager()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> SendTwoFactorCodeAuthForAdd(string email)
+        {
+            await _userDataService.SendTwoFactorCodeAsync(email);
+            return View();
+        }
+
+        [HttpPut]
+        public async Task<IActionResult> ConfirmAddingTwoFactorAuth([FromBody] TwoFactorDto model)
+        {
+            await _userDataService.AddTwoFactorAsync(model.Email, model.Code);
+            TempData["Message"] = "Two-factor authentication added. Please log in to your account.";
+            return Json(new { redirectUrl = Url.Action("Logout", "Account") });
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> SendTwoFactorCodeAuthForDelete(string email)
+        {
+            await _userDataService.SendTwoFactorCodeAsync(email);
+            return View();
+        }
+
+        [HttpDelete]
+        public async Task<IActionResult> ConfirmDeletingTwoFactorAuth([FromBody] TwoFactorDto model)
+        {
+            await _userDataService.DeleteTwoFactorAsync(model.Email, model.Code);
+            TempData["Message"] = "Two-factor authentication deleted. Please log in to your account.";
+            return Json(new { redirectUrl = Url.Action("Logout", "Account") });
+        }
 
         private string HandleResponse<T>(ApiResponse<T> response, string successMessage = "Success")
         {

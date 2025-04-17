@@ -59,7 +59,7 @@ namespace Restino.Api.IntegrationTests.Controlles
                 FirstName = "TestFirtsName",
                 LastName = "TestLastName",
                 Password = "TestPassword123!",
-                UserName = "TestUserName"
+                UserName = "TestUserName"              
             };
 
             var registrationContent = new StringContent(
@@ -90,7 +90,6 @@ namespace Restino.Api.IntegrationTests.Controlles
 
             Assert.NotNull(result);
             Assert.Equal(HttpStatusCode.OK, response.StatusCode);
-
         }
     }
 }

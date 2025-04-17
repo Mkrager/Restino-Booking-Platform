@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Restino.Domain")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+155109c4cdc64cb12c2d31e9821d45f311f677ca")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+6e5690d412d0ccde0707459659e47efc865fe03f")]
 [assembly: System.Reflection.AssemblyProductAttribute("Restino.Domain")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Restino.Domain")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

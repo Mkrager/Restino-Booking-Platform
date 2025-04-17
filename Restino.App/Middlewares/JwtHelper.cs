@@ -9,43 +9,16 @@ public class JwtHelper
         _httpContextAccessor = httpContextAccessor;
     }
 
-    public string GetUserIdFromToken()
+    public string GetClaimFromToken(string claimType)
     {
-        var token = _httpContextAccessor.HttpContext.Request.Cookies["access_token"];
-
+        var token = _httpContextAccessor.HttpContext?.Request.Cookies["access_token"];
         if (string.IsNullOrEmpty(token))
             return null;
 
         var handler = new JwtSecurityTokenHandler();
         var jsonToken = handler.ReadToken(token) as JwtSecurityToken;
 
-        var userIdClaim = jsonToken?.Claims.FirstOrDefault(c => c.Type == "uid");
-
-        return userIdClaim?.Value;
+        return jsonToken?.Claims.FirstOrDefault(c => c.Type == claimType)?.Value;
     }
 
-    public string GetUserRoleFromToken()
-    {
-        var token = _httpContextAccessor.HttpContext.Request.Cookies["access_token"];
-        if (string.IsNullOrEmpty(token))
-            return string.Empty;
-
-        var handler = new JwtSecurityTokenHandler();
-        var jsonToken = handler.ReadToken(token) as JwtSecurityToken;
-        var roleClaim = jsonToken?.Claims.FirstOrDefault(c => c.Type == "roles");
-
-        return roleClaim?.Value ?? string.Empty;
-    }
-    public string GetUserNameFromToken()
-    {
-        var token = _httpContextAccessor.HttpContext.Request.Cookies["access_token"];
-        if (string.IsNullOrEmpty(token))
-            return string.Empty;
-
-        var handler = new JwtSecurityTokenHandler();
-        var jsonToken = handler.ReadToken(token) as JwtSecurityToken;
-        var roleClaim = jsonToken?.Claims.FirstOrDefault(c => c.Type == "sub");
-
-        return roleClaim?.Value ?? string.Empty;
-    }
 }

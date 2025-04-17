@@ -87,3 +87,4 @@ C:\Users\Smaga\Desktop\Restino-master\Restino.App\obj\Debug\net8.0\refint\Restin
 C:\Users\Smaga\Desktop\Restino-master\Restino.App\obj\Debug\net8.0\Restino.App.pdb
 C:\Users\Smaga\Desktop\Restino-master\Restino.App\obj\Debug\net8.0\Restino.App.genruntimeconfig.cache
 C:\Users\Smaga\Desktop\Restino-master\Restino.App\obj\Debug\net8.0\ref\Restino.App.dll
+C:\Users\Smaga\Desktop\Restino-master\Restino.App\obj\Debug\net8.0\Restino.App.sourcelink.json

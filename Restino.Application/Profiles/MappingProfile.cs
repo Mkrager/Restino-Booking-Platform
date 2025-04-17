@@ -15,6 +15,7 @@ using Restino.Application.Features.Reservation.Commands.DeleteReservation;
 using Restino.Application.Features.Reservation.Queries.GetReservatioDetails;
 using Restino.Application.Features.Reservation.Queries.GetReservationList;
 using Restino.Application.Features.Reservation.Queries.GetUserReservations;
+using Restino.Application.Features.Reservation.Queries.ListUserReservations;
 using Restino.Domain.Entities;
 
 namespace Restino.Application.Profiles
@@ -32,6 +33,8 @@ namespace Restino.Application.Profiles
             CreateMap<Accommodations, SearchAccommodationListVm>().ReverseMap();
             CreateMap<Accommodations, UserAccommodationListVm>().ReverseMap();
 
+            CreateMap<Accommodations, AccommodationDtoReservation>()
+                .ForMember(dest => dest.AccommodationName, opt => opt.MapFrom(src => src.Name));
 
             CreateMap<Categories, CategoryDetailsVm>().ReverseMap();
             CreateMap<Categories, CategoryDto>();

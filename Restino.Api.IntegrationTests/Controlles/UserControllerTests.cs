@@ -81,5 +81,26 @@ namespace Restino.Api.IntegrationTests.Controlles
             Assert.Equal(HttpStatusCode.NoContent, response.StatusCode);
         }
 
+        [Fact]
+        public async Task SendPasswordResetCode_ReturnsNoContent_WhenCodeSend()
+        {
+            var client = _factory.GetAnonymousClient();
+
+            string email = "admin@gmail.com";
+            var response = await client.PostAsync($"/api/User/SendPasswordResetCode/{email}", null);
+
+            Assert.Equal(HttpStatusCode.NoContent, response.StatusCode);
+        }
+
+        [Fact]
+        public async Task SendTwoFactorCode_ReturnsNoContent_WhenCodeSend()
+        {
+            var client = _factory.GetAnonymousClient();
+
+            string email = "admin@gmail.com";
+            var response = await client.PostAsync($"/api/User/SendTwoFactorAuthCode/{email}", null);
+
+            Assert.Equal(HttpStatusCode.NoContent, response.StatusCode);
+        }
     }
 }

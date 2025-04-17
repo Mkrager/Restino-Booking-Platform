@@ -8,6 +8,7 @@ using System.Text.Json;
 
 namespace Restino.Api.IntegrationTests.Controlles
 {
+    [Collection("SequentialTests")]
     public class CategoryControllerTests : IClassFixture<CustomWebApplicationFactory<Program>>
     {
         private readonly CustomWebApplicationFactory<Program> _factory;
@@ -114,7 +115,7 @@ namespace Restino.Api.IntegrationTests.Controlles
         {
             var client = _factory.GetAuthenticatedClient();
 
-            Guid categoryId = Guid.Parse("8f67819c-0d09-43e8-b64f-17c9123b6040");
+            Guid categoryId = Guid.Parse("cf0976f2-83c1-4708-afea-3e4785db6d66");
 
             var response = await client.DeleteAsync($"/api/Category/{categoryId}");
 

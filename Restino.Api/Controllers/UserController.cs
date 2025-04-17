@@ -2,12 +2,15 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Restino.Application.DTOs.Authentication;
+using Restino.Application.Features.User.Commands.AddTwoFactorAuth;
 using Restino.Application.Features.User.Commands.ChangeUserPassword;
+using Restino.Application.Features.User.Commands.DeleteTwofActorAuth;
 using Restino.Application.Features.User.Commands.DeleteUser;
 using Restino.Application.Features.User.Queries.GetUserDetails;
 using Restino.Application.Features.User.Queries.GetUserList;
 using Restino.Application.Features.User.Queries.SearchUser;
 using Restino.Application.Features.User.Queries.SendPasswoedResetCode;
+using Restino.Application.Features.User.Queries.SendTwoFactoreCode;
 
 namespace Restino.Api.Controllers
 {
@@ -75,6 +78,39 @@ namespace Restino.Api.Controllers
         {
             var changeUserPasswordCommand = new ChangeUserPasswordCommand() { NewPassword = newPassword, Email = email, Token = code };
             await mediator.Send(changeUserPasswordCommand);
+            return NoContent();
+        }
+
+        [HttpPost("[action]/{email}", Name = "SendTwoFactorAuthCode")]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesDefaultResponseType]
+        public async Task<ActionResult> SendTwoFactorAuthCode(string email)
+        {
+            var sendPasswoedResetCodeQuery = new SendTwoFactoreCodeQuery() { Email = email };
+            await mediator.Send(sendPasswoedResetCodeQuery);
+            return NoContent();
+        }
+
+        [HttpPut("[action]/{email}/{twoFactorAuthCode}", Name = "AddTwoFactorAuthCode")]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesDefaultResponseType]
+        public async Task<ActionResult> AddTwoFactorAuthCode(string email, string twoFactorAuthCode)
+        {
+            var sendPasswoedResetCodeQuery = new AddTwoFactorAuthCommand() { Email = email, TwoFactorCode = twoFactorAuthCode };
+            await mediator.Send(sendPasswoedResetCodeQuery);
+            return NoContent();
+        }
+
+        [HttpDelete("[action]/{email}/{twoFactorAuthCode}", Name = "DeleteTwoFactorAuthCode")]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesDefaultResponseType]
+        public async Task<ActionResult> DeleteTwoFactorAuthCode(string email, string twoFactorAuthCode)
+        {
+            var sendPasswoedResetCodeQuery = new DeleteTwoFactorAuthCommand() { Email = email, TwoFactorCode = twoFactorAuthCode };
+            await mediator.Send(sendPasswoedResetCodeQuery);
             return NoContent();
         }
     }

@@ -2,8 +2,6 @@
 using Restino.Application.Contracts.Persistance;
 using Restino.Domain.Entities;
 using AutoMapper;
-using Restino.Application.Contracts.Infrastructure;
-using Restino.Application.DTOs.Mail;
 
 namespace Restino.Application.Features.Accommodation.Queries.GetAccommodationList
 {
@@ -12,15 +10,13 @@ namespace Restino.Application.Features.Accommodation.Queries.GetAccommodationLis
     {
         private readonly IAsyncRepository<Categories> _categoryRepository;
         private readonly IAccommodationRepository _accommodationRepository;
-        private readonly IEmailService _emailService;
         private readonly IMapper _mapper;
 
-        public GetAccommodationListQueryHandler(IMapper mapper, IAccommodationRepository accommodationRepository, IAsyncRepository<Categories> categoryRepository, IEmailService emailService)
+        public GetAccommodationListQueryHandler(IMapper mapper, IAccommodationRepository accommodationRepository, IAsyncRepository<Categories> categoryRepository)
         {
             _mapper = mapper;
             _accommodationRepository = accommodationRepository;
             _categoryRepository = categoryRepository;
-            _emailService = emailService;
         }
 
         public async Task<List<AccommodationListVm>> Handle(GetAccommodationListQuery request, CancellationToken cancellationToken)

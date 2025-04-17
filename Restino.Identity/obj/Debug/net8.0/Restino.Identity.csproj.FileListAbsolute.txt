@@ -36,3 +36,4 @@ C:\Users\Smaga\Desktop\Restino-master\Restino.Identity\obj\Debug\net8.0\refint\R
 C:\Users\Smaga\Desktop\Restino-master\Restino.Identity\obj\Debug\net8.0\Restino.Identity.pdb
 C:\Users\Smaga\Desktop\Restino-master\Restino.Identity\obj\Debug\net8.0\Restino.Identity.genruntimeconfig.cache
 C:\Users\Smaga\Desktop\Restino-master\Restino.Identity\obj\Debug\net8.0\ref\Restino.Identity.dll
+C:\Users\Smaga\Desktop\Restino-master\Restino.Identity\obj\Debug\net8.0\Restino.Identity.sourcelink.json

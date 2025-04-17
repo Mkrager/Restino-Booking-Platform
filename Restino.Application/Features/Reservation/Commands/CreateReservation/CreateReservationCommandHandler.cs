@@ -38,7 +38,6 @@ namespace Restino.Application.Features.Reservation.Commands.CreateReservation
                 CustomerNote = request.CustomerNote,
                 GuestsCount = request.GuestsCount,
                 UserId = await _userService.GetUserId(),
-                AccommodationName = request.AccommodationName,
                 ReservationPrice = await _reservationRepository.TotalPrice(request.AccommodationsId, request.CheckInDate, request.CheckOutDate),
             };
 

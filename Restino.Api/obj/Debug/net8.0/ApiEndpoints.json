@@ -276,6 +276,32 @@
   },
   {
     "ContainingType": "Restino.Api.Controllers.AccountController",
+    "Method": "AuthenticateTwoFactorAsync",
+    "RelativePath": "api/Account/authenticateTwoFactor",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "request",
+        "Type": "Restino.Application.DTOs.Authentication.VerifyCodeRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "Restino.Application.DTOs.Authentication.AuthenticationResponse",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "Restino.Api.Controllers.AccountController",
     "Method": "RegisterAsync",
     "RelativePath": "api/Account/register",
     "HttpMethod": "POST",
@@ -650,6 +676,52 @@
   },
   {
     "ContainingType": "Restino.Api.Controllers.UserController",
+    "Method": "AddTwoFactorAuthCode",
+    "RelativePath": "api/User/AddTwoFactorAuthCode/{email}/{twoFactorAuthCode}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "email",
+        "Type": "System.String",
+        "IsRequired": true
+      },
+      {
+        "Name": "twoFactorAuthCode",
+        "Type": "System.String",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "System.Void",
+        "MediaTypes": [],
+        "StatusCode": 204
+      },
+      {
+        "Type": "Microsoft.AspNetCore.Mvc.ProblemDetails",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 400
+      },
+      {
+        "Type": "Microsoft.AspNetCore.Mvc.ProblemDetails",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 0
+      }
+    ],
+    "EndpointName": "AddTwoFactorAuthCode"
+  },
+  {
+    "ContainingType": "Restino.Api.Controllers.UserController",
     "Method": "ChangePassword",
     "RelativePath": "api/User/ChangePassword/{newPassword}/{email}/{code}",
     "HttpMethod": "PUT",
@@ -739,6 +811,52 @@
       }
     ],
     "EndpointName": "DeleteUser"
+  },
+  {
+    "ContainingType": "Restino.Api.Controllers.UserController",
+    "Method": "DeleteTwoFactorAuthCode",
+    "RelativePath": "api/User/DeleteTwoFactorAuthCode/{email}/{twoFactorAuthCode}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "email",
+        "Type": "System.String",
+        "IsRequired": true
+      },
+      {
+        "Name": "twoFactorAuthCode",
+        "Type": "System.String",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "System.Void",
+        "MediaTypes": [],
+        "StatusCode": 204
+      },
+      {
+        "Type": "Microsoft.AspNetCore.Mvc.ProblemDetails",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 400
+      },
+      {
+        "Type": "Microsoft.AspNetCore.Mvc.ProblemDetails",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 0
+      }
+    ],
+    "EndpointName": "DeleteTwoFactorAuthCode"
   },
   {
     "ContainingType": "Restino.Api.Controllers.UserController",
@@ -848,5 +966,46 @@
       }
     ],
     "EndpointName": "SendPasswordResetCode"
+  },
+  {
+    "ContainingType": "Restino.Api.Controllers.UserController",
+    "Method": "SendTwoFactorAuthCode",
+    "RelativePath": "api/User/SendTwoFactorAuthCode/{email}",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "email",
+        "Type": "System.String",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "System.Void",
+        "MediaTypes": [],
+        "StatusCode": 204
+      },
+      {
+        "Type": "Microsoft.AspNetCore.Mvc.ProblemDetails",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 400
+      },
+      {
+        "Type": "Microsoft.AspNetCore.Mvc.ProblemDetails",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 0
+      }
+    ],
+    "EndpointName": "SendTwoFactorAuthCode"
   }
 ]
