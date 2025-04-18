@@ -1,4 +1,4 @@
-# Restino
+# RestinoBookingPlatform
 
 ## Project Description
 This project is a web platform similar to Booking, where users can publish and book various accommodations. The system includes role-based access, allowing both regular users and administrators to manage different aspects of the platform.
