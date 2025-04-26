@@ -14,7 +14,6 @@ namespace Restino.Domain.Entities
         public string Address { get; set; } = string.Empty;
         public int Capacity { get; set; }
         public string? ImgUrl { get; set; }
-        public string? CreatedBy { get; set; }
         public DateTime CreatedDate { get; set; }
         public string? LastModifiedBy { get; set; }
         public DateTime? LastModifiedDate { get; set; }

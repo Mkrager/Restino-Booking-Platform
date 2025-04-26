@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "VGdHR1TZWKY=",
+  "dgSpecHash": "6SjOmdGI7WA=",
   "success": true,
-  "projectFilePath": "C:\\Users\\Smaga\\Desktop\\Restino-master\\Restino.Identity\\Restino.Identity.csproj",
+  "projectFilePath": "C:\\Users\\Smaga\\Desktop\\Шось важне\\Restino-master\\Restino.Identity\\Restino.Identity.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Smaga\\.nuget\\packages\\automapper\\12.0.1\\automapper.12.0.1.nupkg.sha512",
     "C:\\Users\\Smaga\\.nuget\\packages\\automapper.extensions.microsoft.dependencyinjection\\12.0.1\\automapper.extensions.microsoft.dependencyinjection.12.0.1.nupkg.sha512",

@@ -9149,11 +9149,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Smaga\\Desktop\\Restino-master\\Restino.Persistence.IntegrationTests\\Restino.Persistence.IntegrationTests.csproj",
+      "projectUniqueName": "C:\\Users\\Smaga\\Desktop\\Шось важне\\Restino-master\\Restino.Persistence.IntegrationTests\\Restino.Persistence.IntegrationTests.csproj",
       "projectName": "Restino.Persistence.IntegrationTests",
-      "projectPath": "C:\\Users\\Smaga\\Desktop\\Restino-master\\Restino.Persistence.IntegrationTests\\Restino.Persistence.IntegrationTests.csproj",
+      "projectPath": "C:\\Users\\Smaga\\Desktop\\Шось важне\\Restino-master\\Restino.Persistence.IntegrationTests\\Restino.Persistence.IntegrationTests.csproj",
       "packagesPath": "C:\\Users\\Smaga\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Smaga\\Desktop\\Restino-master\\Restino.Persistence.IntegrationTests\\obj\\",
+      "outputPath": "C:\\Users\\Smaga\\Desktop\\Шось важне\\Restino-master\\Restino.Persistence.IntegrationTests\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -9174,14 +9174,14 @@
         "net8.0": {
           "targetAlias": "net8.0",
           "projectReferences": {
-            "C:\\Users\\Smaga\\Desktop\\Restino-master\\Restino.Application\\Restino.Application.csproj": {
-              "projectPath": "C:\\Users\\Smaga\\Desktop\\Restino-master\\Restino.Application\\Restino.Application.csproj"
+            "C:\\Users\\Smaga\\Desktop\\Шось важне\\Restino-master\\Restino.Application\\Restino.Application.csproj": {
+              "projectPath": "C:\\Users\\Smaga\\Desktop\\Шось важне\\Restino-master\\Restino.Application\\Restino.Application.csproj"
             },
-            "C:\\Users\\Smaga\\Desktop\\Restino-master\\Restino.Domain\\Restino.Domain.csproj": {
-              "projectPath": "C:\\Users\\Smaga\\Desktop\\Restino-master\\Restino.Domain\\Restino.Domain.csproj"
+            "C:\\Users\\Smaga\\Desktop\\Шось важне\\Restino-master\\Restino.Domain\\Restino.Domain.csproj": {
+              "projectPath": "C:\\Users\\Smaga\\Desktop\\Шось важне\\Restino-master\\Restino.Domain\\Restino.Domain.csproj"
             },
-            "C:\\Users\\Smaga\\Desktop\\Restino-master\\Restino.Persistence\\Restino.Persistence.csproj": {
-              "projectPath": "C:\\Users\\Smaga\\Desktop\\Restino-master\\Restino.Persistence\\Restino.Persistence.csproj"
+            "C:\\Users\\Smaga\\Desktop\\Шось важне\\Restino-master\\Restino.Persistence\\Restino.Persistence.csproj": {
+              "projectPath": "C:\\Users\\Smaga\\Desktop\\Шось важне\\Restino-master\\Restino.Persistence\\Restino.Persistence.csproj"
             }
           }
         }

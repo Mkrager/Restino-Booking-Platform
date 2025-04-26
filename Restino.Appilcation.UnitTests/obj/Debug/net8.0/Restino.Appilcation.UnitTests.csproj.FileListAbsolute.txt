@@ -337,3 +337,13 @@ C:\Users\Smaga\Desktop\Restino-master\Restino.Appilcation.UnitTests\obj\Debug\ne
 C:\Users\Smaga\Desktop\Restino-master\Restino.Appilcation.UnitTests\obj\Debug\net8.0\Restino.Appilcation.UnitTests.genruntimeconfig.cache
 C:\Users\Smaga\Desktop\Restino-master\Restino.Appilcation.UnitTests\obj\Debug\net8.0\ref\Restino.Appilcation.UnitTests.dll
 C:\Users\Smaga\Desktop\Restino-master\Restino.Appilcation.UnitTests\obj\Debug\net8.0\Restino.Appilcation.UnitTests.sourcelink.json
+C:\Users\Smaga\Desktop\Шось важне\Restino-master\Restino.Appilcation.UnitTests\bin\Debug\net8.0\CoverletSourceRootsMapping_Restino.Appilcation.UnitTests
+C:\Users\Smaga\Desktop\Шось важне\Restino-master\Restino.Appilcation.UnitTests\obj\Debug\net8.0\Restino.Appilcation.UnitTests.csproj.AssemblyReference.cache
+C:\Users\Smaga\Desktop\Шось важне\Restino-master\Restino.Appilcation.UnitTests\obj\Debug\net8.0\Restino.Appilcation.UnitTests.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Smaga\Desktop\Шось важне\Restino-master\Restino.Appilcation.UnitTests\obj\Debug\net8.0\Restino.Appilcation.UnitTests.AssemblyInfoInputs.cache
+C:\Users\Smaga\Desktop\Шось важне\Restino-master\Restino.Appilcation.UnitTests\obj\Debug\net8.0\Restino.Appilcation.UnitTests.AssemblyInfo.cs
+C:\Users\Smaga\Desktop\Шось важне\Restino-master\Restino.Appilcation.UnitTests\obj\Debug\net8.0\Restino.Appilcation.UnitTests.csproj.CoreCompileInputs.cache
+C:\Users\Smaga\Desktop\Шось важне\Restino-master\Restino.Appilcation.UnitTests\obj\Debug\net8.0\Restino.Appilcation.UnitTests.sourcelink.json
+C:\Users\Smaga\Desktop\Шось важне\Restino-master\Restino.Appilcation.UnitTests\obj\Debug\net8.0\Restino.Appilcation.UnitTests.dll
+C:\Users\Smaga\Desktop\Шось важне\Restino-master\Restino.Appilcation.UnitTests\obj\Debug\net8.0\refint\Restino.Appilcation.UnitTests.dll
+C:\Users\Smaga\Desktop\Шось важне\Restino-master\Restino.Appilcation.UnitTests\obj\Debug\net8.0\Restino.Appilcation.UnitTests.pdb

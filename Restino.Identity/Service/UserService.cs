@@ -42,30 +42,6 @@ namespace Restino.Identity.Service
             return response;
         }
 
-        public Task<string> GetUserId()
-        {
-            var userId = _httpContextAccessor.HttpContext?.User?.FindFirst("uid")?.Value;
-
-            if (string.IsNullOrEmpty(userId))
-            {
-                throw new Exception("User is not authenticated.");
-            }
-
-            return Task.FromResult(userId);
-        }
-
-        public Task<string> GetUserRole()
-        {
-            var userRole = _httpContextAccessor.HttpContext?.User?.FindFirst("roles")?.Value;
-
-            if (string.IsNullOrEmpty(userRole))
-            {
-                throw new Exception("User is not authenticated.");
-            }
-
-            return Task.FromResult(userRole);
-        }
-
         public async Task<List<SearchUserResponse>> SearchUser(string searchInput)
         {
             if (string.IsNullOrWhiteSpace(searchInput))

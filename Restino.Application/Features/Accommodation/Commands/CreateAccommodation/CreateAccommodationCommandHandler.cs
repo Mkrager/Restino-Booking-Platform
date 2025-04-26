@@ -37,7 +37,6 @@ namespace Restino.Application.Features.Accommodation.Commands.CreateAccommodatio
                 LongDescription = request.LongDescription,
                 ImgUrl = request.ImgUrl,
                 Price = request.Price,
-                UserId = await _userService.GetUserId()
             };
 
             accommodation = await _accommodationRepository.AddAsync(accommodation);

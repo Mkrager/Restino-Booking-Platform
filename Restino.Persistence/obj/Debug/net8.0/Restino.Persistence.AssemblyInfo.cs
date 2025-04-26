@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Restino.Persistence")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+6e5690d412d0ccde0707459659e47efc865fe03f")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+c0a7a546d0785bf78e4e554ad133e5d0220d8ce4")]
 [assembly: System.Reflection.AssemblyProductAttribute("Restino.Persistence")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Restino.Persistence")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

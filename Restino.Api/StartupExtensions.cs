@@ -6,6 +6,8 @@ using Restino.Identity;
 using Microsoft.AspNetCore.Identity;
 using Restino.Identity.Models;
 using Restino.Infrastructure;
+using Restino.Application.Contracts;
+using Restino.Api.Services;
 
 namespace Restino.Api
 {
@@ -20,6 +22,8 @@ namespace Restino.Api
             builder.Services.AddPersistenceServices(builder.Configuration);
             builder.Services.AddIdentityServices(builder.Configuration);
             builder.Services.AddInfrastructureServices(builder.Configuration);
+
+            builder.Services.AddScoped<ICurrentUserService, CurrentUserService>();
 
             builder.Services.AddHttpContextAccessor();
 

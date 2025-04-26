@@ -1,0 +1,435 @@
+﻿using System;
+using Microsoft.EntityFrameworkCore.Migrations;
+
+#nullable disable
+
+namespace Restino.Persistence.Migrations
+{
+    /// <inheritdoc />
+    public partial class DeleteCreatedByColumn : Migration
+    {
+        /// <inheritdoc />
+        protected override void Up(MigrationBuilder migrationBuilder)
+        {
+            migrationBuilder.DropColumn(
+                name: "CreatedBy",
+                table: "Accommodations");
+
+            migrationBuilder.UpdateData(
+                table: "Accommodations",
+                keyColumn: "AccommodationsId",
+                keyValue: new Guid("0ff2a035-d55d-422c-a7c0-6a3eb4a2b51a"),
+                column: "CreatedDate",
+                value: new DateTime(2025, 6, 15, 0, 0, 0, 0, DateTimeKind.Local));
+
+            migrationBuilder.UpdateData(
+                table: "Accommodations",
+                keyColumn: "AccommodationsId",
+                keyValue: new Guid("1a491f3d-94ac-4df8-a244-0ef6c4a5c5b2"),
+                column: "CreatedDate",
+                value: new DateTime(2025, 6, 7, 0, 0, 0, 0, DateTimeKind.Local));
+
+            migrationBuilder.UpdateData(
+                table: "Accommodations",
+                keyColumn: "AccommodationsId",
+                keyValue: new Guid("3abf0f37-8079-4900-bd6b-8679585a5607"),
+                column: "CreatedDate",
+                value: new DateTime(2025, 6, 7, 0, 0, 0, 0, DateTimeKind.Local));
+
+            migrationBuilder.UpdateData(
+                table: "Accommodations",
+                keyColumn: "AccommodationsId",
+                keyValue: new Guid("400c5bff-99c3-4493-a618-6653241bc6b5"),
+                column: "CreatedDate",
+                value: new DateTime(2025, 6, 7, 0, 0, 0, 0, DateTimeKind.Local));
+
+            migrationBuilder.UpdateData(
+                table: "Accommodations",
+                keyColumn: "AccommodationsId",
+                keyValue: new Guid("47fc830b-751c-4b54-88e3-3281d746f3fd"),
+                column: "CreatedDate",
+                value: new DateTime(2025, 6, 7, 0, 0, 0, 0, DateTimeKind.Local));
+
+            migrationBuilder.UpdateData(
+                table: "Accommodations",
+                keyColumn: "AccommodationsId",
+                keyValue: new Guid("48f6d005-6237-465c-a413-e2924e9773e8"),
+                column: "CreatedDate",
+                value: new DateTime(2025, 5, 26, 0, 0, 0, 0, DateTimeKind.Local));
+
+            migrationBuilder.UpdateData(
+                table: "Accommodations",
+                keyColumn: "AccommodationsId",
+                keyValue: new Guid("4cbafdc3-446b-4ab3-bf2c-2c0b3c744492"),
+                column: "CreatedDate",
+                value: new DateTime(2025, 6, 7, 0, 0, 0, 0, DateTimeKind.Local));
+
+            migrationBuilder.UpdateData(
+                table: "Accommodations",
+                keyColumn: "AccommodationsId",
+                keyValue: new Guid("6b7e2693-aa97-4f54-97cc-8cc3bdd5d130"),
+                column: "CreatedDate",
+                value: new DateTime(2025, 5, 11, 0, 0, 0, 0, DateTimeKind.Local));
+
+            migrationBuilder.UpdateData(
+                table: "Accommodations",
+                keyColumn: "AccommodationsId",
+                keyValue: new Guid("70adcfec-32f1-4ae7-a67a-a1690c5ffaa9"),
+                column: "CreatedDate",
+                value: new DateTime(2025, 6, 1, 0, 0, 0, 0, DateTimeKind.Local));
+
+            migrationBuilder.UpdateData(
+                table: "Accommodations",
+                keyColumn: "AccommodationsId",
+                keyValue: new Guid("826dace9-c0ba-40b2-bd92-41f9d6519a08"),
+                column: "CreatedDate",
+                value: new DateTime(2025, 5, 14, 0, 0, 0, 0, DateTimeKind.Local));
+
+            migrationBuilder.UpdateData(
+                table: "Accommodations",
+                keyColumn: "AccommodationsId",
+                keyValue: new Guid("9015220b-2e8d-4067-a5cb-9a556260e1da"),
+                column: "CreatedDate",
+                value: new DateTime(2025, 5, 24, 0, 0, 0, 0, DateTimeKind.Local));
+
+            migrationBuilder.UpdateData(
+                table: "Accommodations",
+                keyColumn: "AccommodationsId",
+                keyValue: new Guid("90bea0a5-4dc5-4461-a6ca-ec2633ce4acf"),
+                column: "CreatedDate",
+                value: new DateTime(2025, 5, 12, 0, 0, 0, 0, DateTimeKind.Local));
+
+            migrationBuilder.UpdateData(
+                table: "Accommodations",
+                keyColumn: "AccommodationsId",
+                keyValue: new Guid("965155a6-8b18-45e9-9a60-b92b7876fa69"),
+                column: "CreatedDate",
+                value: new DateTime(2025, 5, 10, 0, 0, 0, 0, DateTimeKind.Local));
+
+            migrationBuilder.UpdateData(
+                table: "Accommodations",
+                keyColumn: "AccommodationsId",
+                keyValue: new Guid("97b5de46-c8fa-42ff-b752-e1baaf09a844"),
+                column: "CreatedDate",
+                value: new DateTime(2025, 5, 4, 0, 0, 0, 0, DateTimeKind.Local));
+
+            migrationBuilder.UpdateData(
+                table: "Accommodations",
+                keyColumn: "AccommodationsId",
+                keyValue: new Guid("9db960f8-38e7-4fb4-8db5-6c82f65a654c"),
+                column: "CreatedDate",
+                value: new DateTime(2025, 5, 6, 0, 0, 0, 0, DateTimeKind.Local));
+
+            migrationBuilder.UpdateData(
+                table: "Accommodations",
+                keyColumn: "AccommodationsId",
+                keyValue: new Guid("9ebd806d-08e7-40d6-9dc8-408c590c119d"),
+                column: "CreatedDate",
+                value: new DateTime(2025, 6, 7, 0, 0, 0, 0, DateTimeKind.Local));
+
+            migrationBuilder.UpdateData(
+                table: "Accommodations",
+                keyColumn: "AccommodationsId",
+                keyValue: new Guid("a4ab6df6-66b8-46f7-8198-c94332964006"),
+                column: "CreatedDate",
+                value: new DateTime(2025, 5, 20, 0, 0, 0, 0, DateTimeKind.Local));
+
+            migrationBuilder.UpdateData(
+                table: "Accommodations",
+                keyColumn: "AccommodationsId",
+                keyValue: new Guid("a4e54b1f-3149-4d9b-8d88-e8b4a174a619"),
+                column: "CreatedDate",
+                value: new DateTime(2025, 6, 7, 0, 0, 0, 0, DateTimeKind.Local));
+
+            migrationBuilder.UpdateData(
+                table: "Accommodations",
+                keyColumn: "AccommodationsId",
+                keyValue: new Guid("b3b8f3d5-9efe-497a-9454-d2d16965cfa0"),
+                column: "CreatedDate",
+                value: new DateTime(2025, 5, 16, 0, 0, 0, 0, DateTimeKind.Local));
+
+            migrationBuilder.UpdateData(
+                table: "Accommodations",
+                keyColumn: "AccommodationsId",
+                keyValue: new Guid("c119661c-1d5a-42c1-8819-6b0885af4d4a"),
+                column: "CreatedDate",
+                value: new DateTime(2025, 5, 16, 0, 0, 0, 0, DateTimeKind.Local));
+
+            migrationBuilder.UpdateData(
+                table: "Accommodations",
+                keyColumn: "AccommodationsId",
+                keyValue: new Guid("cdd387fe-0834-494b-9a63-2a622375d36c"),
+                column: "CreatedDate",
+                value: new DateTime(2025, 5, 16, 0, 0, 0, 0, DateTimeKind.Local));
+
+            migrationBuilder.UpdateData(
+                table: "Accommodations",
+                keyColumn: "AccommodationsId",
+                keyValue: new Guid("cf0e7c96-b60b-4c6b-8374-57f827fa17a4"),
+                column: "CreatedDate",
+                value: new DateTime(2025, 6, 7, 0, 0, 0, 0, DateTimeKind.Local));
+
+            migrationBuilder.UpdateData(
+                table: "Accommodations",
+                keyColumn: "AccommodationsId",
+                keyValue: new Guid("dcbbfc78-9191-4ced-97c6-da3c51b1adae"),
+                column: "CreatedDate",
+                value: new DateTime(2025, 6, 7, 0, 0, 0, 0, DateTimeKind.Local));
+
+            migrationBuilder.UpdateData(
+                table: "Accommodations",
+                keyColumn: "AccommodationsId",
+                keyValue: new Guid("e3132a60-2e38-4366-b0ac-59d653e3400f"),
+                column: "CreatedDate",
+                value: new DateTime(2025, 5, 8, 0, 0, 0, 0, DateTimeKind.Local));
+
+            migrationBuilder.UpdateData(
+                table: "Accommodations",
+                keyColumn: "AccommodationsId",
+                keyValue: new Guid("e7136862-7c13-4a57-a05f-e09b9ae98d06"),
+                column: "CreatedDate",
+                value: new DateTime(2025, 5, 21, 0, 0, 0, 0, DateTimeKind.Local));
+
+            migrationBuilder.UpdateData(
+                table: "Accommodations",
+                keyColumn: "AccommodationsId",
+                keyValue: new Guid("eac0f796-b80d-43ff-800e-dfbe0a5dbb60"),
+                column: "CreatedDate",
+                value: new DateTime(2025, 6, 7, 0, 0, 0, 0, DateTimeKind.Local));
+
+            migrationBuilder.UpdateData(
+                table: "Accommodations",
+                keyColumn: "AccommodationsId",
+                keyValue: new Guid("f0aefde0-bc3d-4cfc-b477-00b3ddec847c"),
+                column: "CreatedDate",
+                value: new DateTime(2025, 5, 2, 0, 0, 0, 0, DateTimeKind.Local));
+
+            migrationBuilder.UpdateData(
+                table: "Accommodations",
+                keyColumn: "AccommodationsId",
+                keyValue: new Guid("ff38ccf6-d319-40d1-8869-c7ae8a415f5e"),
+                column: "CreatedDate",
+                value: new DateTime(2025, 6, 7, 0, 0, 0, 0, DateTimeKind.Local));
+
+            migrationBuilder.UpdateData(
+                table: "Reservation",
+                keyColumn: "ReservationId",
+                keyValue: new Guid("c4046135-7ef7-4a85-a125-feeea203d4de"),
+                columns: new[] { "CheckInDate", "CheckOutDate" },
+                values: new object[] { new DateTime(2025, 4, 26, 0, 0, 0, 0, DateTimeKind.Local), new DateTime(2025, 5, 3, 0, 0, 0, 0, DateTimeKind.Local) });
+        }
+
+        /// <inheritdoc />
+        protected override void Down(MigrationBuilder migrationBuilder)
+        {
+            migrationBuilder.AddColumn<string>(
+                name: "CreatedBy",
+                table: "Accommodations",
+                type: "nvarchar(max)",
+                nullable: true);
+
+            migrationBuilder.UpdateData(
+                table: "Accommodations",
+                keyColumn: "AccommodationsId",
+                keyValue: new Guid("0ff2a035-d55d-422c-a7c0-6a3eb4a2b51a"),
+                columns: new[] { "CreatedBy", "CreatedDate" },
+                values: new object[] { null, new DateTime(2025, 5, 26, 0, 0, 0, 0, DateTimeKind.Local) });
+
+            migrationBuilder.UpdateData(
+                table: "Accommodations",
+                keyColumn: "AccommodationsId",
+                keyValue: new Guid("1a491f3d-94ac-4df8-a244-0ef6c4a5c5b2"),
+                columns: new[] { "CreatedBy", "CreatedDate" },
+                values: new object[] { null, new DateTime(2025, 5, 18, 0, 0, 0, 0, DateTimeKind.Local) });
+
+            migrationBuilder.UpdateData(
+                table: "Accommodations",
+                keyColumn: "AccommodationsId",
+                keyValue: new Guid("3abf0f37-8079-4900-bd6b-8679585a5607"),
+                columns: new[] { "CreatedBy", "CreatedDate" },
+                values: new object[] { null, new DateTime(2025, 5, 18, 0, 0, 0, 0, DateTimeKind.Local) });
+
+            migrationBuilder.UpdateData(
+                table: "Accommodations",
+                keyColumn: "AccommodationsId",
+                keyValue: new Guid("400c5bff-99c3-4493-a618-6653241bc6b5"),
+                columns: new[] { "CreatedBy", "CreatedDate" },
+                values: new object[] { null, new DateTime(2025, 5, 18, 0, 0, 0, 0, DateTimeKind.Local) });
+
+            migrationBuilder.UpdateData(
+                table: "Accommodations",
+                keyColumn: "AccommodationsId",
+                keyValue: new Guid("47fc830b-751c-4b54-88e3-3281d746f3fd"),
+                columns: new[] { "CreatedBy", "CreatedDate" },
+                values: new object[] { null, new DateTime(2025, 5, 18, 0, 0, 0, 0, DateTimeKind.Local) });
+
+            migrationBuilder.UpdateData(
+                table: "Accommodations",
+                keyColumn: "AccommodationsId",
+                keyValue: new Guid("48f6d005-6237-465c-a413-e2924e9773e8"),
+                columns: new[] { "CreatedBy", "CreatedDate" },
+                values: new object[] { null, new DateTime(2025, 5, 6, 0, 0, 0, 0, DateTimeKind.Local) });
+
+            migrationBuilder.UpdateData(
+                table: "Accommodations",
+                keyColumn: "AccommodationsId",
+                keyValue: new Guid("4cbafdc3-446b-4ab3-bf2c-2c0b3c744492"),
+                columns: new[] { "CreatedBy", "CreatedDate" },
+                values: new object[] { null, new DateTime(2025, 5, 18, 0, 0, 0, 0, DateTimeKind.Local) });
+
+            migrationBuilder.UpdateData(
+                table: "Accommodations",
+                keyColumn: "AccommodationsId",
+                keyValue: new Guid("6b7e2693-aa97-4f54-97cc-8cc3bdd5d130"),
+                columns: new[] { "CreatedBy", "CreatedDate" },
+                values: new object[] { null, new DateTime(2025, 4, 21, 0, 0, 0, 0, DateTimeKind.Local) });
+
+            migrationBuilder.UpdateData(
+                table: "Accommodations",
+                keyColumn: "AccommodationsId",
+                keyValue: new Guid("70adcfec-32f1-4ae7-a67a-a1690c5ffaa9"),
+                columns: new[] { "CreatedBy", "CreatedDate" },
+                values: new object[] { null, new DateTime(2025, 5, 12, 0, 0, 0, 0, DateTimeKind.Local) });
+
+            migrationBuilder.UpdateData(
+                table: "Accommodations",
+                keyColumn: "AccommodationsId",
+                keyValue: new Guid("826dace9-c0ba-40b2-bd92-41f9d6519a08"),
+                columns: new[] { "CreatedBy", "CreatedDate" },
+                values: new object[] { null, new DateTime(2025, 4, 24, 0, 0, 0, 0, DateTimeKind.Local) });
+
+            migrationBuilder.UpdateData(
+                table: "Accommodations",
+                keyColumn: "AccommodationsId",
+                keyValue: new Guid("9015220b-2e8d-4067-a5cb-9a556260e1da"),
+                columns: new[] { "CreatedBy", "CreatedDate" },
+                values: new object[] { null, new DateTime(2025, 5, 4, 0, 0, 0, 0, DateTimeKind.Local) });
+
+            migrationBuilder.UpdateData(
+                table: "Accommodations",
+                keyColumn: "AccommodationsId",
+                keyValue: new Guid("90bea0a5-4dc5-4461-a6ca-ec2633ce4acf"),
+                columns: new[] { "CreatedBy", "CreatedDate" },
+                values: new object[] { null, new DateTime(2025, 4, 22, 0, 0, 0, 0, DateTimeKind.Local) });
+
+            migrationBuilder.UpdateData(
+                table: "Accommodations",
+                keyColumn: "AccommodationsId",
+                keyValue: new Guid("965155a6-8b18-45e9-9a60-b92b7876fa69"),
+                columns: new[] { "CreatedBy", "CreatedDate" },
+                values: new object[] { null, new DateTime(2025, 4, 20, 0, 0, 0, 0, DateTimeKind.Local) });
+
+            migrationBuilder.UpdateData(
+                table: "Accommodations",
+                keyColumn: "AccommodationsId",
+                keyValue: new Guid("97b5de46-c8fa-42ff-b752-e1baaf09a844"),
+                columns: new[] { "CreatedBy", "CreatedDate" },
+                values: new object[] { null, new DateTime(2025, 4, 14, 0, 0, 0, 0, DateTimeKind.Local) });
+
+            migrationBuilder.UpdateData(
+                table: "Accommodations",
+                keyColumn: "AccommodationsId",
+                keyValue: new Guid("9db960f8-38e7-4fb4-8db5-6c82f65a654c"),
+                columns: new[] { "CreatedBy", "CreatedDate" },
+                values: new object[] { null, new DateTime(2025, 4, 16, 0, 0, 0, 0, DateTimeKind.Local) });
+
+            migrationBuilder.UpdateData(
+                table: "Accommodations",
+                keyColumn: "AccommodationsId",
+                keyValue: new Guid("9ebd806d-08e7-40d6-9dc8-408c590c119d"),
+                columns: new[] { "CreatedBy", "CreatedDate" },
+                values: new object[] { null, new DateTime(2025, 5, 18, 0, 0, 0, 0, DateTimeKind.Local) });
+
+            migrationBuilder.UpdateData(
+                table: "Accommodations",
+                keyColumn: "AccommodationsId",
+                keyValue: new Guid("a4ab6df6-66b8-46f7-8198-c94332964006"),
+                columns: new[] { "CreatedBy", "CreatedDate" },
+                values: new object[] { null, new DateTime(2025, 4, 30, 0, 0, 0, 0, DateTimeKind.Local) });
+
+            migrationBuilder.UpdateData(
+                table: "Accommodations",
+                keyColumn: "AccommodationsId",
+                keyValue: new Guid("a4e54b1f-3149-4d9b-8d88-e8b4a174a619"),
+                columns: new[] { "CreatedBy", "CreatedDate" },
+                values: new object[] { null, new DateTime(2025, 5, 18, 0, 0, 0, 0, DateTimeKind.Local) });
+
+            migrationBuilder.UpdateData(
+                table: "Accommodations",
+                keyColumn: "AccommodationsId",
+                keyValue: new Guid("b3b8f3d5-9efe-497a-9454-d2d16965cfa0"),
+                columns: new[] { "CreatedBy", "CreatedDate" },
+                values: new object[] { null, new DateTime(2025, 4, 26, 0, 0, 0, 0, DateTimeKind.Local) });
+
+            migrationBuilder.UpdateData(
+                table: "Accommodations",
+                keyColumn: "AccommodationsId",
+                keyValue: new Guid("c119661c-1d5a-42c1-8819-6b0885af4d4a"),
+                columns: new[] { "CreatedBy", "CreatedDate" },
+                values: new object[] { null, new DateTime(2025, 4, 26, 0, 0, 0, 0, DateTimeKind.Local) });
+
+            migrationBuilder.UpdateData(
+                table: "Accommodations",
+                keyColumn: "AccommodationsId",
+                keyValue: new Guid("cdd387fe-0834-494b-9a63-2a622375d36c"),
+                columns: new[] { "CreatedBy", "CreatedDate" },
+                values: new object[] { null, new DateTime(2025, 4, 26, 0, 0, 0, 0, DateTimeKind.Local) });
+
+            migrationBuilder.UpdateData(
+                table: "Accommodations",
+                keyColumn: "AccommodationsId",
+                keyValue: new Guid("cf0e7c96-b60b-4c6b-8374-57f827fa17a4"),
+                columns: new[] { "CreatedBy", "CreatedDate" },
+                values: new object[] { null, new DateTime(2025, 5, 18, 0, 0, 0, 0, DateTimeKind.Local) });
+
+            migrationBuilder.UpdateData(
+                table: "Accommodations",
+                keyColumn: "AccommodationsId",
+                keyValue: new Guid("dcbbfc78-9191-4ced-97c6-da3c51b1adae"),
+                columns: new[] { "CreatedBy", "CreatedDate" },
+                values: new object[] { null, new DateTime(2025, 5, 18, 0, 0, 0, 0, DateTimeKind.Local) });
+
+            migrationBuilder.UpdateData(
+                table: "Accommodations",
+                keyColumn: "AccommodationsId",
+                keyValue: new Guid("e3132a60-2e38-4366-b0ac-59d653e3400f"),
+                columns: new[] { "CreatedBy", "CreatedDate" },
+                values: new object[] { null, new DateTime(2025, 4, 18, 0, 0, 0, 0, DateTimeKind.Local) });
+
+            migrationBuilder.UpdateData(
+                table: "Accommodations",
+                keyColumn: "AccommodationsId",
+                keyValue: new Guid("e7136862-7c13-4a57-a05f-e09b9ae98d06"),
+                columns: new[] { "CreatedBy", "CreatedDate" },
+                values: new object[] { null, new DateTime(2025, 5, 1, 0, 0, 0, 0, DateTimeKind.Local) });
+
+            migrationBuilder.UpdateData(
+                table: "Accommodations",
+                keyColumn: "AccommodationsId",
+                keyValue: new Guid("eac0f796-b80d-43ff-800e-dfbe0a5dbb60"),
+                columns: new[] { "CreatedBy", "CreatedDate" },
+                values: new object[] { null, new DateTime(2025, 5, 18, 0, 0, 0, 0, DateTimeKind.Local) });
+
+            migrationBuilder.UpdateData(
+                table: "Accommodations",
+                keyColumn: "AccommodationsId",
+                keyValue: new Guid("f0aefde0-bc3d-4cfc-b477-00b3ddec847c"),
+                columns: new[] { "CreatedBy", "CreatedDate" },
+                values: new object[] { null, new DateTime(2025, 4, 12, 0, 0, 0, 0, DateTimeKind.Local) });
+
+            migrationBuilder.UpdateData(
+                table: "Accommodations",
+                keyColumn: "AccommodationsId",
+                keyValue: new Guid("ff38ccf6-d319-40d1-8869-c7ae8a415f5e"),
+                columns: new[] { "CreatedBy", "CreatedDate" },
+                values: new object[] { null, new DateTime(2025, 5, 18, 0, 0, 0, 0, DateTimeKind.Local) });
+
+            migrationBuilder.UpdateData(
+                table: "Reservation",
+                keyColumn: "ReservationId",
+                keyValue: new Guid("c4046135-7ef7-4a85-a125-feeea203d4de"),
+                columns: new[] { "CheckInDate", "CheckOutDate" },
+                values: new object[] { new DateTime(2025, 4, 6, 0, 0, 0, 0, DateTimeKind.Local), new DateTime(2025, 4, 13, 0, 0, 0, 0, DateTimeKind.Local) });
+        }
+    }
+}

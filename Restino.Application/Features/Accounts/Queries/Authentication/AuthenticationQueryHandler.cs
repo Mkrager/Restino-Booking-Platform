@@ -24,9 +24,7 @@ namespace Restino.Application.Features.Accounts.Queries.Authentication
 
             var authentication = await _authenticationService.AuthenticateAsync(authenticationRequest);
 
-            var authenticationResponse = _mapper.Map<AuthenticationResponse>(authentication);
-
-            return authenticationResponse;
+            return authentication;
         }
     }
 }

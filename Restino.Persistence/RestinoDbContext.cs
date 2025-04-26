@@ -1,14 +1,16 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Restino.Application.Contracts;
 using Restino.Domain.Entities;
 
 namespace Restino.Persistence
 {
     public class RestinoDbContext : DbContext
     {
-        public RestinoDbContext(DbContextOptions<RestinoDbContext> options)
+        private readonly ICurrentUserService _currentUserService;
+        public RestinoDbContext(DbContextOptions<RestinoDbContext> options, ICurrentUserService currentUserService)
             : base(options)
         {
-            
+            _currentUserService = currentUserService;
         }
 
         public DbSet<Accommodations> Accommodations { get; set; }
@@ -32,7 +34,7 @@ namespace Restino.Persistence
                 CategoriesId = appartamentsGuid,
                 CategoryName = "Appartaments",
                 Description = "Apartments are a modern type of accommodation that combines the comfort of a home with high-quality service. They are ideal for short-term or long-term stays, offering a fully equipped kitchen, spacious interiors, and modern amenities. Apartments are often located in city centers, providing easy access to popular locations. Choosing apartments ensures independence and comfort for travelers who value coziness and the convenience of a private space.",
-                ImgUrl = "https://cdn.pixabay.com/photo/2016/11/30/08/48/bedroom-1872196_1280.jpg"
+                ImgUrl = "https://cdn.pixabay.com/photo/2016/11/30/08/48/bedroom-1872196_1280.jpg",
             });
 
             modelBuilder.Entity<Categories>().HasData(new Categories
@@ -525,9 +527,11 @@ namespace Restino.Persistence
                 {
                     case EntityState.Added:
                         entry.Entity.CreatedDate = DateTime.Now;
+                        entry.Entity.UserId = _currentUserService.UserId;
                         break;
                     case EntityState.Modified:
                         entry.Entity.LastModifiedDate = DateTime.Now;
+                        entry.Entity.LastModifiedBy = _currentUserService.UserId;
                         break;
                 }
             }
