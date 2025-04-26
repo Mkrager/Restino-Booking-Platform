@@ -1,4 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Moq;
+using Restino.Application.Contracts;
 using Restino.Domain.Entities;
 using Restino.Persistence.Repositories;
 
@@ -8,6 +10,8 @@ namespace Restino.Persistence.IntegrationTests.CategoryTests
     {
         private readonly RestinoDbContext _dbContext;
         private readonly CategoryRepository _repository;
+        private readonly Mock<ICurrentUserService> _currentUserServiceMock;
+        private readonly string _currentUserId;
 
         public CategoryRepositoryTests()
         {
@@ -15,7 +19,11 @@ namespace Restino.Persistence.IntegrationTests.CategoryTests
                 .UseInMemoryDatabase(databaseName: Guid.NewGuid().ToString())
                 .Options;
 
-            _dbContext = new RestinoDbContext(options);
+            _currentUserId = "00000000-0000-0000-0000-000000000000";
+            _currentUserServiceMock = new Mock<ICurrentUserService>();
+            _currentUserServiceMock.Setup(m => m.UserId).Returns(_currentUserId);
+
+            _dbContext = new RestinoDbContext(options, _currentUserServiceMock.Object);
             _repository = new CategoryRepository(_dbContext);
         }
 

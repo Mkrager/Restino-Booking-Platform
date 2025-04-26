@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Restino.Infrastructure")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+c0a7a546d0785bf78e4e554ad133e5d0220d8ce4")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+d02d9bf01f5d57969338bc6a308264fabe39e407")]
 [assembly: System.Reflection.AssemblyProductAttribute("Restino.Infrastructure")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Restino.Infrastructure")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

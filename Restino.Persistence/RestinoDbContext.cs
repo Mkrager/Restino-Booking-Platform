@@ -535,6 +535,17 @@ namespace Restino.Persistence
                         break;
                 }
             }
+
+            foreach (var entry in ChangeTracker.Entries<Reservations>())
+            {
+                switch (entry.State)
+                {
+                    case EntityState.Added:
+                        entry.Entity.UserId = _currentUserService.UserId;
+                        break;
+                }
+            }
+
             return base.SaveChangesAsync(cancellationToken);
         }
     }

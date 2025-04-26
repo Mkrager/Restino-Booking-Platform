@@ -269,10 +269,6 @@ namespace Restino.Appilcation.UnitTests.Mock
                 .Setup(service => service.GetUserDetailsAsync(It.IsAny<string>()))
                 .ReturnsAsync((string userId) => users.FirstOrDefault(u => u.UserId == userId));
 
-            mockUserService
-                .Setup(service => service.GetUserId())
-                .ReturnsAsync(users.First().UserId);
-
             return mockUserService;
         }
     }

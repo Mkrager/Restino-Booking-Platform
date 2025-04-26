@@ -13,10 +13,12 @@ namespace Restino.Appilcation.UnitTests.Reservation.Queries
     {
         private readonly IMapper _mapper;
         private readonly Mock<IReservationRepository> _mockReservationRepository;
+        private readonly Mock<IAccommodationRepository> _mockAccommodationRepository;
 
         public GetUserReservationListQueryHandlerTests()
         {
             _mockReservationRepository = RepositoryMocks.GetReservationRepository();
+            _mockAccommodationRepository = RepositoryMocks.GetAccommodationRepository();
             var configurationProvider = new MapperConfiguration(cfg =>
             {
                 cfg.AddProfile<MappingProfile>();
@@ -27,7 +29,7 @@ namespace Restino.Appilcation.UnitTests.Reservation.Queries
         [Fact]
         public async Task ListUserReservationListTest()
         {
-            var handler = new GetUserReservationListQueryHandler(_mapper, _mockReservationRepository.Object);
+            var handler = new GetUserReservationListQueryHandler(_mapper, _mockReservationRepository.Object, _mockAccommodationRepository.Object);
 
             string userId = "534ab6df-66b8-46f7-8198-c94332964001";
 

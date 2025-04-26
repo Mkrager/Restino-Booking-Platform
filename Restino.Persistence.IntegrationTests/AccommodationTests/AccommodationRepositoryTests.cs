@@ -1,4 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Moq;
+using Restino.Application.Contracts;
 using Restino.Domain.Entities;
 using Restino.Persistence.Repositories;
 
@@ -9,6 +11,9 @@ namespace Restino.Persistence.IntegrationTests.AccommodationTests
     {
         private readonly RestinoDbContext _dbContext;
         private readonly AccommodationRepository _repository;
+        private readonly Mock<ICurrentUserService> _currentUserServiceMock;
+        private readonly string _currentUserId;
+
 
         public AccommodationRepositoryTests()
         {
@@ -16,7 +21,11 @@ namespace Restino.Persistence.IntegrationTests.AccommodationTests
                 .UseInMemoryDatabase(databaseName: Guid.NewGuid().ToString())
                 .Options;
 
-            _dbContext = new RestinoDbContext(options);
+            _currentUserId = "00000000-0000-0000-0000-000000000000";
+            _currentUserServiceMock = new Mock<ICurrentUserService>();
+            _currentUserServiceMock.Setup(m => m.UserId).Returns(_currentUserId);
+
+            _dbContext = new RestinoDbContext(options, _currentUserServiceMock.Object);
             _repository = new AccommodationRepository(_dbContext);
         }
 
@@ -166,7 +175,7 @@ namespace Restino.Persistence.IntegrationTests.AccommodationTests
         [Fact]
         public async Task ListUserReservation_ShouldReturnUserReservations()
         {
-            string userId = "123456789";
+            string userId = "00000000-0000-0000-0000-000000000000";
             // Arrange
             _dbContext.Accommodations.AddRange(new List<Accommodations>
             {
