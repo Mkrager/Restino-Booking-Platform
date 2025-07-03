@@ -44,7 +44,5 @@ namespace Restino.Appilcation.UnitTests.Accommodation.Queries
             result.ImgUrl.ShouldBe("https://cdn.pixabay.com/photo/2015/09/05/21/51/room-924058_1280.jpg");
             result.Price.ShouldBe(7000);
         }
-
-
     }
 }

@@ -41,7 +41,6 @@ namespace Restino.App.Controllers
         [HttpGet]
         public async Task<IActionResult> Create()
         {
-            var categories = await _categoryDataService.GetAllCategories();
             TempData["Categories"] = await Categories();
             return View();
         }
@@ -50,7 +49,6 @@ namespace Restino.App.Controllers
         public async Task<IActionResult> Create(AccommodationDetailViewModel accommodation)
         {
             var newAccommodation = await _accommodationDataService.CreateAccommodation(accommodation);
-            var categories = await _categoryDataService.GetAllCategories();
             TempData["Categories"] = await Categories();
             TempData["Message"] = HandleResponse<Guid>(newAccommodation);
             return View();

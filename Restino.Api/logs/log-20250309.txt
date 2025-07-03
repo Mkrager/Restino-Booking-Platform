@@ -1,5 +1,0 @@
-2025-03-09 18:36:51.454 +02:00 [INF] Now listening on: https://localhost:7288
-2025-03-09 18:36:51.485 +02:00 [INF] Now listening on: http://localhost:5212
-2025-03-09 18:36:51.579 +02:00 [INF] Application started. Press Ctrl+C to shut down.
-2025-03-09 18:36:51.580 +02:00 [INF] Hosting environment: Development
-2025-03-09 18:36:51.581 +02:00 [INF] Content root path: C:\Users\Smaga\Desktop\Restino-master\Restino.Api
