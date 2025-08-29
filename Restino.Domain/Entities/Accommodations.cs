@@ -1,8 +1,9 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Restino.Domain.Common;
+using System.ComponentModel.DataAnnotations;
 
 namespace Restino.Domain.Entities
 {
-    public class Accommodations
+    public class Accommodations : AuditableEntity
     {
         [Key]
         public Guid AccommodationsId { get; set; }
@@ -14,11 +15,9 @@ namespace Restino.Domain.Entities
         public string Address { get; set; } = string.Empty;
         public int Capacity { get; set; }
         public string? ImgUrl { get; set; }
-        public DateTime CreatedDate { get; set; }
-        public string? LastModifiedBy { get; set; }
-        public DateTime? LastModifiedDate { get; set; }
         public bool IsHotProposition { get; set; }
         public Guid CategoryId { get; set; }
+
         public Categories Category { get; set; } = default!;
     }
 }

@@ -1,8 +1,9 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Restino.Domain.Common;
+using System.ComponentModel.DataAnnotations;
 
 namespace Restino.Domain.Entities
 {
-    public class Reservations
+    public class Reservations : AuditableEntity
     {
         [Key]
         public Guid ReservationId { get; set; }
@@ -15,6 +16,7 @@ namespace Restino.Domain.Entities
         public int GuestsCount { get; set; }
         public string AdditionalServices { get; set; } = string.Empty;
         public string CustomerNote { get; set; } = string.Empty;
+
         public Accommodations Accommodations { get; set; } = default!;
     }
 }
