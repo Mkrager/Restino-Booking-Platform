@@ -39,17 +39,14 @@ namespace Restino.Persistence.Repositories
             await _dbContext.SaveChangesAsync();
         }
 
-        public async Task<bool> CheckUserPermissionAsync(string userId, Guid entityId, string userRole)
+        public async Task<bool> CheckUserPermissionAsync(string userId, Guid entityId, string userRole) where T : class, IOwnedEntity
         {
             var entity = await _dbContext.Set<T>().FindAsync(entityId);
 
-            var property = typeof(T).GetProperty("UserId");
+            if (entity == null)
+                return false;
 
-            var ownerId = property.GetValue(entity)?.ToString();
-
-            if (ownerId == userId || userRole == "Admin")
-                return true;
-
+            //return entity.UserId == userId || userRole == "Admin";
             return false;
         }
     }
