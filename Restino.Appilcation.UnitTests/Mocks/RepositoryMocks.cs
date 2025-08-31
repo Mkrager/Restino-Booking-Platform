@@ -86,11 +86,11 @@ namespace Restino.Appilcation.UnitTests.Mock
                     return accommodations.ToList();
                 });
 
-            mockAccommodationRepository.Setup(repo => repo.AddAsync(It.IsAny<Accommodations>
+            mockAccommodationRepository.Setup(repo => repo.AddAsync(It.IsAny<Accommodation>
             ())).ReturnsAsync(
-            (Accommodations accommodation) =>
+            (Accommodation accommodation) =>
             {
-                accommodation.AccommodationsId = Guid.NewGuid();
+                accommodation.Id = Guid.NewGuid();
                 accommodations.Add(accommodation);
                 return accommodation;
             });
@@ -102,8 +102,8 @@ namespace Restino.Appilcation.UnitTests.Mock
                     return accommodations.Any(a => a.Name == name && a.CategoryId == categoryId);
                 });
 
-            mockAccommodationRepository.Setup(repo => repo.DeleteAsync(It.IsAny<Accommodations>())).Callback<Accommodations>(
-            (Accommodations accommodation) =>
+            mockAccommodationRepository.Setup(repo => repo.DeleteAsync(It.IsAny<Domain.Entities.Accommodation>())).Callback<Domain.Entities.Accommodation>(
+            (Domain.Entities.Accommodation accommodation) =>
             {
                 accommodations.Remove(accommodation);
             }).Returns(Task.CompletedTask);
@@ -112,13 +112,13 @@ namespace Restino.Appilcation.UnitTests.Mock
             ())).ReturnsAsync(
             (Guid id) =>
             {
-                return accommodations.FirstOrDefault(accommodation => accommodation.AccommodationsId == id);
+                return accommodations.FirstOrDefault(accommodation => accommodation.Id == id);
             });
 
-            mockAccommodationRepository.Setup(repo => repo.UpdateAsync(It.IsAny<Accommodations>()))
-                .Returns((Accommodations accommodation) =>
+            mockAccommodationRepository.Setup(repo => repo.UpdateAsync(It.IsAny<Domain.Entities.Accommodation>()))
+                .Returns((Domain.Entities.Accommodation accommodation) =>
                 {
-                    var existingAccommodation = accommodations.FirstOrDefault(a => a.AccommodationsId == accommodation.AccommodationsId);
+                    var existingAccommodation = accommodations.FirstOrDefault(a => a.Id == accommodation.Id);
                     if (existingAccommodation != null)
                     {
                         existingAccommodation.Name = accommodation.Name;
@@ -130,7 +130,7 @@ namespace Restino.Appilcation.UnitTests.Mock
                         existingAccommodation.Price = accommodation.Price;
                     }
 
-                    return Task.FromResult(existingAccommodation);
+                    return Task.FromResult<Domain.Entities.Accommodation>(existingAccommodation);
                 });
 
             mockAccommodationRepository.Setup(repo => repo.SearchAccommodation(It.IsAny<string>()))
@@ -143,14 +143,14 @@ namespace Restino.Appilcation.UnitTests.Mock
             mockAccommodationRepository.Setup(repo => repo.CheckUserPermissionAsync(It.IsAny<string>(), It.IsAny<Guid>(), It.IsAny<string>()))
                 .ReturnsAsync((string userId, Guid entityId, string userRole) =>
                 {
-                    var accommodation = accommodations.FirstOrDefault(a => a.AccommodationsId == entityId);
+                    var accommodation = accommodations.FirstOrDefault(a => a.Id == entityId);
 
                     if (accommodation == null)
                     {
                         return false;
                     }
 
-                    if (accommodation.UserId == userId || userRole == "Admin")
+                    if (accommodation.CreatedBy == userId || userRole == "Admin")
                     {
                         return true;
                     }
@@ -160,7 +160,7 @@ namespace Restino.Appilcation.UnitTests.Mock
             mockAccommodationRepository.Setup(repo => repo.ListUserAccommodations(It.IsAny<string>()))
                 .ReturnsAsync((string userId) =>
                 {
-                    var userReservations = accommodations.Where(r => r.UserId == userId).ToList();
+                    var userReservations = accommodations.Where(r => r.CreatedBy == userId).ToList();
 
                     return userReservations;
                 });
@@ -210,7 +210,7 @@ namespace Restino.Appilcation.UnitTests.Mock
             mockReservationRepository.Setup(repo => repo.IsGuestsCountWithinCapacity(It.IsAny<int>(), It.IsAny<Guid>()))
                 .ReturnsAsync((int guestsCount, Guid accommodationId) =>
                 {
-                    var accommodation = accommodations.FirstOrDefault(a => a.AccommodationsId == accommodationId);
+                    var accommodation = accommodations.FirstOrDefault(a => a.Id == accommodationId);
                     if (accommodation == null)
                     {
                         return false;

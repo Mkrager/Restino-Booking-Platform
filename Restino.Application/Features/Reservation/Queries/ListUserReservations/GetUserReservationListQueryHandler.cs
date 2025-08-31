@@ -26,7 +26,7 @@ namespace Restino.Application.Features.Reservation.Queries.GetUserReservations
             var accommodations = await _accommodationRepository.ListAllAccommodations(false);
             foreach(var reservation in userReservationDetailsDto)
             {
-                reservation.Accommodation = _mapper.Map<AccommodationDtoReservation>(accommodations.FirstOrDefault(c => c.AccommodationsId == reservation.AccommodationsId));
+                reservation.Accommodation = _mapper.Map<AccommodationDtoReservation>(accommodations.FirstOrDefault(c => c.Id == reservation.AccommodationsId));
             }
 
             return userReservationDetailsDto;

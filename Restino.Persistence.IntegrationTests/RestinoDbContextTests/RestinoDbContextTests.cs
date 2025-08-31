@@ -27,12 +27,12 @@ namespace Restino.Persistence.IntegrationTests.RestinoDbContextTests
         [Fact]
         public async Task SaveChangesAsync_ShouldSetCreatedDate_WhenEntityIsAdded()
         {
-            var accommodation = new Accommodations { Name = "New Accommodation" };
+            var accommodation = new Accommodation { Name = "New Accommodation" };
 
             _dbContext.Accommodations.Add(accommodation);
             await _dbContext.SaveChangesAsync();
 
-            var savedAccommodation = await _dbContext.Accommodations.FindAsync(accommodation.AccommodationsId);
+            var savedAccommodation = await _dbContext.Accommodations.FindAsync(accommodation.Id);
 
             Assert.NotNull(savedAccommodation);
             Assert.NotEqual(DateTime.MinValue, savedAccommodation.CreatedDate);
@@ -41,7 +41,7 @@ namespace Restino.Persistence.IntegrationTests.RestinoDbContextTests
         [Fact]
         public async Task SaveChangesAsync_ShouldSetLastModifiedDate_WhenEntityIsModified()
         {
-            var accommodation = new Accommodations
+            var accommodation = new Accommodation
             {
                 Name = "Test Accommodation"
             };

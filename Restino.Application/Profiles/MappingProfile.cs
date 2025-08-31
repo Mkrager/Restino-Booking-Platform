@@ -1,11 +1,11 @@
 ﻿using AutoMapper;
-using Restino.Application.Features.Accommodation.Commands.CreateAccommodation;
-using Restino.Application.Features.Accommodation.Commands.DeleteAccommodation;
-using Restino.Application.Features.Accommodation.Commands.UpdateAccommodation;
-using Restino.Application.Features.Accommodation.Queries.GetAccommodationDetails;
-using Restino.Application.Features.Accommodation.Queries.GetAccommodationList;
-using Restino.Application.Features.Accommodation.Queries.GetUserAccommodationList;
-using Restino.Application.Features.Accommodation.Queries.SearchAccommodationList;
+using Restino.Application.Features.Accommodations.Commands.CreateAccommodation;
+using Restino.Application.Features.Accommodations.Commands.DeleteAccommodation;
+using Restino.Application.Features.Accommodations.Commands.UpdateAccommodation;
+using Restino.Application.Features.Accommodations.Queries.GetAccommodationDetails;
+using Restino.Application.Features.Accommodations.Queries.GetAccommodationList;
+using Restino.Application.Features.Accommodations.Queries.GetUserAccommodationList;
+using Restino.Application.Features.Accommodations.Queries.SearchAccommodationList;
 using Restino.Application.Features.Category.Commands.CreateCategoryCommand;
 using Restino.Application.Features.Category.Queries.GetCategoriesList;
 using Restino.Application.Features.Category.Queries.GetCategoriesListWithAccommodation;
@@ -24,16 +24,16 @@ namespace Restino.Application.Profiles
     {
         public MappingProfile()
         {
-            CreateMap<Accommodations, AccommodationListVm>().ReverseMap();
-            CreateMap<Accommodations, AccommodationDetailsVm>().ReverseMap();
-            CreateMap<Accommodations, CreateAccommodationCommand>().ReverseMap();
-            CreateMap<Accommodations, UpdateAccommodationCommand>().ReverseMap();
-            CreateMap<Accommodations, DeleteAccommodationCommand>().ReverseMap();
-            CreateMap<Accommodations, CategoryAccommodationDto>().ReverseMap();
-            CreateMap<Accommodations, SearchAccommodationListVm>().ReverseMap();
-            CreateMap<Accommodations, UserAccommodationListVm>().ReverseMap();
+            CreateMap<Accommodation, AccommodationListVm>().ReverseMap();
+            CreateMap<Accommodation, AccommodationDetailsVm>().ReverseMap();
+            CreateMap<Accommodation, CreateAccommodationCommand>().ReverseMap();
+            CreateMap<Accommodation, UpdateAccommodationCommand>().ReverseMap();
+            CreateMap<Accommodation, DeleteAccommodationCommand>().ReverseMap();
+            CreateMap<Accommodation, CategoryAccommodationDto>().ReverseMap();
+            CreateMap<Accommodation, SearchAccommodationListVm>().ReverseMap();
+            CreateMap<Accommodation, UserAccommodationListVm>().ReverseMap();
 
-            CreateMap<Accommodations, AccommodationDtoReservation>()
+            CreateMap<Accommodation, AccommodationDtoReservation>()
                 .ForMember(dest => dest.AccommodationName, opt => opt.MapFrom(src => src.Name));
 
             CreateMap<Categories, CategoryDetailsVm>().ReverseMap();

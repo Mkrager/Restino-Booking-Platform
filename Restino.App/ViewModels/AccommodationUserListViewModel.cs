@@ -2,7 +2,7 @@
 {
     public class AccommodationUserListViewModel
     {
-        public Guid AccommodationsId { get; set; }
+        public Guid Id { get; set; }
         public string Name { get; set; } = string.Empty;
         public int Price { get; set; }
         public int Capacity { get; set; }

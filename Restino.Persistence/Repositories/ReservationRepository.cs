@@ -50,22 +50,22 @@ namespace Restino.Persistence.Repositories
         public Task<bool> IsGuestsCountWithinCapacity(int guestsCount, Guid accommodationId)
         {
             var exceedsCapacity = _dbContext.Accommodations
-                .Where(e => e.AccommodationsId == accommodationId)
+                .Where(e => e.Id == accommodationId)
                 .Any(e => guestsCount > e.Capacity);
 
             return Task.FromResult(exceedsCapacity);
         }
 
-        public Task<double> TotalPrice(Guid accommodationId, DateTime checkInDate, DateTime checkOutDate)
+        public async Task<decimal> TotalPrice(Guid accommodationId, DateTime checkInDate, DateTime checkOutDate)
         {
-            var accommodation = _dbContext.Accommodations
-                .FirstOrDefaultAsync(a => a.AccommodationsId == accommodationId);
+            var accommodation = await _dbContext.Accommodations
+                .FirstOrDefaultAsync(a => a.Id == accommodationId);
 
             var numberOfDays = (checkOutDate - checkInDate).TotalDays;
 
-            var totalPrice = numberOfDays * accommodation.Result.Price;
+            var totalPrice = (decimal)numberOfDays * accommodation.Price;
 
-            return Task.FromResult(totalPrice);
+            return totalPrice;
         }
     }
 }

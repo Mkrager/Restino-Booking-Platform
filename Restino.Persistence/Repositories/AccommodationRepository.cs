@@ -4,7 +4,7 @@ using Restino.Domain.Entities;
 
 namespace Restino.Persistence.Repositories
 {
-    public class AccommodationRepository : BaseRepositrory<Accommodations>, IAccommodationRepository
+    public class AccommodationRepository : BaseRepositrory<Accommodation>, IAccommodationRepository
     {
         public AccommodationRepository(RestinoDbContext dbContext) : base(dbContext)
         {
@@ -21,12 +21,12 @@ namespace Restino.Persistence.Repositories
             var matches = _dbContext.Accommodations.Any(e =>
                 e.Name.Equals(name) &&
                 e.CategoryId.Equals(categoryId) &&
-                (accommodationsId == null || e.AccommodationsId != accommodationsId)
+                (accommodationsId == null || e.Id != accommodationsId)
         );
             return Task.FromResult(matches);
         }
 
-        public async Task<List<Accommodations>> ListAllAccommodations(bool isAccommodationHot)
+        public async Task<List<Accommodation>> ListAllAccommodations(bool isAccommodationHot)
         {
             var allAccommodations = await _dbContext.Accommodations.ToListAsync();
             if (isAccommodationHot)
@@ -36,13 +36,13 @@ namespace Restino.Persistence.Repositories
             return allAccommodations;
         }
 
-        public Task<List<Accommodations>> ListUserAccommodations(string userId)
+        public Task<List<Accommodation>> ListUserAccommodations(string userId)
         {
-            var userAccommodation = _dbContext.Accommodations.Where(e => e.UserId == userId);
+            var userAccommodation = _dbContext.Accommodations.Where(e => e.CreatedBy == userId);
             return userAccommodation.ToListAsync();
         }
 
-        public Task<List<Accommodations>> SearchAccommodation(string? searchString)
+        public Task<List<Accommodation>> SearchAccommodation(string? searchString)
         {
             var searchResults = _dbContext.Accommodations.
                 Where(n => n.Name.Contains(searchString)).ToListAsync();

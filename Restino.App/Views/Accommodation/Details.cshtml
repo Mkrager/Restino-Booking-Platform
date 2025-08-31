@@ -19,7 +19,7 @@
             <p class="accommodation-price-details">Price: @Model.Price$ per day</p>
             @if (HttpContextAccessor.HttpContext.Request.Cookies.ContainsKey("access_token"))
             {
-                <a href="@Url.Action("Create", "Reservation", new { id = Model.AccommodationsId})" class="el-btn">Reserve</a>
+                <a href="@Url.Action("Create", "Reservation", new { id = Model.Id})" class="el-btn">Reserve</a>
             }
             else
             {

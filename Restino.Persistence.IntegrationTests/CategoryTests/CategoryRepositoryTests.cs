@@ -56,10 +56,10 @@ namespace Restino.Persistence.IntegrationTests.CategoryTests
                 CategoryName = "Test Category"
             };
 
-            var accommodation1 = new Accommodations { Name = "Accommodation 1", CategoryId = categoryId };
-            var accommodation2 = new Accommodations { Name = "Accommodation 2", CategoryId = categoryId };
+            var accommodation1 = new Accommodation { Name = "Accommodation 1", CategoryId = categoryId };
+            var accommodation2 = new Accommodation { Name = "Accommodation 2", CategoryId = categoryId };
 
-            category.Accommodations = new List<Accommodations> { accommodation1, accommodation2 };
+            category.Accommodations = new List<Accommodation> { accommodation1, accommodation2 };
 
             _dbContext.Categories.Add(category);
             _dbContext.Accommodations.AddRange(accommodation1, accommodation2);
@@ -92,12 +92,12 @@ namespace Restino.Persistence.IntegrationTests.CategoryTests
                 CategoryName = "Category 2"
             };
 
-            var accommodation1 = new Accommodations { Name = "Accommodation 1", CategoryId = categoryId };
-            var accommodation2 = new Accommodations { Name = "Accommodation 2", CategoryId = categoryId };
-            var accommodation3 = new Accommodations { Name = "Accommodation 3", CategoryId = category2.CategoriesId };
+            var accommodation1 = new Accommodation { Name = "Accommodation 1", CategoryId = categoryId };
+            var accommodation2 = new Accommodation { Name = "Accommodation 2", CategoryId = categoryId };
+            var accommodation3 = new Accommodation { Name = "Accommodation 3", CategoryId = category2.CategoriesId };
 
-            category1.Accommodations = new List<Accommodations> { accommodation1, accommodation2 };
-            category2.Accommodations = new List<Accommodations> { accommodation3 };
+            category1.Accommodations = new List<Accommodation> { accommodation1, accommodation2 };
+            category2.Accommodations = new List<Accommodation> { accommodation3 };
 
             _dbContext.Categories.AddRange(category1, category2);
             _dbContext.Accommodations.AddRange(accommodation1, accommodation2, accommodation3);

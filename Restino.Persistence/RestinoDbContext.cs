@@ -13,7 +13,7 @@ namespace Restino.Persistence
             _currentUserService = currentUserService;
         }
 
-        public DbSet<Accommodations> Accommodations { get; set; }
+        public DbSet<Accommodation> Accommodations { get; set; }
         public DbSet<Categories> Categories { get; set; }
         public DbSet<Reservations> Reservation { get; set; }
 
@@ -85,9 +85,9 @@ namespace Restino.Persistence
                 ImgUrl = "https://cdn.pixabay.com/photo/2017/08/17/08/08/camp-2650359_1280.jpg"
             });
 
-            modelBuilder.Entity<Accommodations>().HasData(new Accommodations
+            modelBuilder.Entity<Accommodation>().HasData(new Accommodation
             {
-                AccommodationsId = Guid.Parse("{47fc830b-751c-4b54-88e3-3281d746f3fd}"),
+                Id = Guid.Parse("{47fc830b-751c-4b54-88e3-3281d746f3fd}"),
                 Name = "Sunrise Apartments",
                 Address = "123 Beachside Ave, Miami, FL",
                 Capacity = 4,
@@ -98,12 +98,12 @@ namespace Restino.Persistence
                 LongDescription = "Sunrise Apartments offer the perfect seaside getaway with spacious, modern apartments and stunning ocean views. Each apartment features a cozy living room, fully equipped kitchen, comfortable bedrooms, and a stylish bathroom. Ideal for families or groups looking to enjoy the beach and relaxation.",
                 ImgUrl = "https://cf.bstatic.com/xdata/images/hotel/max1024x768/397741258.jpg?k=225b07468ede098c5df3b7037eaa6b681dd01f94d392a0bb96827f4467515fdd&o=&hp=1",
                 Price = 12000,
-                UserId = "7678105a-3d95-4c43-a3ac-a717d241a8f1"
+                CreatedBy = "7678105a-3d95-4c43-a3ac-a717d241a8f1"
             });
 
-            modelBuilder.Entity<Accommodations>().HasData(new Accommodations
+            modelBuilder.Entity<Accommodation>().HasData(new Accommodation
             {
-                AccommodationsId = Guid.Parse("{9db960f8-38e7-4fb4-8db5-6c82f65a654c}"),
+                Id = Guid.Parse("{9db960f8-38e7-4fb4-8db5-6c82f65a654c}"),
                 Name = "City View Apartment",
                 Address = "98 Main Blvd, Chicago, IL",
                 Capacity = 3,
@@ -116,9 +116,9 @@ namespace Restino.Persistence
                 Price = 22000
             });
 
-            modelBuilder.Entity<Accommodations>().HasData(new Accommodations
+            modelBuilder.Entity<Accommodation>().HasData(new Accommodation
             {
-                AccommodationsId = Guid.Parse("{6b7e2693-aa97-4f54-97cc-8cc3bdd5d130}"),
+                Id = Guid.Parse("{6b7e2693-aa97-4f54-97cc-8cc3bdd5d130}"),
                 Name = "Penthouse Suite",
                 Address = "303 Sky Tower, Los Angeles, CA",
                 Capacity = 5,
@@ -131,9 +131,9 @@ namespace Restino.Persistence
                 Price = 50000
             });
 
-            modelBuilder.Entity<Accommodations>().HasData(new Accommodations
+            modelBuilder.Entity<Accommodation>().HasData(new Accommodation
             {
-                AccommodationsId = Guid.Parse("{b3b8f3d5-9efe-497a-9454-d2d16965cfa0}"),
+                Id = Guid.Parse("{b3b8f3d5-9efe-497a-9454-d2d16965cfa0}"),
                 Name = "Suburban Retreat",
                 Address = "121 Oak Street, Dallas, TX",
                 Capacity = 6,
@@ -146,9 +146,9 @@ namespace Restino.Persistence
                 Price = 18000
             });
 
-            modelBuilder.Entity<Accommodations>().HasData(new Accommodations
+            modelBuilder.Entity<Accommodation>().HasData(new Accommodation
             {
-                AccommodationsId = Guid.Parse("{ff38ccf6-d319-40d1-8869-c7ae8a415f5e}"),
+                Id = Guid.Parse("{ff38ccf6-d319-40d1-8869-c7ae8a415f5e}"),
                 Name = "Luxury Villa",
                 Address = "45 Palm Street, Beverly Hills, CA",
                 Capacity = 8,
@@ -161,9 +161,9 @@ namespace Restino.Persistence
                 Price = 75000
             });
 
-            modelBuilder.Entity<Accommodations>().HasData(new Accommodations
+            modelBuilder.Entity<Accommodation>().HasData(new Accommodation
             {
-                AccommodationsId = Guid.Parse("{e3132a60-2e38-4366-b0ac-59d653e3400f}"),
+                Id = Guid.Parse("{e3132a60-2e38-4366-b0ac-59d653e3400f}"),
                 Name = "Mountain Villa",
                 Address = "22 Hilltop Ave, Aspen, CO",
                 Capacity = 7,
@@ -176,9 +176,9 @@ namespace Restino.Persistence
                 Price = 55000
             });
 
-            modelBuilder.Entity<Accommodations>().HasData(new Accommodations
+            modelBuilder.Entity<Accommodation>().HasData(new Accommodation
             {
-                AccommodationsId = Guid.Parse("{826dace9-c0ba-40b2-bd92-41f9d6519a08}"),
+                Id = Guid.Parse("{826dace9-c0ba-40b2-bd92-41f9d6519a08}"),
                 Name = "Beachfront Villa",
                 Address = "15 Ocean Blvd, Malibu, CA",
                 Capacity = 6,
@@ -191,9 +191,9 @@ namespace Restino.Persistence
                 Price = 75000
             });
 
-            modelBuilder.Entity<Accommodations>().HasData(new Accommodations
+            modelBuilder.Entity<Accommodation>().HasData(new Accommodation
             {
-                AccommodationsId = Guid.Parse("{e7136862-7c13-4a57-a05f-e09b9ae98d06}"),
+                Id = Guid.Parse("{e7136862-7c13-4a57-a05f-e09b9ae98d06}"),
                 Name = "Garden Villa",
                 Address = "30 Green Lane, San Francisco, CA",
                 Capacity = 5,
@@ -206,9 +206,9 @@ namespace Restino.Persistence
                 Price = 50000
             });
 
-            modelBuilder.Entity<Accommodations>().HasData(new Accommodations
+            modelBuilder.Entity<Accommodation>().HasData(new Accommodation
             {
-                AccommodationsId = Guid.Parse("{eac0f796-b80d-43ff-800e-dfbe0a5dbb60}"),
+                Id = Guid.Parse("{eac0f796-b80d-43ff-800e-dfbe0a5dbb60}"),
                 Name = "Mountain Chalet",
                 Address = "89 Alpine Road, Aspen, CO",
                 Capacity = 6,
@@ -221,9 +221,9 @@ namespace Restino.Persistence
                 Price = 30000
             });
 
-            modelBuilder.Entity<Accommodations>().HasData(new Accommodations
+            modelBuilder.Entity<Accommodation>().HasData(new Accommodation
             {
-                AccommodationsId = Guid.Parse("{97b5de46-c8fa-42ff-b752-e1baaf09a844}"),
+                Id = Guid.Parse("{97b5de46-c8fa-42ff-b752-e1baaf09a844}"),
                 Name = "Lakeside Chalet",
                 Address = "8 Pine Hill Rd, Lake Tahoe, CA",
                 Capacity = 5,
@@ -236,9 +236,9 @@ namespace Restino.Persistence
                 Price = 35000
             });
 
-            modelBuilder.Entity<Accommodations>().HasData(new Accommodations
+            modelBuilder.Entity<Accommodation>().HasData(new Accommodation
             {
-                AccommodationsId = Guid.Parse("{90bea0a5-4dc5-4461-a6ca-ec2633ce4acf}"),
+                Id = Guid.Parse("{90bea0a5-4dc5-4461-a6ca-ec2633ce4acf}"),
                 Name = "Forest Chalet",
                 Address = "25 Forest Road, Whistler, BC",
                 Capacity = 4,
@@ -251,9 +251,9 @@ namespace Restino.Persistence
                 Price = 37500
             });
 
-            modelBuilder.Entity<Accommodations>().HasData(new Accommodations
+            modelBuilder.Entity<Accommodation>().HasData(new Accommodation
             {
-                AccommodationsId = Guid.Parse("{cdd387fe-0834-494b-9a63-2a622375d36c}"),
+                Id = Guid.Parse("{cdd387fe-0834-494b-9a63-2a622375d36c}"),
                 Name = "Winter Chalet",
                 Address = "30 Snowy Peak Ave, Zermatt, CH",
                 Capacity = 8,
@@ -266,9 +266,9 @@ namespace Restino.Persistence
                 Price = 50000
             });
 
-            modelBuilder.Entity<Accommodations>().HasData(new Accommodations
+            modelBuilder.Entity<Accommodation>().HasData(new Accommodation
             {
-                AccommodationsId = Guid.Parse("{dcbbfc78-9191-4ced-97c6-da3c51b1adae}"),
+                Id = Guid.Parse("{dcbbfc78-9191-4ced-97c6-da3c51b1adae}"),
                 Name = "Cozy Cottage",
                 Address = "12 Countryside Lane, Vermont, VT",
                 Capacity = 5,
@@ -281,9 +281,9 @@ namespace Restino.Persistence
                 Price = 18000
             });
 
-            modelBuilder.Entity<Accommodations>().HasData(new Accommodations
+            modelBuilder.Entity<Accommodation>().HasData(new Accommodation
             {
-                AccommodationsId = Guid.Parse("{48f6d005-6237-465c-a413-e2924e9773e8}"),
+                Id = Guid.Parse("{48f6d005-6237-465c-a413-e2924e9773e8}"),
                 Name = "Forest Cottage",
                 Address = "14 Pinewood Rd, Asheville, NC",
                 Capacity = 4,
@@ -296,9 +296,9 @@ namespace Restino.Persistence
                 Price = 16000
             });
 
-            modelBuilder.Entity<Accommodations>().HasData(new Accommodations
+            modelBuilder.Entity<Accommodation>().HasData(new Accommodation
             {
-                AccommodationsId = Guid.Parse("{70adcfec-32f1-4ae7-a67a-a1690c5ffaa9}"),
+                Id = Guid.Parse("{70adcfec-32f1-4ae7-a67a-a1690c5ffaa9}"),
                 Name = "Riverside Cottage",
                 Address = "22 Riverbank Dr, Jackson, WY",
                 Capacity = 6,
@@ -311,9 +311,9 @@ namespace Restino.Persistence
                 Price = 21000
             });
 
-            modelBuilder.Entity<Accommodations>().HasData(new Accommodations
+            modelBuilder.Entity<Accommodation>().HasData(new Accommodation
             {
-                AccommodationsId = Guid.Parse("{0ff2a035-d55d-422c-a7c0-6a3eb4a2b51a}"),
+                Id = Guid.Parse("{0ff2a035-d55d-422c-a7c0-6a3eb4a2b51a}"),
                 Name = "Seaside Cottage",
                 Address = "5 Ocean View St, Cape Cod, MA",
                 Capacity = 4,
@@ -326,9 +326,9 @@ namespace Restino.Persistence
                 Price = 1900
             });
 
-            modelBuilder.Entity<Accommodations>().HasData(new Accommodations
+            modelBuilder.Entity<Accommodation>().HasData(new Accommodation
             {
-                AccommodationsId = Guid.Parse("{9ebd806d-08e7-40d6-9dc8-408c590c119d}"),
+                Id = Guid.Parse("{9ebd806d-08e7-40d6-9dc8-408c590c119d}"),
                 Name = "Glamping Paradise",
                 Address = "77 Desert Oasis, Joshua Tree, CA",
                 Capacity = 2,
@@ -341,9 +341,9 @@ namespace Restino.Persistence
                 Price = 2000
             });
 
-            modelBuilder.Entity<Accommodations>().HasData(new Accommodations
+            modelBuilder.Entity<Accommodation>().HasData(new Accommodation
             {
-                AccommodationsId = Guid.Parse("{f0aefde0-bc3d-4cfc-b477-00b3ddec847c}"),
+                Id = Guid.Parse("{f0aefde0-bc3d-4cfc-b477-00b3ddec847c}"),
                 Name = "Forest Tent",
                 Address = "9 Forest Trail, Oregon, OR",
                 Capacity = 4,
@@ -356,9 +356,9 @@ namespace Restino.Persistence
                 Price = 2200
             });
 
-            modelBuilder.Entity<Accommodations>().HasData(new Accommodations
+            modelBuilder.Entity<Accommodation>().HasData(new Accommodation
             {
-                AccommodationsId = Guid.Parse("{965155a6-8b18-45e9-9a60-b92b7876fa69}"),
+                Id = Guid.Parse("{965155a6-8b18-45e9-9a60-b92b7876fa69}"),
                 Name = "Mountain Glamping",
                 Address = "19 Hilltop Rd, Colorado, CO",
                 Capacity = 3,
@@ -371,9 +371,9 @@ namespace Restino.Persistence
                 Price = 2800
             });
 
-            modelBuilder.Entity<Accommodations>().HasData(new Accommodations
+            modelBuilder.Entity<Accommodation>().HasData(new Accommodation
             {
-                AccommodationsId = Guid.Parse("{9015220b-2e8d-4067-a5cb-9a556260e1da}"),
+                Id = Guid.Parse("{9015220b-2e8d-4067-a5cb-9a556260e1da}"),
                 Name = "Beach Glamping",
                 Address = "10 Beachfront Ave, Florida, FL",
                 Capacity = 2,
@@ -386,9 +386,9 @@ namespace Restino.Persistence
                 Price = 2400
             });
 
-            modelBuilder.Entity<Accommodations>().HasData(new Accommodations
+            modelBuilder.Entity<Accommodation>().HasData(new Accommodation
             {
-                AccommodationsId = Guid.Parse("{4cbafdc3-446b-4ab3-bf2c-2c0b3c744492}"),
+                Id = Guid.Parse("{4cbafdc3-446b-4ab3-bf2c-2c0b3c744492}"),
                 Name = "Budget Hostel",
                 Address = "25 Backpacker Lane, Prague, CZ",
                 Capacity = 12,
@@ -401,9 +401,9 @@ namespace Restino.Persistence
                 Price = 4000
             });
 
-            modelBuilder.Entity<Accommodations>().HasData(new Accommodations
+            modelBuilder.Entity<Accommodation>().HasData(new Accommodation
             {
-                AccommodationsId = Guid.Parse("{3abf0f37-8079-4900-bd6b-8679585a5607}"),
+                Id = Guid.Parse("{3abf0f37-8079-4900-bd6b-8679585a5607}"),
                 Name = "City Hostel",
                 Address = "8 Urban Street, Berlin, DE",
                 Capacity = 10,
@@ -416,9 +416,9 @@ namespace Restino.Persistence
                 Price = 3500
             });
 
-            modelBuilder.Entity<Accommodations>().HasData(new Accommodations
+            modelBuilder.Entity<Accommodation>().HasData(new Accommodation
             {
-                AccommodationsId = Guid.Parse("{cf0e7c96-b60b-4c6b-8374-57f827fa17a4}"),
+                Id = Guid.Parse("{cf0e7c96-b60b-4c6b-8374-57f827fa17a4}"),
                 Name = "Cozy Backpacker Hostel",
                 Address = "18 Mountain View Road, Sydney, AU",
                 Capacity = 8,
@@ -431,9 +431,9 @@ namespace Restino.Persistence
                 Price = 4500
             });
 
-            modelBuilder.Entity<Accommodations>().HasData(new Accommodations
+            modelBuilder.Entity<Accommodation>().HasData(new Accommodation
             {
-                AccommodationsId = Guid.Parse("{c119661c-1d5a-42c1-8819-6b0885af4d4a}"),
+                Id = Guid.Parse("{c119661c-1d5a-42c1-8819-6b0885af4d4a}"),
                 Name = "Beachfront Hostel",
                 Address = "2 Ocean Blvd, Lisbon, PT",
                 Capacity = 15,
@@ -446,9 +446,9 @@ namespace Restino.Persistence
                 Price = 5000
             });
 
-            modelBuilder.Entity<Accommodations>().HasData(new Accommodations
+            modelBuilder.Entity<Accommodation>().HasData(new Accommodation
             {
-                AccommodationsId = Guid.Parse("{400c5bff-99c3-4493-a618-6653241bc6b5}"),
+                Id = Guid.Parse("{400c5bff-99c3-4493-a618-6653241bc6b5}"),
                 Name = "Seaside Camping",
                 Address = "9 Ocean View Road, Cape Cod, MA",
                 Capacity = 4,
@@ -461,9 +461,9 @@ namespace Restino.Persistence
                 Price = 6000
             });
 
-            modelBuilder.Entity<Accommodations>().HasData(new Accommodations
+            modelBuilder.Entity<Accommodation>().HasData(new Accommodation
             {
-                AccommodationsId = Guid.Parse("{a4e54b1f-3149-4d9b-8d88-e8b4a174a619}"),
+                Id = Guid.Parse("{a4e54b1f-3149-4d9b-8d88-e8b4a174a619}"),
                 Name = "Mountain Campsite",
                 Address = "20 Alpine Trail, Colorado, CO",
                 Capacity = 6,
@@ -476,9 +476,9 @@ namespace Restino.Persistence
                 Price = 5500
             });
 
-            modelBuilder.Entity<Accommodations>().HasData(new Accommodations
+            modelBuilder.Entity<Accommodation>().HasData(new Accommodation
             {
-                AccommodationsId = Guid.Parse("{1a491f3d-94ac-4df8-a244-0ef6c4a5c5b2}"),
+                Id = Guid.Parse("{1a491f3d-94ac-4df8-a244-0ef6c4a5c5b2}"),
                 Name = "Forest Camp",
                 Address = "12 Forest Rd, Oregon, OR",
                 Capacity = 8,
@@ -491,9 +491,9 @@ namespace Restino.Persistence
                 Price = 5000
             });
 
-            modelBuilder.Entity<Accommodations>().HasData(new Accommodations
+            modelBuilder.Entity<Accommodation>().HasData(new Accommodation
             {
-                AccommodationsId = Guid.Parse("{a4ab6df6-66b8-46f7-8198-c94332964006}"),
+                Id = Guid.Parse("{a4ab6df6-66b8-46f7-8198-c94332964006}"),
                 Name = "Desert Camping",
                 Address = "15 Sand Dune Rd, Nevada, NV",
                 Capacity = 5,
@@ -521,13 +521,13 @@ namespace Restino.Persistence
         public override Task<int> SaveChangesAsync(CancellationToken cancellationToken
             = new CancellationToken())
         {
-            foreach (var entry in ChangeTracker.Entries<Accommodations>())
+            foreach (var entry in ChangeTracker.Entries<Accommodation>())
             {
                 switch (entry.State)
                 {
                     case EntityState.Added:
                         entry.Entity.CreatedDate = DateTime.Now;
-                        entry.Entity.UserId = _currentUserService.UserId;
+                        entry.Entity.CreatedBy = _currentUserService.UserId;
                         break;
                     case EntityState.Modified:
                         entry.Entity.LastModifiedDate = DateTime.Now;

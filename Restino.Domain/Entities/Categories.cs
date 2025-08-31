@@ -9,6 +9,6 @@ namespace Restino.Domain.Entities
         public string Description {  get; set; } = string.Empty;
         public string ImgUrl { get; set; } = string.Empty;
 
-        public ICollection<Accommodations>? Accommodations { get; set; }
+        public ICollection<Accommodation>? Accommodations { get; set; }
     }
 }

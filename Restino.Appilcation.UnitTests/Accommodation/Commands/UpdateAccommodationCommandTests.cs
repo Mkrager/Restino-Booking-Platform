@@ -32,7 +32,7 @@ namespace Restino.Appilcation.UnitTests.Accommodation.Commands
             var handler = new UpdateAccommodationCommandHandler(_mapper, _mockAccommodationRepository.Object);
             var updateCommand = new UpdateAccommodationCommand
             {
-                AccommodationsId = Guid.Parse("1a4ab6df-66b8-46f7-8198-c94332964001"),
+                Id = Guid.Parse("1a4ab6df-66b8-46f7-8198-c94332964001"),
                 Name = "Updated Test",
                 Address = "Updated Address",
                 Capacity = 50,
@@ -47,7 +47,7 @@ namespace Restino.Appilcation.UnitTests.Accommodation.Commands
             await handler.Handle(updateCommand, CancellationToken.None);
 
             // Assert
-            var updatedAccommodation = await _mockAccommodationRepository.Object.GetByIdAsync(updateCommand.AccommodationsId);
+            var updatedAccommodation = await _mockAccommodationRepository.Object.GetByIdAsync(updateCommand.Id);
 
             updatedAccommodation.ShouldNotBeNull();
             updatedAccommodation.Name.ShouldBe(updateCommand.Name);

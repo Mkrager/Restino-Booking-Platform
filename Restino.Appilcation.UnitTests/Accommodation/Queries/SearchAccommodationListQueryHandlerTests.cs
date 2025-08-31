@@ -2,7 +2,7 @@
 using Moq;
 using Restino.Appilcation.UnitTests.Mock;
 using Restino.Application.Contracts.Persistance;
-using Restino.Application.Features.Accommodation.Queries.SearchAccommodationList;
+using Restino.Application.Features.Accommodations.Queries.SearchAccommodationList;
 using Restino.Application.Profiles;
 using Shouldly;
 
@@ -38,7 +38,7 @@ namespace Restino.Appilcation.UnitTests.Accommodation.Queries
 
             var accommodation = result.First();
 
-            accommodation.AccommodationsId.ShouldBe(Guid.Parse("1a4ab6df-66b8-46f7-8198-c94332964001"));
+            accommodation.Id.ShouldBe(Guid.Parse("1a4ab6df-66b8-46f7-8198-c94332964001"));
             accommodation.Name.ShouldBe("City View Apartment");
             accommodation.Address.ShouldBe("101 Central St, Cityville");
             accommodation.Capacity.ShouldBe(4);

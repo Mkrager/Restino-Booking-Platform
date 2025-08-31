@@ -102,9 +102,9 @@ namespace Restino.Persistence.IntegrationTests.ReservationTests
         {
             // Arrange
             var accommodationId = Guid.NewGuid();
-            var accommodation = new Accommodations
+            var accommodation = new Accommodation
             {
-                AccommodationsId = accommodationId,
+                Id = accommodationId,
                 Capacity = 2
             };
             _dbContext.Accommodations.Add(accommodation);
@@ -123,9 +123,9 @@ namespace Restino.Persistence.IntegrationTests.ReservationTests
         {
             // Arrange
             var accommodationId = Guid.NewGuid();
-            var accommodation = new Accommodations
+            var accommodation = new Accommodation
             {
-                AccommodationsId = accommodationId,
+                Id = accommodationId,
                 Capacity = 2
             };
             _dbContext.Accommodations.Add(accommodation);
@@ -144,9 +144,9 @@ namespace Restino.Persistence.IntegrationTests.ReservationTests
         {
             // Arrange
             var accommodationId = Guid.NewGuid();
-            var accommodation = new Accommodations
+            var accommodation = new Accommodation
             {
-                AccommodationsId = accommodationId,
+                Id = accommodationId,
                 Price = 100
             };
             _dbContext.Accommodations.Add(accommodation);

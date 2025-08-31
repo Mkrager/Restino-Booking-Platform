@@ -4,7 +4,7 @@ namespace Restino.App.ViewModels
 {
     public class AccommodationDetailViewModel
     {
-        public Guid AccommodationsId { get; set; }
+        public Guid Id { get; set; }
 
         [Required]
         [StringLength(50, ErrorMessage = "The name of the event should be 50 characters")]

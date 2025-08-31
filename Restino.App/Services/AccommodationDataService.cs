@@ -194,7 +194,7 @@ namespace Restino.App.Services
 
                     var accommodationDetails = JsonSerializer.Deserialize<AccommodationDetailViewModel>(responseContent);
 
-                    return new ApiResponse<Guid>(System.Net.HttpStatusCode.OK, accommodationDetails.AccommodationsId);
+                    return new ApiResponse<Guid>(System.Net.HttpStatusCode.OK, accommodationDetails.Id);
                 }
 
                 var errorContent = await response.Content.ReadAsStringAsync();

@@ -1,7 +1,6 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Restino.Application.Features.Accommodation.Queries.GetUserAccommodationList;
 using Restino.Application.Features.Reservation.Commands.CreateReservation;
 using Restino.Application.Features.Reservation.Commands.DeleteReservation;
 using Restino.Application.Features.Reservation.Queries.GetReservatioDetails;
