@@ -140,7 +140,7 @@ namespace Restino.Appilcation.UnitTests.Mock
                     return accommodations.Where(a => a.Name.Contains(name, StringComparison.OrdinalIgnoreCase)).ToList();
                 });
 
-            mockAccommodationRepository.Setup(repo => repo.ListUserAccommodations(It.IsAny<string>()))
+            mockAccommodationRepository.Setup(repo => repo.GetAccommodationsWithCategoriesByUserIdAsync(It.IsAny<string>()))
                 .ReturnsAsync((string userId) =>
                 {
                     var userReservations = accommodations.Where(r => r.CreatedBy == userId).ToList();

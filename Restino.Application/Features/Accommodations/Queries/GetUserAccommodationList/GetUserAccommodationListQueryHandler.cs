@@ -21,7 +21,7 @@ namespace Restino.Application.Features.Accommodations.Queries.GetUserAccommodati
 
         public async Task<List<UserAccommodationListVm>> Handle(GetUserAccommodationListQuery request, CancellationToken cancellationToken)
         {
-            var accommodationsUser = await _accommodationRepository.ListUserAccommodations(request.UserId);
+            var accommodationsUser = await _accommodationRepository.GetAccommodationsWithCategoriesByUserIdAsync(request.UserId);
             var accommodationUserDetailsDto = _mapper.Map<List<UserAccommodationListVm>>(accommodationsUser);
 
             var categories = await _categoryRepository.ListAllAsync();

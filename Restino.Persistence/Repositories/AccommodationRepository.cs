@@ -23,6 +23,12 @@ namespace Restino.Persistence.Repositories
 
             return await query.ToListAsync();
         }
+        public async Task<List<Accommodation>> GetAccommodationsWithCategoriesByUserIdAsync(string userId)
+        {
+            return await _dbContext.Accommodations
+                .Include(r => r.Category)
+                .Where(e => e.CreatedBy == userId).ToListAsync();
+        }
 
         public Task<bool> IsAccommodationNameAndCategoryUnique(string name, Guid categoryId)
         {
@@ -40,11 +46,6 @@ namespace Restino.Persistence.Repositories
             return Task.FromResult(matches);
         }
 
-        public Task<List<Accommodation>> ListUserAccommodations(string userId)
-        {
-            var userAccommodation = _dbContext.Accommodations.Where(e => e.CreatedBy == userId);
-            return userAccommodation.ToListAsync();
-        }
 
         public Task<List<Accommodation>> SearchAccommodation(string? searchString)
         {

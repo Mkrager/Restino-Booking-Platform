@@ -158,7 +158,7 @@ namespace Restino.Persistence.IntegrationTests.AccommodationTests
                     Price = 100,
                     IsHotProposition = false,
                     Name = "Test 1",
-                    CategoryId = categoryId 
+                    CategoryId = categoryId
                 },
                 new Accommodation
                 {
@@ -187,24 +187,36 @@ namespace Restino.Persistence.IntegrationTests.AccommodationTests
         [Fact]
         public async Task ListUserReservation_ShouldReturnUserReservations()
         {
+            var categoryId = Guid.Parse("c4605626-8183-4927-90b7-c98a98ea0c32");
+            _dbContext.Categories.Add(new Category
+            {
+                Id = categoryId,
+            });
+            await _dbContext.SaveChangesAsync();
+
+
             string userId = "00000000-0000-0000-0000-000000000000";
-            // Arrange
             _dbContext.Accommodations.AddRange(new List<Accommodation>
             {
                 new Accommodation
                 {
                     CreatedBy = userId,
+                    CategoryId = categoryId,
+                    Id = Guid.NewGuid(),
+                },
+                new Accommodation
+                {
+                    CreatedBy = userId,
+                    CategoryId = categoryId,
                     Id = Guid.NewGuid(),
                 }
 
             });
             await _dbContext.SaveChangesAsync();
 
-            // Act
-            var result = await _repository.ListUserAccommodations(userId);
+            var result = await _repository.GetAccommodationsWithCategoriesByUserIdAsync(userId);
 
-            // Assert
-            Assert.Equal(1, result.Count);
+            Assert.Equal(2, result.Count);
             Assert.Contains(result, a => a.CreatedBy == userId);
         }
 
