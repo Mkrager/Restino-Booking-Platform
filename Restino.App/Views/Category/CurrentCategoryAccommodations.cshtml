@@ -5,7 +5,7 @@
         @* <h2 class="h2">Categories overview</h2> *@
         @foreach (var CategoryDetail in Model)
         {
-            <h2 class="accommodation-title">@CategoryDetail.CategoryName</h2>
+            <h2 class="accommodation-title">@CategoryDetail.Name</h2>
 
             <div class="accommodation-flex">
                 @foreach (var AccommodationDetails in CategoryDetail.Accommodations)
@@ -18,7 +18,7 @@
                             <p class="accommodation-description">Capacity: @AccommodationDetails.Capacity</p>
                             <p class="accommodation-description">Address: @AccommodationDetails.Address</p>
                             <p class="accommodation-price">Price: @AccommodationDetails.Price per day</p>
-                            <a asp-controller="Accommodation" asp-action="Details" asp-route-AccommodationId="@AccommodationDetails.AccommodationsId" class="accommodation-btn">Details</a>
+                            <a asp-controller="Accommodation" asp-action="Details" asp-route-AccommodationId="@AccommodationDetails.Id" class="accommodation-btn">Details</a>
                         </div>
                     </div>
                 }

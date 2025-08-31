@@ -40,11 +40,7 @@ namespace Restino.Persistence.Repositories
             await _dbContext.SaveChangesAsync();
         }
 
-<<<<<<< Updated upstream
-        public async Task<bool> CheckUserPermissionAsync(string userId, Guid entityId, string userRole) where T : class, IOwnedEntity
-=======
         public Task<bool> CheckUserPermissionAsync<R>(R entity, string userId, string userRole) where R : AuditableEntity
->>>>>>> Stashed changes
         {
             if (entity.CreatedBy == userId || userRole == "Admin")
                 return Task.FromResult(true);

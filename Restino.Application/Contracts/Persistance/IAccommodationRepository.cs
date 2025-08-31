@@ -2,12 +2,12 @@
 
 namespace Restino.Application.Contracts.Persistance
 {
-    public interface IAccommodationRepository : IAsyncRepository<Accommodations>
+    public interface IAccommodationRepository : IAsyncRepository<Accommodation>
     {
         Task<bool> IsAccommodationNameAndCategoryUnique(string name, Guid categoryId);
         Task<bool> IsAccommodationNameAndCategoryUniqueUpdate(string name, Guid categoryId, Guid? accommodationsId);
-        Task<List<Accommodations>> SearchAccommodation(string searchString);
-        Task<List<Accommodations>> ListAllAccommodations(bool isAccommodationHot);
-        Task<List<Accommodations>> ListUserAccommodations(string userId);
+        Task<List<Accommodation>> SearchAccommodation(string searchString);
+        Task<List<Accommodation>> ListAllAccommodations(bool isAccommodationHot);
+        Task<List<Accommodation>> ListUserAccommodations(string userId);
     }
 }

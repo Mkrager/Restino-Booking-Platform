@@ -34,9 +34,9 @@ namespace Restino.Persistence.IntegrationTests.AccommodationTests
         {
             string name = "Forest Tent";
             Guid categoryId = Guid.Parse("8f67819c-0d09-43e8-b64f-17c9123b6040");
-            _dbContext.Accommodations.Add(new Accommodations
+            _dbContext.Accommodations.Add(new Accommodation
             {
-                AccommodationsId = Guid.NewGuid(),
+                Id = Guid.NewGuid(),
                 Address = "Testtestesttesttesttesttest",
                 Capacity = 42,
                 ShortDescription = "Testtestesttesttesttesttest",
@@ -58,9 +58,9 @@ namespace Restino.Persistence.IntegrationTests.AccommodationTests
         {
             string searchString = "Test";
             Guid categoryId = Guid.Parse("8f67819c-0d09-43e8-b64f-17c9123b6040");
-            _dbContext.Accommodations.Add(new Accommodations
+            _dbContext.Accommodations.Add(new Accommodation
             {
-                AccommodationsId = Guid.NewGuid(),
+                Id = Guid.NewGuid(),
                 Address = "Testtestesttesttesttesttest",
                 Capacity = 42,
                 ShortDescription = "Testtestesttesttesttesttest",
@@ -70,9 +70,9 @@ namespace Restino.Persistence.IntegrationTests.AccommodationTests
                 Name = "Test",
                 CategoryId = categoryId
             });
-            _dbContext.Accommodations.Add(new Accommodations
+            _dbContext.Accommodations.Add(new Accommodation
             {
-                AccommodationsId = Guid.NewGuid(),
+                Id = Guid.NewGuid(),
                 Address = "Testtestesttesttesttesttest",
                 Capacity = 42,
                 ShortDescription = "Testtestesttesttesttesttest",
@@ -92,11 +92,11 @@ namespace Restino.Persistence.IntegrationTests.AccommodationTests
         public async Task ListAllAccommodations_ShouldReturnAll_WhenNoFilterIsApplied()
         {
             // Arrange
-            _dbContext.Accommodations.AddRange(new List<Accommodations>
+            _dbContext.Accommodations.AddRange(new List<Accommodation>
             {
-                new Accommodations
+                new Accommodation
                 {
-                    AccommodationsId = Guid.NewGuid(),
+                    Id = Guid.NewGuid(),
                     Address = "Test Address 1",
                     Capacity = 10,
                     ShortDescription = "Test Description 1",
@@ -106,9 +106,9 @@ namespace Restino.Persistence.IntegrationTests.AccommodationTests
                     Name = "Test 1",
                     CategoryId = Guid.NewGuid()
                 },
-                new Accommodations
+                new Accommodation
                 {
-                    AccommodationsId = Guid.NewGuid(),
+                    Id = Guid.NewGuid(),
                     Address = "Test Address 2",
                     Capacity = 20,
                     ShortDescription = "Test Description 2",
@@ -134,11 +134,11 @@ namespace Restino.Persistence.IntegrationTests.AccommodationTests
         public async Task ListAllAccommodations_ShouldReturnHotAccommodations_WhenFilterIsApplied()
         {
             // Arrange
-            _dbContext.Accommodations.AddRange(new List<Accommodations>
+            _dbContext.Accommodations.AddRange(new List<Accommodation>
             {
-                new Accommodations
+                new Accommodation
                 {
-                    AccommodationsId = Guid.NewGuid(),
+                    Id = Guid.NewGuid(),
                     Address = "Test Address 1",
                     Capacity = 10,
                     ShortDescription = "Test Description 1",
@@ -148,9 +148,9 @@ namespace Restino.Persistence.IntegrationTests.AccommodationTests
                     Name = "Test 1",
                     CategoryId = Guid.NewGuid()
                 },
-                new Accommodations
+                new Accommodation
                 {
-                    AccommodationsId = Guid.NewGuid(),
+                    Id = Guid.NewGuid(),
                     Address = "Test Address 2",
                     Capacity = 20,
                     ShortDescription = "Test Description 2",
@@ -177,12 +177,12 @@ namespace Restino.Persistence.IntegrationTests.AccommodationTests
         {
             string userId = "00000000-0000-0000-0000-000000000000";
             // Arrange
-            _dbContext.Accommodations.AddRange(new List<Accommodations>
+            _dbContext.Accommodations.AddRange(new List<Accommodation>
             {
-                new Accommodations
+                new Accommodation
                 {
-                    UserId = userId,
-                    AccommodationsId = Guid.NewGuid(),
+                    CreatedBy = userId,
+                    Id = Guid.NewGuid(),
                 }
 
             });
@@ -193,7 +193,7 @@ namespace Restino.Persistence.IntegrationTests.AccommodationTests
 
             // Assert
             Assert.Equal(1, result.Count);
-            Assert.Contains(result, a => a.UserId == userId);
+            Assert.Contains(result, a => a.CreatedBy == userId);
         }
 
 

@@ -4,16 +4,16 @@ using Restino.Domain.Entities;
 
 namespace Restino.Persistence.Repositories
 {
-    public class ReservationRepository : BaseRepositrory<Reservations>, IReservationRepository
+    public class ReservationRepository : BaseRepositrory<Reservation>, IReservationRepository
     {
         public ReservationRepository(RestinoDbContext dbContext) : base(dbContext)
         {
 
         }
 
-        public Task<List<Reservations>> ListUserReservations(string userId)
+        public Task<List<Reservation>> ListUserReservations(string userId)
         {
-            var userReservation = _dbContext.Reservation.Where(e => e.UserId == userId);
+            var userReservation = _dbContext.Reservation.Where(e => e.CreatedBy == userId);
             return userReservation.ToListAsync();
         }
 
@@ -38,7 +38,7 @@ namespace Restino.Persistence.Repositories
             }
 
             var isOverlap = await _dbContext.Reservation
-                .Where(r => r.AccommodationsId == accommodationId)
+                .Where(r => r.AccommodationId == accommodationId)
                 .AnyAsync(r =>
                     (checkInDate < r.CheckOutDate && checkOutDate > r.CheckInDate) 
                 );
@@ -50,22 +50,22 @@ namespace Restino.Persistence.Repositories
         public Task<bool> IsGuestsCountWithinCapacity(int guestsCount, Guid accommodationId)
         {
             var exceedsCapacity = _dbContext.Accommodations
-                .Where(e => e.AccommodationsId == accommodationId)
+                .Where(e => e.Id == accommodationId)
                 .Any(e => guestsCount > e.Capacity);
 
             return Task.FromResult(exceedsCapacity);
         }
 
-        public Task<double> TotalPrice(Guid accommodationId, DateTime checkInDate, DateTime checkOutDate)
+        public async Task<decimal> TotalPrice(Guid accommodationId, DateTime checkInDate, DateTime checkOutDate)
         {
-            var accommodation = _dbContext.Accommodations
-                .FirstOrDefaultAsync(a => a.AccommodationsId == accommodationId);
+            var accommodation = await _dbContext.Accommodations
+                .FirstOrDefaultAsync(a => a.Id == accommodationId);
 
             var numberOfDays = (checkOutDate - checkInDate).TotalDays;
 
-            var totalPrice = numberOfDays * accommodation.Result.Price;
+            var totalPrice = (decimal)numberOfDays * accommodation.Price;
 
-            return Task.FromResult(totalPrice);
+            return totalPrice;
         }
     }
 }

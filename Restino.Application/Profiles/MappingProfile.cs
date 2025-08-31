@@ -1,21 +1,20 @@
 ﻿using AutoMapper;
-using Restino.Application.Features.Accommodation.Commands.CreateAccommodation;
-using Restino.Application.Features.Accommodation.Commands.DeleteAccommodation;
-using Restino.Application.Features.Accommodation.Commands.UpdateAccommodation;
-using Restino.Application.Features.Accommodation.Queries.GetAccommodationDetails;
-using Restino.Application.Features.Accommodation.Queries.GetAccommodationList;
-using Restino.Application.Features.Accommodation.Queries.GetUserAccommodationList;
-using Restino.Application.Features.Accommodation.Queries.SearchAccommodationList;
-using Restino.Application.Features.Category.Commands.CreateCategoryCommand;
-using Restino.Application.Features.Category.Queries.GetCategoriesList;
-using Restino.Application.Features.Category.Queries.GetCategoriesListWithAccommodation;
-using Restino.Application.Features.Category.Queries.GetCategoryDetails;
-using Restino.Application.Features.Reservation.Commands.CreateReservation;
-using Restino.Application.Features.Reservation.Commands.DeleteReservation;
-using Restino.Application.Features.Reservation.Queries.GetReservatioDetails;
-using Restino.Application.Features.Reservation.Queries.GetReservationList;
-using Restino.Application.Features.Reservation.Queries.GetUserReservations;
-using Restino.Application.Features.Reservation.Queries.ListUserReservations;
+using Restino.Application.Features.Accommodations.Commands.CreateAccommodation;
+using Restino.Application.Features.Accommodations.Commands.DeleteAccommodation;
+using Restino.Application.Features.Accommodations.Commands.UpdateAccommodation;
+using Restino.Application.Features.Accommodations.Queries.GetAccommodationDetails;
+using Restino.Application.Features.Accommodations.Queries.GetAccommodationList;
+using Restino.Application.Features.Accommodations.Queries.GetUserAccommodationList;
+using Restino.Application.Features.Accommodations.Queries.SearchAccommodationList;
+using Restino.Application.Features.Categories.Commands.CreateCategoryCommand;
+using Restino.Application.Features.Categories.Queries.GetCategoriesList;
+using Restino.Application.Features.Categories.Queries.GetCategoriesListWithAccommodation;
+using Restino.Application.Features.Categories.Queries.GetCategoryDetails;
+using Restino.Application.Features.Reservations.Commands.CreateReservation;
+using Restino.Application.Features.Reservations.Commands.DeleteReservation;
+using Restino.Application.Features.Reservations.Queries.GetReservatioDetails;
+using Restino.Application.Features.Reservations.Queries.GetReservationList;
+using Restino.Application.Features.Reservations.Queries.ListUserReservations;
 using Restino.Domain.Entities;
 
 namespace Restino.Application.Profiles
@@ -24,32 +23,32 @@ namespace Restino.Application.Profiles
     {
         public MappingProfile()
         {
-            CreateMap<Accommodations, AccommodationListVm>().ReverseMap();
-            CreateMap<Accommodations, AccommodationDetailsVm>().ReverseMap();
-            CreateMap<Accommodations, CreateAccommodationCommand>().ReverseMap();
-            CreateMap<Accommodations, UpdateAccommodationCommand>().ReverseMap();
-            CreateMap<Accommodations, DeleteAccommodationCommand>().ReverseMap();
-            CreateMap<Accommodations, CategoryAccommodationDto>().ReverseMap();
-            CreateMap<Accommodations, SearchAccommodationListVm>().ReverseMap();
-            CreateMap<Accommodations, UserAccommodationListVm>().ReverseMap();
+            CreateMap<Accommodation, AccommodationListVm>().ReverseMap();
+            CreateMap<Accommodation, AccommodationDetailsVm>().ReverseMap();
+            CreateMap<Accommodation, CreateAccommodationCommand>().ReverseMap();
+            CreateMap<Accommodation, UpdateAccommodationCommand>().ReverseMap();
+            CreateMap<Accommodation, DeleteAccommodationCommand>().ReverseMap();
+            CreateMap<Accommodation, CategoryAccommodationDto>().ReverseMap();
+            CreateMap<Accommodation, SearchAccommodationListVm>().ReverseMap();
+            CreateMap<Accommodation, UserAccommodationListVm>().ReverseMap();
 
-            CreateMap<Accommodations, AccommodationDtoReservation>()
+            CreateMap<Accommodation, AccommodationDtoReservation>()
                 .ForMember(dest => dest.AccommodationName, opt => opt.MapFrom(src => src.Name));
 
-            CreateMap<Categories, CategoryDetailsVm>().ReverseMap();
-            CreateMap<Categories, CategoryDto>();
-            CreateMap<Categories, CategoryDtoAccommodationSearch>();
-            CreateMap<Categories, CategoryUserDtoAccommodation>();
-            CreateMap<Categories, CategoryDtoAccommodation>();
-            CreateMap<Categories, CategoryListVm>();
-            CreateMap<Categories, CategoryAccommodationListVm>();
-            CreateMap<Categories, CreateCategoryCommand>();
+            CreateMap<Category, CategoryDetailsVm>().ReverseMap();
+            CreateMap<Category, CategoryDto>();
+            CreateMap<Category, CategoryDtoAccommodationSearch>();
+            CreateMap<Category, CategoryUserDtoAccommodation>();
+            CreateMap<Category, CategoryDtoAccommodation>();
+            CreateMap<Category, CategoryListVm>();
+            CreateMap<Category, CategoryAccommodationListVm>();
+            CreateMap<Category, CreateCategoryCommand>();
 
-            CreateMap<Reservations, CreateReservationCommand>().ReverseMap();
-            CreateMap<Reservations, ReservationListVm>().ReverseMap();
-            CreateMap<Reservations, ReservationDetailsVm>().ReverseMap();
-            CreateMap<Reservations, DeleteReservationCommand>().ReverseMap();
-            CreateMap<Reservations, GetUserReservationListVm>().ReverseMap();
+            CreateMap<Reservation, CreateReservationCommand>().ReverseMap();
+            CreateMap<Reservation, ReservationListVm>().ReverseMap();
+            CreateMap<Reservation, ReservationDetailsVm>().ReverseMap();
+            CreateMap<Reservation, DeleteReservationCommand>().ReverseMap();
+            CreateMap<Reservation, GetUserReservationListVm>().ReverseMap();
         }
     }
 }

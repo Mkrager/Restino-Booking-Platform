@@ -1,12 +1,11 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Restino.Application.Features.Accommodation.Queries.GetUserAccommodationList;
-using Restino.Application.Features.Reservation.Commands.CreateReservation;
-using Restino.Application.Features.Reservation.Commands.DeleteReservation;
-using Restino.Application.Features.Reservation.Queries.GetReservatioDetails;
-using Restino.Application.Features.Reservation.Queries.GetReservationList;
-using Restino.Application.Features.Reservation.Queries.GetUserReservations;
+using Restino.Application.Features.Reservations.Commands.CreateReservation;
+using Restino.Application.Features.Reservations.Commands.DeleteReservation;
+using Restino.Application.Features.Reservations.Queries.GetReservatioDetails;
+using Restino.Application.Features.Reservations.Queries.GetReservationList;
+using Restino.Application.Features.Reservations.Queries.ListUserReservations;
 using System.Security.Claims;
 
 namespace Restino.Api.Controllers
@@ -29,7 +28,7 @@ namespace Restino.Api.Controllers
         [HttpGet("{ReservationsId}", Name = "GetReservationById")]
         public async Task<ActionResult<ReservationDetailsVm>> GetReservationById(Guid ReservationsId)
         {
-            var getReservationDetailsQuery = new GetReservationDetailQuery() { ReservationId = ReservationsId };
+            var getReservationDetailsQuery = new GetReservationDetailQuery() { Id = ReservationsId };
             return Ok(await mediator.Send(getReservationDetailsQuery));
         }
 
@@ -51,7 +50,7 @@ namespace Restino.Api.Controllers
             var userId = User.FindFirst("uid")?.Value;
             var userRole = User.FindFirst(ClaimTypes.Role)?.Value;
 
-            var deleteReservationCommand = new DeleteReservationCommand() { ReservationId = id, UserId = userId, UserRole = userRole };
+            var deleteReservationCommand = new DeleteReservationCommand() { Id = id, UserId = userId, UserRole = userRole };
             await mediator.Send(deleteReservationCommand);
             return NoContent();
         }

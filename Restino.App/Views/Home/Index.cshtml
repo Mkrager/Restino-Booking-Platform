@@ -17,8 +17,8 @@
                 <img class="cat-img" src="@category.ImgUrl" alt="">
                 <div class="cat-content">
                     <div>
-                        <h2 class="cat-header">@category.CategoryName</h2>
-                        <a asp-controller="Category" asp-action="Details" asp-route-Id="@category.CategoriesId" class="cat-btn">Details</a>
+                        <h2 class="cat-header">@category.Name</h2>
+                        <a asp-controller="Category" asp-action="Details" asp-route-Id="@category.Id" class="cat-btn">Details</a>
                     </div>
                 </div>
             </div>
@@ -37,11 +37,11 @@
                     <div class="hot-content">
                         <h2 class="hot-title">@accommodation.AccommodationName</h2>
                         <p class="hot-description">@accommodation.ShortDescription</p>
-                        <p class="hot-description">Category: @accommodation.Category.CategoryName</p>
+                        <p class="hot-description">Category: @accommodation.Category.Name</p>
                         <p class="hot-description">Price: @accommodation.Price per day</p>
                         <p class="hot-description">Capacity: @accommodation.Capacity</p>
                         <p class="hot-description">Address: @accommodation.Address</p>
-                        <a asp-controller="Accommodation" asp-action="Details" asp-route-AccommodationId="@accommodation.AccommodationsId" class="hot-btn">Details</a>
+                        <a asp-controller="Accommodation" asp-action="Details" asp-route-AccommodationId="@accommodation.Id" class="hot-btn">Details</a>
                     </div>
                 </div>
             }

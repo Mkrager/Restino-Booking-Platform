@@ -4,7 +4,7 @@ namespace Restino.Appilcation.UnitTests.Mock
 {
     public class MockData
     {
-        public static List<Categories> GetCategories()
+        public static List<Category> GetCategories()
         {
             var appartamentsGuid = Guid.Parse("c119661c-1d5a-42c1-8819-6b0885af4d4a");
             var villaGuid = Guid.Parse("8f67819c-0d09-43e8-b64f-17c9123b6040");
@@ -14,61 +14,61 @@ namespace Restino.Appilcation.UnitTests.Mock
             var hostelGuid = Guid.Parse("9fbd8bb8-1a85-4305-87fd-4b3d011b1a5a");
             var campingGuid = Guid.Parse("6f80d6e0-54b3-495d-847b-16a092c8b626");
 
-            return new List<Categories>
+            return new List<Category>
             {
-                new Categories
+                new Category
                 {
-                    CategoriesId = appartamentsGuid,
-                    CategoryName = "Appartaments",
+                    Id = appartamentsGuid,
+                    Name = "Appartaments",
                     Description = "Apartments are a modern type of accommodation...",
                     ImgUrl = "https://cdn.pixabay.com/photo/2016/11/30/08/48/bedroom-1872196_1280.jpg"
                 },
-                new Categories
+                new Category
                 {
-                    CategoriesId = villaGuid,
-                    CategoryName = "Villa",
+                    Id = villaGuid,
+                    Name = "Villa",
                     Description = "A villa is a luxurious house typically situated...",
                     ImgUrl = "https://cdn.pixabay.com/photo/2013/10/12/18/05/villa-194671_1280.jpg"
                 },
-                new Categories
+                new Category
                 {
-                    CategoriesId = chaletGuid,
-                    CategoryName = "Chalet",
+                    Id = chaletGuid,
+                    Name = "Chalet",
                     Description = "A chalet is a traditional mountain house...",
                     ImgUrl = "https://cdn.pixabay.com/photo/2019/12/11/12/00/mountain-4688203_1280.jpg"
                 },
-                new Categories
+                new Category
                 {
-                    CategoriesId = cottageGuid,
-                    CategoryName = "Cottage",
+                    Id = cottageGuid,
+                    Name = "Cottage",
                     Description = "A cottage is a small country house offering...",
                     ImgUrl = "https://cdn.pixabay.com/photo/2015/08/25/14/16/small-wooden-house-906912_1280.jpg"
                 },
-                new Categories
+                new Category
                 {
-                    CategoriesId = glampingGuid,
-                    CategoryName = "Glamping",
+                    Id = glampingGuid,
+                    Name = "Glamping",
                     Description = "Glamping is a combination of luxury and closeness to nature...",
                     ImgUrl = "https://cdn.pixabay.com/photo/2021/07/25/06/26/glamping-6490987_1280.jpg"
                 },
-                new Categories
+                new Category
                 {
-                    CategoriesId = hostelGuid,
-                    CategoryName = "Hostel",
+                    Id = hostelGuid,
+                    Name = "Hostel",
                     Description = "A hostel is a budget-friendly accommodation option...",
                     ImgUrl = "https://cdn.pixabay.com/photo/2013/06/30/19/07/bed-142516_1280.jpg"
                 },
-                new Categories
+                new Category
                 {
-                    CategoriesId = campingGuid,
-                    CategoryName = "Camping",
+                    Id = campingGuid,
+                    Name = "Camping",
                     Description = "Camping is a way to spend time in nature...",
                     ImgUrl = "https://cdn.pixabay.com/photo/2017/08/17/08/08/camp-2650359_1280.jpg"
                 }
             };
         }
 
-        public static List<Accommodations> GetAccommodations()
+        public static List<Accommodation> GetAccommodations()
         {
             var appartamentsGuid = Guid.Parse("c119661c-1d5a-42c1-8819-6b0885af4d4a");
             var villaGuid = Guid.Parse("8f67819c-0d09-43e8-b64f-17c9123b6040");
@@ -78,11 +78,11 @@ namespace Restino.Appilcation.UnitTests.Mock
             var hostelGuid = Guid.Parse("9fbd8bb8-1a85-4305-87fd-4b3d011b1a5a");
             var campingGuid = Guid.Parse("6f80d6e0-54b3-495d-847b-16a092c8b626");
 
-            return new List<Accommodations>
+            return new List<Accommodation>
             {
-                new Accommodations
+                new Accommodation
                 {
-                    AccommodationsId = Guid.Parse("1a4ab6df-66b8-46f7-8198-c94332964001"),
+                    Id = Guid.Parse("1a4ab6df-66b8-46f7-8198-c94332964001"),
                     Name = "City View Apartment",
                     Address = "101 Central St, Cityville",
                     Capacity = 4,
@@ -93,9 +93,9 @@ namespace Restino.Appilcation.UnitTests.Mock
                     ImgUrl = "https://cdn.pixabay.com/photo/2015/09/05/21/51/room-924058_1280.jpg",
                     Price = 7000
                 },
-                new Accommodations
+                new Accommodation
                 {
-                    AccommodationsId = Guid.Parse("2a4ab6df-66b8-46f7-8198-c94332964002"),
+                    Id = Guid.Parse("2a4ab6df-66b8-46f7-8198-c94332964002"),
                     Name = "Oceanfront Villa",
                     Address = "202 Ocean Dr, Beachside",
                     Capacity = 8,
@@ -105,11 +105,11 @@ namespace Restino.Appilcation.UnitTests.Mock
                     ShortDescription = "A luxury villa with oceanfront views.",
                     ImgUrl = "https://cdn.pixabay.com/photo/2015/03/12/12/05/sunset-670032_1280.jpg",
                     Price = 12000,
-                    UserId = "12334556456745"
+                    CreatedBy = "12334556456745"
                 },
-                new Accommodations
+                new Accommodation
                 {
-                    AccommodationsId = Guid.Parse("3a4ab6df-66b8-46f7-8198-c94332964003"),
+                    Id = Guid.Parse("3a4ab6df-66b8-46f7-8198-c94332964003"),
                     Name = "Mountain Retreat Chalet",
                     Address = "303 Alpine Rd, Mount Valley",
                     Capacity = 6,
@@ -120,9 +120,9 @@ namespace Restino.Appilcation.UnitTests.Mock
                     ImgUrl = "https://cdn.pixabay.com/photo/2015/09/05/20/02/mountain-hut-924050_1280.jpg",
                     Price = 8500
                 },
-                new Accommodations
+                new Accommodation
                 {
-                    AccommodationsId = Guid.Parse("4a4ab6df-66b8-46f7-8198-c94332964004"),
+                    Id = Guid.Parse("4a4ab6df-66b8-46f7-8198-c94332964004"),
                     Name = "Forest Hideaway Cottage",
                     Address = "404 Green Ln, Woodland",
                     Capacity = 5,
@@ -133,9 +133,9 @@ namespace Restino.Appilcation.UnitTests.Mock
                     ImgUrl = "https://cdn.pixabay.com/photo/2015/09/01/09/14/cabin-914092_1280.jpg",
                     Price = 6000
                 },
-                new Accommodations
+                new Accommodation
                 {
-                    AccommodationsId = Guid.Parse("5a4ab6df-66b8-46f7-8198-c94332964005"),
+                    Id = Guid.Parse("5a4ab6df-66b8-46f7-8198-c94332964005"),
                     Name = "Luxury Glamping Tent",
                     Address = "505 Camp Rd, Nature Reserve",
                     Capacity = 2,
@@ -146,9 +146,9 @@ namespace Restino.Appilcation.UnitTests.Mock
                     ImgUrl = "https://cdn.pixabay.com/photo/2016/11/21/15/53/camping-1840052_1280.jpg",
                     Price = 5000
                 },
-                new Accommodations
+                new Accommodation
                 {
-                    AccommodationsId = Guid.Parse("6a4ab6df-66b8-46f7-8198-c94332964006"),
+                    Id = Guid.Parse("6a4ab6df-66b8-46f7-8198-c94332964006"),
                     Name = "Downtown Hostel",
                     Address = "606 Urban St, Metro City",
                     Capacity = 10,
@@ -159,9 +159,9 @@ namespace Restino.Appilcation.UnitTests.Mock
                     ImgUrl = "https://cdn.pixabay.com/photo/2017/01/22/14/14/hostel-1990300_1280.jpg",
                     Price = 1500
                 },
-                new Accommodations
+                new Accommodation
                 {
-                    AccommodationsId = Guid.Parse("7a4ab6df-66b8-46f7-8198-c94332964007"),
+                    Id = Guid.Parse("7a4ab6df-66b8-46f7-8198-c94332964007"),
                     Name = "Desert Camping",
                     Address = "15 Sand Dune Rd, Nevada, NV",
                     Capacity = 5,
@@ -175,20 +175,20 @@ namespace Restino.Appilcation.UnitTests.Mock
             };
         }
 
-        public static List<Reservations> GetReservations()
+        public static List<Reservation> GetReservations()
         {
-            return new List<Reservations>
+            return new List<Reservation>
             {
-                new Reservations
+                new Reservation
                 {
-                    ReservationId = Guid.Parse("7a4ab6df-66b8-55f7-6698-c94332964007"),
-                    AccommodationsId = Guid.Parse("1a4ab6df-66b8-46f7-8198-c94332964001"),
+                    Id = Guid.Parse("7a4ab6df-66b8-55f7-6698-c94332964007"),
+                    AccommodationId = Guid.Parse("1a4ab6df-66b8-46f7-8198-c94332964001"),
                     AdditionalServices = "test",
                     CustomerNote = "test",
                     GuestsCount = 1,
                     CheckInDate = DateTime.Today,
                     CheckOutDate = DateTime.Today.AddDays(42),
-                    UserId = "534ab6df-66b8-46f7-8198-c94332964001"
+                    CreatedBy = "534ab6df-66b8-46f7-8198-c94332964001"
                 }
             };
         }

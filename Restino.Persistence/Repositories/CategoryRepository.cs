@@ -4,14 +4,14 @@ using Restino.Domain.Entities;
 
 namespace Restino.Persistence.Repositories
 {
-    public class CategoryRepository : BaseRepositrory<Categories>, ICategoryRepository
+    public class CategoryRepository : BaseRepositrory<Category>, ICategoryRepository
     {
         public CategoryRepository(RestinoDbContext dbcontext) : base(dbcontext)
         {
             
         }
 
-        public async Task<List<Categories>> GetCategoryWithAccommodation(bool onlyOneCategoryResult, Guid? categoryId)
+        public async Task<List<Category>> GetCategoryWithAccommodation(bool onlyOneCategoryResult, Guid? categoryId)
         {
             var allCategories = await _dbContext.Categories.Include(
                 x => x.Accommodations).ToListAsync();
@@ -25,7 +25,7 @@ namespace Restino.Persistence.Repositories
 
         public Task<bool> IsCategoryNameUnique(string name)
         {
-            var matches = _dbContext.Categories.Any(n => n.CategoryName.Equals(name));
+            var matches = _dbContext.Categories.Any(n => n.Name.Equals(name));
             return Task.FromResult(matches);
         }
     }

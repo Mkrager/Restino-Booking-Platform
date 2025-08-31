@@ -1,9 +1,9 @@
 ﻿using Restino.Api.IntegrationTests.Base;
-using Restino.Application.Features.Accommodation.Commands.CreateAccommodation;
-using Restino.Application.Features.Accommodation.Queries.GetAccommodationDetails;
-using Restino.Application.Features.Accommodation.Queries.GetAccommodationList;
-using Restino.Application.Features.Accommodation.Queries.GetUserAccommodationList;
-using Restino.Application.Features.Accommodation.Queries.SearchAccommodationList;
+using Restino.Application.Features.Accommodations.Commands.CreateAccommodation;
+using Restino.Application.Features.Accommodations.Queries.GetAccommodationDetails;
+using Restino.Application.Features.Accommodations.Queries.GetAccommodationList;
+using Restino.Application.Features.Accommodations.Queries.GetUserAccommodationList;
+using Restino.Application.Features.Accommodations.Queries.SearchAccommodationList;
 using System.Net;
 using System.Text;
 using System.Text.Json;
@@ -68,7 +68,7 @@ namespace Restino.Api.IntegrationTests.Controlles
             var result = JsonSerializer.Deserialize<AccommodationDetailsVm>(responseString);
 
             Assert.NotNull(result);
-            Assert.Equal(accommodationId, result.AccommodationsId);
+            Assert.Equal(accommodationId, result.Id);
             Assert.NotEmpty(result.Name);
         }
 

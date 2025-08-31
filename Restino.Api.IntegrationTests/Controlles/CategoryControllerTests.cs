@@ -1,7 +1,7 @@
 ﻿using Restino.Api.IntegrationTests.Base;
-using Restino.Application.Features.Category.Queries.GetCategoriesList;
-using Restino.Application.Features.Category.Queries.GetCategoriesListWithAccommodation;
-using Restino.Application.Features.Category.Queries.GetCategoryDetails;
+using Restino.Application.Features.Categories.Queries.GetCategoriesList;
+using Restino.Application.Features.Categories.Queries.GetCategoriesListWithAccommodation;
+using Restino.Application.Features.Categories.Queries.GetCategoryDetails;
 using System.Net;
 using System.Text;
 using System.Text.Json;
@@ -76,7 +76,7 @@ namespace Restino.Api.IntegrationTests.Controlles
 
             Assert.NotNull(result);
             Assert.IsType<CategoryDetailsVm>(result);
-            Assert.Equal(existingCategoryId, result.CategoriesId);
+            Assert.Equal(existingCategoryId, result.Id);
         }
 
         [Fact]

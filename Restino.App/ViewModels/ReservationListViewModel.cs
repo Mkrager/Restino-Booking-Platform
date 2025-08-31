@@ -2,9 +2,9 @@
 {
     public class ReservationListViewModel
     {
-        public Guid ReservationId { get; set; }
+        public Guid Id { get; set; }
         public string UserId { get; set; } = string.Empty;
-        public Guid AccommodationsId { get; set; }
+        public Guid AccommodationId { get; set; }
         public double ReservationPrice { get; set; }
         public DateTime ReservationCreated { get; set; }
         public DateTime CheckInDate { get; set; }

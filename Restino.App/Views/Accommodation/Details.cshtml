@@ -15,11 +15,11 @@
             <p class="el-p">@Model.LongDescription</p>
             <p class="el-p">Capacity: @Model.Capacity</p>
             <p class="el-p">Address: @Model.Address</p>
-            <p class="el-p">Category: @Model.Category.CategoryName</p>
+            <p class="el-p">Category: @Model.Category.Name</p>
             <p class="accommodation-price-details">Price: @Model.Price$ per day</p>
             @if (HttpContextAccessor.HttpContext.Request.Cookies.ContainsKey("access_token"))
             {
-                <a href="@Url.Action("Create", "Reservation", new { id = Model.AccommodationsId})" class="el-btn">Reserve</a>
+                <a href="@Url.Action("Create", "Reservation", new { id = Model.Id})" class="el-btn">Reserve</a>
             }
             else
             {

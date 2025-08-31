@@ -9,7 +9,7 @@ namespace Restino.Persistence.IntegrationTests.BaseRepositoryTests
     public class BaseRepositoryTets
     {
         private readonly RestinoDbContext _dbContext;
-        private readonly BaseRepositrory<Accommodations> _repository;
+        private readonly BaseRepositrory<Accommodation> _repository;
         private readonly Mock<ICurrentUserService> _currentUserServiceMock;
         private readonly string _currentUserId;
 
@@ -24,17 +24,17 @@ namespace Restino.Persistence.IntegrationTests.BaseRepositoryTests
             _currentUserServiceMock.Setup(m => m.UserId).Returns(_currentUserId);
 
             _dbContext = new RestinoDbContext(options, _currentUserServiceMock.Object);
-            _repository = new BaseRepositrory<Accommodations>(_dbContext);
+            _repository = new BaseRepositrory<Accommodation>(_dbContext);
         }
 
         [Fact]
         public async Task AddAsync_ShouldAddEntityToDatabase()
         {
-            var accommodation = new Accommodations { Name = "New Accommodation", CreatedDate = DateTime.UtcNow };
+            var accommodation = new Accommodation { Name = "New Accommodation", CreatedDate = DateTime.UtcNow };
 
             var result = await _repository.AddAsync(accommodation);
 
-            var addedAccommodation = await _dbContext.Accommodations.FindAsync(result.AccommodationsId);
+            var addedAccommodation = await _dbContext.Accommodations.FindAsync(result.Id);
             Assert.NotNull(addedAccommodation);
             Assert.Equal("New Accommodation", addedAccommodation.Name);
         }
@@ -42,13 +42,13 @@ namespace Restino.Persistence.IntegrationTests.BaseRepositoryTests
         [Fact]
         public async Task UpdateAsync_ShouldUpdateEntity()
         {
-            var accommodation = new Accommodations { Name = "Old Name", CreatedDate = DateTime.UtcNow };
+            var accommodation = new Accommodation { Name = "Old Name", CreatedDate = DateTime.UtcNow };
             await _repository.AddAsync(accommodation);
 
             accommodation.Name = "Updated Name";
             await _repository.UpdateAsync(accommodation);
 
-            var updatedAccommodation = await _dbContext.Accommodations.FindAsync(accommodation.AccommodationsId);
+            var updatedAccommodation = await _dbContext.Accommodations.FindAsync(accommodation.Id);
             Assert.NotNull(updatedAccommodation);
             Assert.Equal("Updated Name", updatedAccommodation.Name);
         }
@@ -56,22 +56,22 @@ namespace Restino.Persistence.IntegrationTests.BaseRepositoryTests
         [Fact]
         public async Task DeleteAsync_ShouldDeleteEntity()
         {
-            var accommodation = new Accommodations { Name = "Accommodation to Delete", CreatedDate = DateTime.UtcNow };
+            var accommodation = new Accommodation { Name = "Accommodation to Delete", CreatedDate = DateTime.UtcNow };
             await _repository.AddAsync(accommodation);
 
             await _repository.DeleteAsync(accommodation);
 
-            var deletedAccommodation = await _dbContext.Accommodations.FindAsync(accommodation.AccommodationsId);
+            var deletedAccommodation = await _dbContext.Accommodations.FindAsync(accommodation.Id);
             Assert.Null(deletedAccommodation);
         }
 
         [Fact]
         public async Task GetByIdAsync_ShouldReturnEntity_WhenEntityExists()
         {
-            var accommodation = new Accommodations { Name = "Accommodation", CreatedDate = DateTime.UtcNow };
+            var accommodation = new Accommodation { Name = "Accommodation", CreatedDate = DateTime.UtcNow };
             await _repository.AddAsync(accommodation);
 
-            var result = await _repository.GetByIdAsync(accommodation.AccommodationsId);
+            var result = await _repository.GetByIdAsync(accommodation.Id);
 
             Assert.NotNull(result);
             Assert.Equal(accommodation.Name, result.Name);
@@ -95,10 +95,10 @@ namespace Restino.Persistence.IntegrationTests.BaseRepositoryTests
             var accommodationId = Guid.NewGuid();
             string userId = "782345634734578";
             string userRole = "Admin";
-            var accommodation = new Accommodations
+            var accommodation = new Accommodation
             {
-                AccommodationsId = accommodationId,
-                UserId = userId,
+                Id = accommodationId,
+                CreatedBy = userId,
             };
             await _repository.AddAsync(accommodation);
 
