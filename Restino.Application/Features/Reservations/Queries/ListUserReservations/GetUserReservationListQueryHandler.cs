@@ -15,15 +15,15 @@ namespace Restino.Application.Features.Reservations.Queries.ListUserReservations
             _reservationRepository = reservationRepository;
             _accommodationRepository = accommodationRepository;
         }
-         
+
         public async Task<List<GetUserReservationListVm>> Handle(GetUserReservationListQuery request, CancellationToken cancellationToken)
         {
             var userReservation = (await _reservationRepository.ListUserReservations(request.UserId)).OrderBy(x => x.CreatedBy);
 
             var userReservationDetailsDto = _mapper.Map<List<GetUserReservationListVm>>(userReservation);
 
-            var accommodations = await _accommodationRepository.ListAllAccommodations(false);
-            foreach(var reservation in userReservationDetailsDto)
+            var accommodations = await _accommodationRepository.ListAllAsync();
+            foreach (var reservation in userReservationDetailsDto)
             {
                 reservation.Accommodation = _mapper.Map<AccommodationDtoReservation>(accommodations.FirstOrDefault(c => c.Id == reservation.AccommodationId));
             }

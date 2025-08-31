@@ -38,17 +38,14 @@ namespace Restino.Appilcation.UnitTests.Categories.Commands
         [Fact]
         public async Task Handle_DuplicateName_ShouldNotBeAddedToCategoriesRepo()
         {
-            // Arrange
             var handler = new CreateCategoryCommandHandler(_mapper, _mockCategoryRepository.Object);
 
-            // Act
             await handler.Handle(new CreateCategoryCommand() { Name = "Test" }, CancellationToken.None);
 
             var exception = await Assert.ThrowsAsync<ValidationException>(async () =>
                 await handler.Handle(new CreateCategoryCommand() { Name = "Test" }, CancellationToken.None)
             );
 
-            // Assert
             exception.ValidationErrors.ShouldContain("An category with the same name already exists");
 
             var allCategories = await _mockCategoryRepository.Object.ListAllAsync();

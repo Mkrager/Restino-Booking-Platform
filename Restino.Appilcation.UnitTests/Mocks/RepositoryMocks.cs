@@ -75,7 +75,7 @@ namespace Restino.Appilcation.UnitTests.Mock
             var categories = MockData.GetCategories();
             var mockAccommodationRepository = new Mock<IAccommodationRepository>();
 
-            mockAccommodationRepository.Setup(repo => repo.ListAllAccommodations(It.IsAny<bool>
+            mockAccommodationRepository.Setup(repo => repo.GetAccommodationsWithCategoriesAsync(It.IsAny<bool>
                 ())).ReturnsAsync(
                 (bool? isAccommodationHot) =>
                 {

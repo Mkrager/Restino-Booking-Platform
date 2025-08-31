@@ -21,7 +21,7 @@ namespace Restino.Api.Controllers
         [ProducesDefaultResponseType]
         public async Task<ActionResult<List<AccommodationListVm>>> GetAllAccommodations([FromQuery] bool isAccommodationHot)
         {
-            var dtos = await mediator.Send(new GetAccommodationListQuery() { isAccommodationHot = isAccommodationHot });
+            var dtos = await mediator.Send(new GetAccommodationListQuery() { IsAccommodationHot = isAccommodationHot });
             return Ok(dtos);
         }
 

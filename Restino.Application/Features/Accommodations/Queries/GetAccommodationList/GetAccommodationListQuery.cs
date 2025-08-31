@@ -4,7 +4,6 @@ namespace Restino.Application.Features.Accommodations.Queries.GetAccommodationLi
 {
     public class GetAccommodationListQuery : IRequest<List<AccommodationListVm>>
     {
-        public Guid Id { get; set; }
-        public bool isAccommodationHot { get; set; }
+        public bool IsAccommodationHot { get; set; }
     }
 }

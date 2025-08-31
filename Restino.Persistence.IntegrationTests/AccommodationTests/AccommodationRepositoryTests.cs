@@ -89,9 +89,15 @@ namespace Restino.Persistence.IntegrationTests.AccommodationTests
         }
 
         [Fact]
-        public async Task ListAllAccommodations_ShouldReturnAll_WhenNoFilterIsApplied()
+        public async Task ListAllAccommodationsWithCategories_ShouldReturnAll_WhenNoFilterIsApplied()
         {
-            // Arrange
+            var categoryId = Guid.Parse("c4605626-8183-4927-90b7-c98a98ea0c32");
+            _dbContext.Categories.Add(new Category
+            {
+                Id = categoryId,
+            });
+            await _dbContext.SaveChangesAsync();
+
             _dbContext.Accommodations.AddRange(new List<Accommodation>
             {
                 new Accommodation
@@ -104,7 +110,7 @@ namespace Restino.Persistence.IntegrationTests.AccommodationTests
                     Price = 100,
                     IsHotProposition = false,
                     Name = "Test 1",
-                    CategoryId = Guid.NewGuid()
+                    CategoryId = categoryId
                 },
                 new Accommodation
                 {
@@ -116,16 +122,16 @@ namespace Restino.Persistence.IntegrationTests.AccommodationTests
                     Price = 200,
                     IsHotProposition = true,
                     Name = "Test 2",
-                    CategoryId = Guid.NewGuid()
+                    CategoryId = categoryId
                 }
             });
             await _dbContext.SaveChangesAsync();
 
-            // Act
-            var result = await _repository.ListAllAccommodations(false);
+            var result = await _repository.GetAccommodationsWithCategoriesAsync(false);
 
-            // Assert
             Assert.Equal(2, result.Count);
+            Assert.NotNull(result[0].Category);
+            Assert.Equal(categoryId, result[0].Category.Id);
             Assert.Contains(result, a => a.Name == "Test 1" && a.Address == "Test Address 1");
             Assert.Contains(result, a => a.Name == "Test 2" && a.Address == "Test Address 2");
         }
@@ -133,7 +139,13 @@ namespace Restino.Persistence.IntegrationTests.AccommodationTests
         [Fact]
         public async Task ListAllAccommodations_ShouldReturnHotAccommodations_WhenFilterIsApplied()
         {
-            // Arrange
+            var categoryId = Guid.Parse("c4605626-8183-4927-90b7-c98a98ea0c32");
+            _dbContext.Categories.Add(new Category
+            {
+                Id = categoryId,
+            });
+            await _dbContext.SaveChangesAsync();
+
             _dbContext.Accommodations.AddRange(new List<Accommodation>
             {
                 new Accommodation
@@ -146,7 +158,7 @@ namespace Restino.Persistence.IntegrationTests.AccommodationTests
                     Price = 100,
                     IsHotProposition = false,
                     Name = "Test 1",
-                    CategoryId = Guid.NewGuid()
+                    CategoryId = categoryId 
                 },
                 new Accommodation
                 {
@@ -158,16 +170,16 @@ namespace Restino.Persistence.IntegrationTests.AccommodationTests
                     Price = 200,
                     IsHotProposition = true,
                     Name = "Test 2",
-                    CategoryId = Guid.NewGuid()
+                    CategoryId = categoryId
                 }
             });
             await _dbContext.SaveChangesAsync();
 
-            // Act
-            var result = await _repository.ListAllAccommodations(true);
+            var result = await _repository.GetAccommodationsWithCategoriesAsync(true);
 
-            // Assert
             Assert.Single(result);
+            Assert.NotNull(result[0].Category);
+            Assert.Equal(categoryId, result[0].Category.Id);
             Assert.True(result.All(a => a.IsHotProposition));
             Assert.Contains(result, a => a.Name == "Test 2" && a.IsHotProposition);
         }

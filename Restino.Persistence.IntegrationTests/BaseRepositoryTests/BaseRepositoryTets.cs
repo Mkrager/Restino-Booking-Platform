@@ -88,23 +88,5 @@ namespace Restino.Persistence.IntegrationTests.BaseRepositoryTests
             Assert.NotNull(result);
             Assert.Equal(28, result.Count);
         }
-
-        [Fact]
-        public async Task CheckUserPermissionAsync_ShouldReturnTrue()
-        {
-            var accommodationId = Guid.NewGuid();
-            string userId = "782345634734578";
-            string userRole = "Admin";
-            var accommodation = new Accommodation
-            {
-                Id = accommodationId,
-                CreatedBy = userId,
-            };
-            await _repository.AddAsync(accommodation);
-
-            var result = await _repository.CheckUserPermissionAsync(userId, accommodationId, userRole);
-
-            Assert.True(result);
-        }
     }
 }

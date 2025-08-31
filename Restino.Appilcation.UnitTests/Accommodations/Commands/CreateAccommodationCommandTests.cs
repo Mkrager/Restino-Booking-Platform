@@ -44,7 +44,7 @@ namespace Restino.Appilcation.UnitTests.Accommodations.Commands
 
             await handler.Handle(command, CancellationToken.None);
 
-            var allAccommodation = await _mockAccommodationRepository.Object.ListAllAccommodations(false);
+            var allAccommodation = await _mockAccommodationRepository.Object.GetAccommodationsWithCategoriesAsync(false);
             allAccommodation.Count.ShouldBe(8);
 
             var createdAccommodation = allAccommodation.FirstOrDefault(a => a.Name == command.Name && a.Address == command.Address);
@@ -82,7 +82,7 @@ namespace Restino.Appilcation.UnitTests.Accommodations.Commands
 
             exception.ValidationErrors.ShouldContain("An accommodation with the same name and category already exists");
 
-            var allCategories = await _mockAccommodationRepository.Object.ListAllAccommodations(false);
+            var allCategories = await _mockAccommodationRepository.Object.GetAccommodationsWithCategoriesAsync(false);
             allCategories.Count.ShouldBe(8);
         }
     }
