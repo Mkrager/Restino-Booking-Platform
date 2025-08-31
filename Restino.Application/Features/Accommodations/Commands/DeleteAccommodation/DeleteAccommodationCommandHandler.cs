@@ -8,18 +8,20 @@ namespace Restino.Application.Features.Accommodations.Commands.DeleteAccommodati
 {
     public class DeleteAccommodationCommandHandler : IRequestHandler<DeleteAccommodationCommand>
     {
-        private readonly IMapper _mapper;
         private readonly IAsyncRepository<Accommodation> _accommodationRepository;
 
-        public DeleteAccommodationCommandHandler(IMapper mapper, IAsyncRepository<Accommodation> accommodationRepository)
+        public DeleteAccommodationCommandHandler(IAsyncRepository<Accommodation> accommodationRepository)
         {
             _accommodationRepository = accommodationRepository;
-            _mapper = mapper;
         }
 
         public async Task<Unit> Handle(DeleteAccommodationCommand request, CancellationToken cancellationToken)
         {
             var accommodationToDelete = await _accommodationRepository.GetByIdAsync(request.Id);
+
+            if (accommodationToDelete == null)
+                throw new NotFoundException(nameof(Accommodation), request.Id);
+
             await _accommodationRepository.DeleteAsync(accommodationToDelete);
 
             return Unit.Value;

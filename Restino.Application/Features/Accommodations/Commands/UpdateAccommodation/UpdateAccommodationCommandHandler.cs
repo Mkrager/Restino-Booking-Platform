@@ -22,18 +22,9 @@ namespace Restino.Application.Features.Accommodations.Commands.UpdateAccommodati
             var accommodationToUpdate = await _accommodationRepository.GetByIdAsync(request.Id);
 
             if (accommodationToUpdate == null)
-            {
                 throw new NotFoundException(nameof(Accommodation), request.Id);
-            }
 
-            var originalUserId = accommodationToUpdate.CreatedBy;
-
-            _mapper.Map(request, accommodationToUpdate, typeof(UpdateAccommodationCommand), typeof(Domain.Entities.Accommodation));
-
-            if (request.UserRole == "Admin")
-            {
-                accommodationToUpdate.CreatedBy = originalUserId;
-            }
+            _mapper.Map(request, accommodationToUpdate, typeof(UpdateAccommodationCommand), typeof(Accommodation));
 
             await _accommodationRepository.UpdateAsync(accommodationToUpdate);
 

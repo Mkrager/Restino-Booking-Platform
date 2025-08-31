@@ -21,6 +21,7 @@ namespace Restino.Application.Features.Accommodations.Queries.GetAccommodationDe
         public async Task<AccommodationDetailsVm> Handle(GetAccommodationDetailsQuery request, CancellationToken cancellationToken)
         {
             var @accommodation = await _accommodationRepository.GetByIdAsync(request.Id);
+
             var accommodationDetailsDto = _mapper.Map<AccommodationDetailsVm>(@accommodation);
 
             var category = await _categoryRepository.GetByIdAsync(@accommodation.CategoryId);

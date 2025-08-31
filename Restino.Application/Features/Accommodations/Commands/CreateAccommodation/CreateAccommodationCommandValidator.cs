@@ -42,7 +42,7 @@ namespace Restino.Application.Features.Accommodations.Commands.CreateAccommodati
 
             RuleFor(e => e)
                 .MustAsync(AccommodationNameAndCategoryUnique)
-                .WithMessage("An accommodation with the same name and category already exists");
+                .WithMessage("An {PropertyName} with the same name and category already exists");
         }
 
         private async Task<bool> AccommodationNameAndCategoryUnique(CreateAccommodationCommand e,

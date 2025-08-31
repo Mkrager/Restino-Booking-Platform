@@ -140,23 +140,6 @@ namespace Restino.Appilcation.UnitTests.Mock
                     return accommodations.Where(a => a.Name.Contains(name, StringComparison.OrdinalIgnoreCase)).ToList();
                 });
 
-            mockAccommodationRepository.Setup(repo => repo.CheckUserPermissionAsync(It.IsAny<string>(), It.IsAny<Guid>(), It.IsAny<string>()))
-                .ReturnsAsync((string userId, Guid entityId, string userRole) =>
-                {
-                    var accommodation = accommodations.FirstOrDefault(a => a.Id == entityId);
-
-                    if (accommodation == null)
-                    {
-                        return false;
-                    }
-
-                    if (accommodation.CreatedBy == userId || userRole == "Admin")
-                    {
-                        return true;
-                    }
-
-                    return false;
-                });
             mockAccommodationRepository.Setup(repo => repo.ListUserAccommodations(It.IsAny<string>()))
                 .ReturnsAsync((string userId) =>
                 {
@@ -217,24 +200,6 @@ namespace Restino.Appilcation.UnitTests.Mock
                     }
 
                     return guestsCount > accommodation.Capacity;
-                });
-
-            mockReservationRepository.Setup(repo => repo.CheckUserPermissionAsync(It.IsAny<string>(), It.IsAny<Guid>(), It.IsAny<string>()))
-                .ReturnsAsync((string userId, Guid entityId, string userRole) =>
-                {
-                    var reservation = reservations.FirstOrDefault(a => a.Id == entityId);
-
-                    if (reservation == null)
-                    {
-                        return false;
-                    }
-
-                    if (reservation.CreatedBy == userId || userRole == "Admin")
-                    {
-                        return true;
-                    }
-
-                    return false;
                 });
 
             mockReservationRepository.Setup(repo => repo.ListUserReservations(It.IsAny<string>()))

@@ -5,7 +5,7 @@ namespace Restino.Application.Features.Accommodations.Commands.CreateAccommodati
     public class CreateAccommodationCommand : IRequest<Guid>
     {
         public string Name { get; set; } = string.Empty;
-        public int Price { get; set; }
+        public decimal Price { get; set; }
         public string ShortDescription { get; set; } = string.Empty;
         public string LongDescription { get; set; } = string.Empty;
         public string? ImgUrl { get; set; }

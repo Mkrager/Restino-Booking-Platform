@@ -19,7 +19,6 @@ namespace Restino.Appilcation.UnitTests.Accommodations.Commands
         public CreateAccommodationCommandTests()
         {
             _mockAccommodationRepository = RepositoryMocks.GetAccommodationRepository();
-            _mockUserService = RepositoryMocks.GetUserService();
             var configurationProvider = new MapperConfiguration(cfg =>
             {
                 cfg.AddProfile<MappingProfile>();
@@ -30,8 +29,7 @@ namespace Restino.Appilcation.UnitTests.Accommodations.Commands
         [Fact]
         public async Task Should_Create_Accommodation_Successfully()
         {
-            // Arrange
-            var handler = new CreateAccommodationCommandHandler(_mapper, _mockAccommodationRepository.Object, _mockUserService.Object);
+            var handler = new CreateAccommodationCommandHandler(_mapper, _mockAccommodationRepository.Object);
             var command = new CreateAccommodationCommand
             {
                 Name = "Test",
@@ -44,10 +42,8 @@ namespace Restino.Appilcation.UnitTests.Accommodations.Commands
                 Price = 42
             };
 
-            // Act
             await handler.Handle(command, CancellationToken.None);
 
-            // Assert
             var allAccommodation = await _mockAccommodationRepository.Object.ListAllAccommodations(false);
             allAccommodation.Count.ShouldBe(8);
 
@@ -66,8 +62,7 @@ namespace Restino.Appilcation.UnitTests.Accommodations.Commands
         [Fact]
         public async Task Should_Not_Add_Already_Existing_Accommodation()
         {
-            // Arrange
-            var handler = new CreateAccommodationCommandHandler(_mapper, _mockAccommodationRepository.Object, _mockUserService.Object);
+            var handler = new CreateAccommodationCommandHandler(_mapper, _mockAccommodationRepository.Object);
             var command = new CreateAccommodationCommand
             {
                 Name = "Test",
@@ -80,13 +75,11 @@ namespace Restino.Appilcation.UnitTests.Accommodations.Commands
                 Price = 42
             };
 
-            // Act
             await handler.Handle(command, CancellationToken.None);
             var exception = await Assert.ThrowsAsync<ValidationException>(async () =>
                 await handler.Handle(command, CancellationToken.None)
             );
 
-            // Assert
             exception.ValidationErrors.ShouldContain("An accommodation with the same name and category already exists");
 
             var allCategories = await _mockAccommodationRepository.Object.ListAllAccommodations(false);
