@@ -2,7 +2,6 @@
 using Moq;
 using Restino.Appilcation.UnitTests.Mock;
 using Restino.Application.Contracts.Persistance;
-using Restino.Application.Features.Accommodation.Commands.DeleteAccommodation;
 using Restino.Application.Features.Reservation.Commands.DeleteReservation;
 using Restino.Application.Profiles;
 using Shouldly;

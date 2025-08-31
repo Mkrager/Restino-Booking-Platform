@@ -14,7 +14,7 @@ namespace Restino.Persistence
         }
 
         public DbSet<Accommodation> Accommodations { get; set; }
-        public DbSet<Categories> Categories { get; set; }
+        public DbSet<Category> Categories { get; set; }
         public DbSet<Reservations> Reservation { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -29,58 +29,58 @@ namespace Restino.Persistence
             var hostelGuid = Guid.Parse("{9fbd8bb8-1a85-4305-87fd-4b3d011b1a5a}");
             var campingGuid = Guid.Parse("{6f80d6e0-54b3-495d-847b-16a092c8b626}");
 
-            modelBuilder.Entity<Categories>().HasData(new Categories
+            modelBuilder.Entity<Category>().HasData(new Category
             {
-                CategoriesId = appartamentsGuid,
-                CategoryName = "Appartaments",
+                Id = appartamentsGuid,
+                Name = "Appartaments",
                 Description = "Apartments are a modern type of accommodation that combines the comfort of a home with high-quality service. They are ideal for short-term or long-term stays, offering a fully equipped kitchen, spacious interiors, and modern amenities. Apartments are often located in city centers, providing easy access to popular locations. Choosing apartments ensures independence and comfort for travelers who value coziness and the convenience of a private space.",
                 ImgUrl = "https://cdn.pixabay.com/photo/2016/11/30/08/48/bedroom-1872196_1280.jpg",
             });
 
-            modelBuilder.Entity<Categories>().HasData(new Categories
+            modelBuilder.Entity<Category>().HasData(new Category
             {
-                CategoriesId = villaGuid,
-                CategoryName = "Villa",
+                Id = villaGuid,
+                Name = "Villa",
                 Description = "A villa is a luxurious house typically situated in a picturesque area. It is perfect for large groups or families. Villas come equipped with spacious rooms, terraces, swimming pools, and sometimes even gardens. This type of accommodation is designed for those seeking privacy, comfort, and natural beauty. It’s an excellent choice for hosting parties or enjoying a peaceful retreat away from the hustle and bustle of the city.",
                 ImgUrl = "https://cdn.pixabay.com/photo/2013/10/12/18/05/villa-194671_1280.jpg"
             });
 
-            modelBuilder.Entity<Categories>().HasData(new Categories
+            modelBuilder.Entity<Category>().HasData(new Category
             {
-                CategoriesId = chaletGuid,
-                CategoryName = "Chalet",
+                Id = chaletGuid,
+                Name = "Chalet",
                 Description = "A chalet is a traditional mountain house made of wood with a warm and cozy interior. They are most commonly found in mountainous regions and are popular among winter sports enthusiasts. Chalets are ideal for family vacations or romantic getaways. The ambiance of these homes promotes complete relaxation, while fireplaces add a touch of coziness on cold winter evenings.",
                 ImgUrl = "https://cdn.pixabay.com/photo/2019/12/11/12/00/mountain-4688203_1280.jpg"
             });
 
-            modelBuilder.Entity<Categories>().HasData(new Categories
+            modelBuilder.Entity<Category>().HasData(new Category
             {
-                CategoriesId = cottageGuid,
-                CategoryName = "Cottage",
+                Id = cottageGuid,
+                Name = "Cottage",
                 Description = "A cottage is a small country house offering peace and coziness away from the city noise. It usually features a traditional design with modern amenities. Cottages are perfect for family vacations or short getaways into nature. They are often located near forests or lakes, creating ideal conditions for outdoor activities.",
                 ImgUrl = "https://cdn.pixabay.com/photo/2015/08/25/14/16/small-wooden-house-906912_1280.jpg"
             });
 
-            modelBuilder.Entity<Categories>().HasData(new Categories
+            modelBuilder.Entity<Category>().HasData(new Category
             {
-                CategoriesId = glampingGuid,
-                CategoryName = "Glamping",
+                Id = glampingGuid,
+                Name = "Glamping",
                 Description = "Glamping is a combination of luxury and closeness to nature. This type of accommodation offers tents or wooden cabins with all modern conveniences. Glamping provides an authentic outdoor experience without sacrificing comfort. It is perfect for those who love nature but prefer a more luxurious stay.",
                 ImgUrl = "https://cdn.pixabay.com/photo/2021/07/25/06/26/glamping-6490987_1280.jpg"
             });
 
-            modelBuilder.Entity<Categories>().HasData(new Categories
+            modelBuilder.Entity<Category>().HasData(new Category
             {
-                CategoriesId = hostelGuid,
-                CategoryName = "Hostel",
+                Id = hostelGuid,
+                Name = "Hostel",
                 Description = "A hostel is a budget-friendly accommodation option for travelers. Typically, it features shared rooms with individual beds, although private rooms are also available. Hostels are ideal for young people and those looking to meet fellow travelers. They often include shared kitchens, common areas, and are usually located in city centers.", 
                 ImgUrl = "https://cdn.pixabay.com/photo/2013/06/30/19/07/bed-142516_1280.jpg"
             });
 
-            modelBuilder.Entity<Categories>().HasData(new Categories
+            modelBuilder.Entity<Category>().HasData(new Category
             {
-                CategoriesId = campingGuid,
-                CategoryName = "Camping",
+                Id = campingGuid,
+                Name = "Camping",
                 Description = "Camping is a way to spend time in nature by staying in tents or trailers. It’s a great opportunity to escape civilization, enjoying quiet mornings and starry nights. Campsites are often located near forests, rivers, or mountains, providing opportunities for active leisure such as fishing, hiking, or cycling.", 
                 ImgUrl = "https://cdn.pixabay.com/photo/2017/08/17/08/08/camp-2650359_1280.jpg"
             });

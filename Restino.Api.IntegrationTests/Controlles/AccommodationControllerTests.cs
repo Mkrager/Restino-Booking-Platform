@@ -1,5 +1,5 @@
 ﻿using Restino.Api.IntegrationTests.Base;
-using Restino.Application.Features.Accommodation.Commands.CreateAccommodation;
+using Restino.Application.Features.Accommodations.Commands.CreateAccommodation;
 using Restino.Application.Features.Accommodations.Queries.GetAccommodationDetails;
 using Restino.Application.Features.Accommodations.Queries.GetAccommodationList;
 using Restino.Application.Features.Accommodations.Queries.GetUserAccommodationList;

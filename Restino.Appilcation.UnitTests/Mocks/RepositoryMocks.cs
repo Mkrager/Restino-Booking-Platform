@@ -15,7 +15,7 @@ namespace Restino.Appilcation.UnitTests.Mock
 
             foreach (var category in categories)
             {
-                category.Accommodations = accommodations.Where(a => a.CategoryId == category.CategoriesId).ToList();
+                category.Accommodations = accommodations.Where(a => a.CategoryId == category.Id).ToList();
             }
 
 
@@ -24,11 +24,11 @@ namespace Restino.Appilcation.UnitTests.Mock
 
             mockCategoryRepository.Setup(repo => repo.GetCategoryWithAccommodation(It.IsAny<bool>(), It.IsAny<Guid>())).ReturnsAsync(categories);
 
-            mockCategoryRepository.Setup(repo => repo.AddAsync(It.IsAny<Categories>
+            mockCategoryRepository.Setup(repo => repo.AddAsync(It.IsAny<Category>
                 ())).ReturnsAsync(
-                (Categories category) =>
+                (Category category) =>
                 {
-                    category.CategoriesId = Guid.NewGuid();
+                    category.Id = Guid.NewGuid();
                     categories.Add(category);
                     return category;
                 });
@@ -37,19 +37,19 @@ namespace Restino.Appilcation.UnitTests.Mock
                 ())).ReturnsAsync(
                 (Guid id) =>
                 {
-                    return categories.FirstOrDefault(category => category.CategoriesId == id);
+                    return categories.FirstOrDefault(category => category.Id == id);
                 });
 
-            mockCategoryRepository.Setup(repo => repo.DeleteAsync(It.IsAny<Categories>())).Callback<Categories>(
-                (Categories category) =>
+            mockCategoryRepository.Setup(repo => repo.DeleteAsync(It.IsAny<Category>())).Callback<Category>(
+                (Category category) =>
                 {
                     categories.Remove(category);
                 }).Returns(Task.CompletedTask);
 
-            var categoryNames = categories.Select(c => c.CategoryName).ToList();
+            var categoryNames = categories.Select(c => c.Name).ToList();
 
             mockCategoryRepository.Setup(repo => repo.IsCategoryNameUnique(It.Is<string>(name =>
-                categories.Any(c => c.CategoryName == name))))
+                categories.Any(c => c.Name == name))))
                 .ReturnsAsync(true);
 
             mockCategoryRepository.Setup(repo => repo.GetCategoryWithAccommodation(It.IsAny<bool>(), It.IsAny<Guid?>()))
@@ -102,8 +102,8 @@ namespace Restino.Appilcation.UnitTests.Mock
                     return accommodations.Any(a => a.Name == name && a.CategoryId == categoryId);
                 });
 
-            mockAccommodationRepository.Setup(repo => repo.DeleteAsync(It.IsAny<Domain.Entities.Accommodation>())).Callback<Domain.Entities.Accommodation>(
-            (Domain.Entities.Accommodation accommodation) =>
+            mockAccommodationRepository.Setup(repo => repo.DeleteAsync(It.IsAny<Accommodation>())).Callback<Accommodation>(
+            (Accommodation accommodation) =>
             {
                 accommodations.Remove(accommodation);
             }).Returns(Task.CompletedTask);
@@ -115,8 +115,8 @@ namespace Restino.Appilcation.UnitTests.Mock
                 return accommodations.FirstOrDefault(accommodation => accommodation.Id == id);
             });
 
-            mockAccommodationRepository.Setup(repo => repo.UpdateAsync(It.IsAny<Domain.Entities.Accommodation>()))
-                .Returns((Domain.Entities.Accommodation accommodation) =>
+            mockAccommodationRepository.Setup(repo => repo.UpdateAsync(It.IsAny<Accommodation>()))
+                .Returns((Accommodation accommodation) =>
                 {
                     var existingAccommodation = accommodations.FirstOrDefault(a => a.Id == accommodation.Id);
                     if (existingAccommodation != null)
@@ -130,7 +130,7 @@ namespace Restino.Appilcation.UnitTests.Mock
                         existingAccommodation.Price = accommodation.Price;
                     }
 
-                    return Task.FromResult<Domain.Entities.Accommodation>(existingAccommodation);
+                    return Task.FromResult<Accommodation>(existingAccommodation);
                 });
 
             mockAccommodationRepository.Setup(repo => repo.SearchAccommodation(It.IsAny<string>()))

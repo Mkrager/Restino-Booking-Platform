@@ -6,10 +6,10 @@ using Restino.Application.Features.Accommodations.Queries.GetAccommodationDetail
 using Restino.Application.Features.Accommodations.Queries.GetAccommodationList;
 using Restino.Application.Features.Accommodations.Queries.GetUserAccommodationList;
 using Restino.Application.Features.Accommodations.Queries.SearchAccommodationList;
-using Restino.Application.Features.Category.Commands.CreateCategoryCommand;
-using Restino.Application.Features.Category.Queries.GetCategoriesList;
-using Restino.Application.Features.Category.Queries.GetCategoriesListWithAccommodation;
-using Restino.Application.Features.Category.Queries.GetCategoryDetails;
+using Restino.Application.Features.Categories.Commands.CreateCategoryCommand;
+using Restino.Application.Features.Categories.Queries.GetCategoriesList;
+using Restino.Application.Features.Categories.Queries.GetCategoriesListWithAccommodation;
+using Restino.Application.Features.Categories.Queries.GetCategoryDetails;
 using Restino.Application.Features.Reservation.Commands.CreateReservation;
 using Restino.Application.Features.Reservation.Commands.DeleteReservation;
 using Restino.Application.Features.Reservation.Queries.GetReservatioDetails;
@@ -36,14 +36,14 @@ namespace Restino.Application.Profiles
             CreateMap<Accommodation, AccommodationDtoReservation>()
                 .ForMember(dest => dest.AccommodationName, opt => opt.MapFrom(src => src.Name));
 
-            CreateMap<Categories, CategoryDetailsVm>().ReverseMap();
-            CreateMap<Categories, CategoryDto>();
-            CreateMap<Categories, CategoryDtoAccommodationSearch>();
-            CreateMap<Categories, CategoryUserDtoAccommodation>();
-            CreateMap<Categories, CategoryDtoAccommodation>();
-            CreateMap<Categories, CategoryListVm>();
-            CreateMap<Categories, CategoryAccommodationListVm>();
-            CreateMap<Categories, CreateCategoryCommand>();
+            CreateMap<Category, CategoryDetailsVm>().ReverseMap();
+            CreateMap<Category, CategoryDto>();
+            CreateMap<Category, CategoryDtoAccommodationSearch>();
+            CreateMap<Category, CategoryUserDtoAccommodation>();
+            CreateMap<Category, CategoryDtoAccommodation>();
+            CreateMap<Category, CategoryListVm>();
+            CreateMap<Category, CategoryAccommodationListVm>();
+            CreateMap<Category, CreateCategoryCommand>();
 
             CreateMap<Reservations, CreateReservationCommand>().ReverseMap();
             CreateMap<Reservations, ReservationListVm>().ReverseMap();

@@ -2,7 +2,7 @@
 {
     public class CategoryUserDtoAccommodation
     {
-        public Guid CategoriesId { get; set; }
-        public string CategoryName { get; set; } = string.Empty;
+        public Guid Id { get; set; }
+        public string Name { get; set; } = string.Empty;
     }
 }

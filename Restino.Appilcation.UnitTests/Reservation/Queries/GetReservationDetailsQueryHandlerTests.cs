@@ -2,11 +2,8 @@
 using Moq;
 using Restino.Appilcation.UnitTests.Mock;
 using Restino.Application.Contracts.Persistance;
-using Restino.Application.Features.Accommodation.Queries.GetAccommodationDetails;
 using Restino.Application.Features.Reservation.Queries.GetReservatioDetails;
-using Restino.Application.Features.Reservation.Queries.GetReservationList;
 using Restino.Application.Profiles;
-using Restino.Domain.Entities;
 using Shouldly;
 
 namespace Restino.Appilcation.UnitTests.Reservation.Queries

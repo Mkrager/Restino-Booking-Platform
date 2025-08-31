@@ -14,6 +14,6 @@ namespace Restino.Domain.Entities
         public bool IsHotProposition { get; set; }
         public Guid CategoryId { get; set; }
 
-        public Categories Category { get; set; } = default!;
+        public Category Category { get; set; } = default!;
     }
 }

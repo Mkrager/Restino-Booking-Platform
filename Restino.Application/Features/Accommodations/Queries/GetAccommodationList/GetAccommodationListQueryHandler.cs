@@ -8,11 +8,11 @@ namespace Restino.Application.Features.Accommodations.Queries.GetAccommodationLi
     public class GetAccommodationListQueryHandler : IRequestHandler
         <GetAccommodationListQuery, List<AccommodationListVm>>
     {
-        private readonly IAsyncRepository<Categories> _categoryRepository;
+        private readonly IAsyncRepository<Category> _categoryRepository;
         private readonly IAccommodationRepository _accommodationRepository;
         private readonly IMapper _mapper;
 
-        public GetAccommodationListQueryHandler(IMapper mapper, IAccommodationRepository accommodationRepository, IAsyncRepository<Categories> categoryRepository)
+        public GetAccommodationListQueryHandler(IMapper mapper, IAccommodationRepository accommodationRepository, IAsyncRepository<Category> categoryRepository)
         {
             _mapper = mapper;
             _accommodationRepository = accommodationRepository;
@@ -27,7 +27,7 @@ namespace Restino.Application.Features.Accommodations.Queries.GetAccommodationLi
             var categories = await _categoryRepository.ListAllAsync();
             foreach (var accommodation in accommodationDetailsDto)
             {
-                accommodation.Category = _mapper.Map<CategoryDtoAccommodation>(categories.FirstOrDefault(c => c.CategoriesId == accommodation.CategoryId));
+                accommodation.Category = _mapper.Map<CategoryDtoAccommodation>(categories.FirstOrDefault(c => c.Id == accommodation.CategoryId));
             }
             return accommodationDetailsDto;
         }

@@ -10,9 +10,9 @@ namespace Restino.Application.Features.Accommodations.Queries.SearchAccommodatio
     {
         private readonly IAccommodationRepository _accommodationRepository;
         private readonly IMapper _mapper;
-        private readonly IAsyncRepository<Categories> _categoryRepository;
+        private readonly IAsyncRepository<Category> _categoryRepository;
 
-        public SearchAccommodationListQueryHandler(IAccommodationRepository accommodationRepository, IMapper mapper, IAsyncRepository<Categories> categoryRepository)
+        public SearchAccommodationListQueryHandler(IAccommodationRepository accommodationRepository, IMapper mapper, IAsyncRepository<Category> categoryRepository)
         {
             _accommodationRepository = accommodationRepository;
             _mapper = mapper;
@@ -33,7 +33,7 @@ namespace Restino.Application.Features.Accommodations.Queries.SearchAccommodatio
 
             foreach (var searchResults in mappedSearchResult)
             {
-                searchResults.Category = _mapper.Map<CategoryDtoAccommodationSearch>(categories.FirstOrDefault(c => c.CategoriesId == searchResults.CategoryId));
+                searchResults.Category = _mapper.Map<CategoryDtoAccommodationSearch>(categories.FirstOrDefault(c => c.Id == searchResults.CategoryId));
             }
 
             return mappedSearchResult;

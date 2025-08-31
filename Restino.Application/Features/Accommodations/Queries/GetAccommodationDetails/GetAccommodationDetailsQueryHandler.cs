@@ -9,10 +9,10 @@ namespace Restino.Application.Features.Accommodations.Queries.GetAccommodationDe
         AccommodationDetailsVm>
     {
         private readonly IMapper _mapper;
-        private readonly IAsyncRepository<Domain.Entities.Accommodation> _accommodationRepository;
-        private readonly IAsyncRepository<Categories> _categoryRepository;
+        private readonly IAsyncRepository<Accommodation> _accommodationRepository;
+        private readonly IAsyncRepository<Category> _categoryRepository;
 
-        public GetAccommodationDetailsQueryHandler(IMapper mapper, IAsyncRepository<Domain.Entities.Accommodation> accommodationRepository, IAsyncRepository<Categories> categoryRepository)
+        public GetAccommodationDetailsQueryHandler(IMapper mapper, IAsyncRepository<Accommodation> accommodationRepository, IAsyncRepository<Category> categoryRepository)
         {
             _accommodationRepository = accommodationRepository;
             _categoryRepository = categoryRepository;

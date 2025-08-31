@@ -4,7 +4,7 @@ namespace Restino.Appilcation.UnitTests.Mock
 {
     public class MockData
     {
-        public static List<Categories> GetCategories()
+        public static List<Domain.Entities.Category> GetCategories()
         {
             var appartamentsGuid = Guid.Parse("c119661c-1d5a-42c1-8819-6b0885af4d4a");
             var villaGuid = Guid.Parse("8f67819c-0d09-43e8-b64f-17c9123b6040");
@@ -14,54 +14,54 @@ namespace Restino.Appilcation.UnitTests.Mock
             var hostelGuid = Guid.Parse("9fbd8bb8-1a85-4305-87fd-4b3d011b1a5a");
             var campingGuid = Guid.Parse("6f80d6e0-54b3-495d-847b-16a092c8b626");
 
-            return new List<Categories>
+            return new List<Domain.Entities.Category>
             {
-                new Categories
+                new Domain.Entities.Category
                 {
-                    CategoriesId = appartamentsGuid,
-                    CategoryName = "Appartaments",
+                    Id = appartamentsGuid,
+                    Name = "Appartaments",
                     Description = "Apartments are a modern type of accommodation...",
                     ImgUrl = "https://cdn.pixabay.com/photo/2016/11/30/08/48/bedroom-1872196_1280.jpg"
                 },
-                new Categories
+                new Domain.Entities.Category
                 {
-                    CategoriesId = villaGuid,
-                    CategoryName = "Villa",
+                    Id = villaGuid,
+                    Name = "Villa",
                     Description = "A villa is a luxurious house typically situated...",
                     ImgUrl = "https://cdn.pixabay.com/photo/2013/10/12/18/05/villa-194671_1280.jpg"
                 },
-                new Categories
+                new Domain.Entities.Category
                 {
-                    CategoriesId = chaletGuid,
-                    CategoryName = "Chalet",
+                    Id = chaletGuid,
+                    Name = "Chalet",
                     Description = "A chalet is a traditional mountain house...",
                     ImgUrl = "https://cdn.pixabay.com/photo/2019/12/11/12/00/mountain-4688203_1280.jpg"
                 },
-                new Categories
+                new Domain.Entities.Category
                 {
-                    CategoriesId = cottageGuid,
-                    CategoryName = "Cottage",
+                    Id = cottageGuid,
+                    Name = "Cottage",
                     Description = "A cottage is a small country house offering...",
                     ImgUrl = "https://cdn.pixabay.com/photo/2015/08/25/14/16/small-wooden-house-906912_1280.jpg"
                 },
-                new Categories
+                new Domain.Entities.Category
                 {
-                    CategoriesId = glampingGuid,
-                    CategoryName = "Glamping",
+                    Id = glampingGuid,
+                    Name = "Glamping",
                     Description = "Glamping is a combination of luxury and closeness to nature...",
                     ImgUrl = "https://cdn.pixabay.com/photo/2021/07/25/06/26/glamping-6490987_1280.jpg"
                 },
-                new Categories
+                new Domain.Entities.Category
                 {
-                    CategoriesId = hostelGuid,
-                    CategoryName = "Hostel",
+                    Id = hostelGuid,
+                    Name = "Hostel",
                     Description = "A hostel is a budget-friendly accommodation option...",
                     ImgUrl = "https://cdn.pixabay.com/photo/2013/06/30/19/07/bed-142516_1280.jpg"
                 },
-                new Categories
+                new Domain.Entities.Category
                 {
-                    CategoriesId = campingGuid,
-                    CategoryName = "Camping",
+                    Id = campingGuid,
+                    Name = "Camping",
                     Description = "Camping is a way to spend time in nature...",
                     ImgUrl = "https://cdn.pixabay.com/photo/2017/08/17/08/08/camp-2650359_1280.jpg"
                 }

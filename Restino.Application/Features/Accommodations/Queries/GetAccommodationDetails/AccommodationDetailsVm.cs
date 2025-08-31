@@ -1,10 +1,7 @@
-﻿using System.Text.Json.Serialization;
-
-namespace Restino.Application.Features.Accommodations.Queries.GetAccommodationDetails
+﻿namespace Restino.Application.Features.Accommodations.Queries.GetAccommodationDetails
 {
-    public class AccommodationDetailsVm : CategoryDto
+    public class AccommodationDetailsVm
     {
-        //[JsonPropertyName("CategoriesId")]
         public Guid Id { get; set; }
         public string Name { get; set; } = string.Empty;
         public string ShortDescription { get; set; } = string.Empty;

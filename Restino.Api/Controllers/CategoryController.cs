@@ -1,11 +1,11 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Restino.Application.Features.Category.Commands.CreateCategoryCommand;
-using Restino.Application.Features.Category.Commands.DeleteCategoryCommand;
-using Restino.Application.Features.Category.Queries.GetCategoriesList;
-using Restino.Application.Features.Category.Queries.GetCategoriesListWithAccommodation;
-using Restino.Application.Features.Category.Queries.GetCategoryDetails;
+using Restino.Application.Features.Categories.Commands.CreateCategoryCommand;
+using Restino.Application.Features.Categories.Commands.DeleteCategoryCommand;
+using Restino.Application.Features.Categories.Queries.GetCategoriesList;
+using Restino.Application.Features.Categories.Queries.GetCategoriesListWithAccommodation;
+using Restino.Application.Features.Categories.Queries.GetCategoryDetails;
 
 namespace Restino.Api.Controllers
 {
@@ -29,7 +29,7 @@ namespace Restino.Api.Controllers
         public async Task<ActionResult<List<CategoryAccommodationListVm>>>
             GetAllCategoriesWithAccommodations([FromQuery] bool onlyOneCategoryResult, [FromQuery]Guid? CategoryId)
         {
-            GetCategoryListWithAccommodationQuery getCategoryListWithAccommodationQuery = new GetCategoryListWithAccommodationQuery() { onlyOneCategoryResult = onlyOneCategoryResult, categoryId = CategoryId};
+            GetCategoryListWithAccommodationQuery getCategoryListWithAccommodationQuery = new GetCategoryListWithAccommodationQuery() { OnlyOneCategoryResult = onlyOneCategoryResult, Id = CategoryId};
             var dtos = await mediator.Send(getCategoryListWithAccommodationQuery);
             return Ok(dtos);
         }
@@ -37,7 +37,7 @@ namespace Restino.Api.Controllers
         [HttpGet("{CategoriesId}", Name = "GetCategoryById")]
         public async Task<ActionResult<CategoryDetailsVm>> GetCategoryById(Guid CategoriesId)
         {
-            var getCategoryDeatailQuery = new GetCategoryDetailQuery() { CategoriesId = CategoriesId };
+            var getCategoryDeatailQuery = new GetCategoryDetailQuery() { Id = CategoriesId };
             return Ok(await mediator.Send(getCategoryDeatailQuery));
         }
 
@@ -58,7 +58,7 @@ namespace Restino.Api.Controllers
         [ProducesDefaultResponseType]
         public async Task<ActionResult> DeleteCategory(Guid id)
         {
-            var deleteCategoryCommand = new DeleteCategoryCommand() { CategoriesId = id };
+            var deleteCategoryCommand = new DeleteCategoryCommand() { Id = id };
             await mediator.Send(deleteCategoryCommand);
             return NoContent();
         }
