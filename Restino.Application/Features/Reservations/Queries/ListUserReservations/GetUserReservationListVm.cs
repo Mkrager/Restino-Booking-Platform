@@ -1,6 +1,6 @@
-namespace Restino.Domain.Entities
+namespace Restino.Application.Features.Reservations.Queries.ListUserReservations
 {
-    public class Reservations
+    public class GetUserReservationListVm
     {
         public Guid Id { get; set; }
         public string UserId { get; set; } = string.Empty;
@@ -13,6 +13,6 @@ namespace Restino.Domain.Entities
         public string AdditionalServices { get; set; } = string.Empty;
         public string CustomerNote { get; set; } = string.Empty;
 
-        public Accommodation Accommodation { get; set; } = default!;
+        public AccommodationDtoReservation Accommodation { get; set; } = default!;
     }
 }

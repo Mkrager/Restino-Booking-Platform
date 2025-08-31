@@ -1,4 +1,5 @@
 ﻿using FluentValidation;
+using Restino.Application.Contracts.Application;
 using Restino.Application.Contracts.Persistance;
 using Restino.Domain.Entities;
 
@@ -7,9 +8,11 @@ namespace Restino.Application.Features.Reservations.Commands.DeleteReservation
     public class DeleteReservationCommandValidator : AbstractValidator<DeleteReservationCommand>
     {
         private readonly IAsyncRepository<Reservation> _reservationRepository;
-        public DeleteReservationCommandValidator(IAsyncRepository<Reservation> reservationRepository)
+        private readonly IPermissionService _permissionService;
+        public DeleteReservationCommandValidator(IAsyncRepository<Reservation> reservationRepository, IPermissionService permissionService)
         {
             _reservationRepository = reservationRepository;
+            _permissionService = permissionService;
 
             RuleFor(e => e)
                 .MustAsync(CheckUserPermissionAsync)
@@ -18,7 +21,9 @@ namespace Restino.Application.Features.Reservations.Commands.DeleteReservation
         private async Task<bool> CheckUserPermissionAsync(DeleteReservationCommand e,
             CancellationToken cancellationToken)
         {
-            return await _reservationRepository.CheckUserPermissionAsync(e.UserId, e.Id, e.UserRole);
+            var entity = await _reservationRepository.GetByIdAsync(e.Id);
+
+            return _permissionService.HasUserPermission(entity, e.UserId, e.UserRole);
         }
     }
 }

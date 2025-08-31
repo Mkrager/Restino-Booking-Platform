@@ -9,6 +9,5 @@ namespace Restino.Application.Contracts.Persistance
         Task<T> AddAsync(T entity);
         Task UpdateAsync(T entity);
         Task DeleteAsync(T entity);
-        Task<bool> CheckUserPermissionAsync<R>(R entity, string userId, string userRole) where R : AuditableEntity;
     }
 }

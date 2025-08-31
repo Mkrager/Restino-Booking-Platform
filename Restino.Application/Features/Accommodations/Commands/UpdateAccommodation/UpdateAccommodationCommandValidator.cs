@@ -1,4 +1,5 @@
 ﻿using FluentValidation;
+using Restino.Application.Contracts.Application;
 using Restino.Application.Contracts.Persistance;
 
 namespace Restino.Application.Features.Accommodations.Commands.UpdateAccommodation
@@ -6,9 +7,12 @@ namespace Restino.Application.Features.Accommodations.Commands.UpdateAccommodati
     public class UpdateAccommodationCommandValidator : AbstractValidator<UpdateAccommodationCommand>
     {
         private readonly IAccommodationRepository _accommodationRepository;
-        public UpdateAccommodationCommandValidator(IAccommodationRepository accommodationRepository)
+        private readonly IPermissionService _permissionService;
+        public UpdateAccommodationCommandValidator(IAccommodationRepository accommodationRepository, IPermissionService permissionService)
         {
             _accommodationRepository = accommodationRepository;
+            _permissionService = permissionService;
+
             RuleFor(p => p.Name)
             .NotEmpty().WithMessage("{PropertyName} is required.")
                 .NotNull()
@@ -35,7 +39,9 @@ namespace Restino.Application.Features.Accommodations.Commands.UpdateAccommodati
         private async Task<bool> CheckUserPermissionAsync(UpdateAccommodationCommand e,
             CancellationToken cancellationToken)
         {
-            return await _accommodationRepository.CheckUserPermissionAsync(e.UserId, e.Id, e.UserRole);
+            var entity = await _accommodationRepository.GetByIdAsync(e.Id);
+
+            return _permissionService.HasUserPermission(entity, e.UserId, e.UserRole);
         }
 
     }

@@ -1,6 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Restino.Application.Contracts.Persistance;
-using Restino.Domain.Common;
 
 namespace Restino.Persistence.Repositories
 {
@@ -38,13 +37,6 @@ namespace Restino.Persistence.Repositories
         {
             _dbContext.Set<T>().Remove(entity);
             await _dbContext.SaveChangesAsync();
-        }
-
-        public Task<bool> CheckUserPermissionAsync<R>(R entity, string userId, string userRole) where R : AuditableEntity
-        {
-            if (entity.CreatedBy == userId || userRole == "Admin")
-                return Task.FromResult(true);
-            return Task.FromResult(false);
         }
     }
 }

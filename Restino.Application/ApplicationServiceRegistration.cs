@@ -1,5 +1,7 @@
 ﻿using MediatR;
 using Microsoft.Extensions.DependencyInjection;
+using Restino.Application.Contracts.Application;
+using Restino.Application.Services;
 using System.Reflection;
 
 namespace Restino.Application
@@ -12,6 +14,7 @@ namespace Restino.Application
             services.AddAutoMapper(Assembly.GetExecutingAssembly());
             services.AddMediatR(Assembly.GetExecutingAssembly());
 
+            services.AddScoped<IPermissionService, PermissionService>();
 
             return services;
         }

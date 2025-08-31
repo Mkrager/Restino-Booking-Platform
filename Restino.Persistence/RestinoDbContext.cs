@@ -521,44 +521,13 @@ namespace Restino.Persistence
         }
         public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
         {
-<<<<<<< HEAD
-<<<<<<< Updated upstream
-            foreach (var entry in ChangeTracker.Entries<Accommodations>())
-=======
             var now = DateTime.UtcNow;
             var userId = _currentUserService.UserId;
 
             foreach (var entry in ChangeTracker.Entries())
->>>>>>> Stashed changes
-=======
-            foreach (var entry in ChangeTracker.Entries<Accommodation>())
->>>>>>> 0907892
             {
                 if (entry.Entity is AuditableEntity auditable)
                 {
-<<<<<<< Updated upstream
-                    case EntityState.Added:
-                        entry.Entity.CreatedDate = DateTime.Now;
-                        entry.Entity.CreatedBy = _currentUserService.UserId;
-                        break;
-                    case EntityState.Modified:
-                        entry.Entity.LastModifiedDate = DateTime.Now;
-                        entry.Entity.LastModifiedBy = _currentUserService.UserId;
-                        break;
-                }
-            }
-
-            foreach (var entry in ChangeTracker.Entries<Reservation>())
-            {
-                switch (entry.State)
-                {
-                    case EntityState.Added:
-                        entry.Entity.CreatedBy = _currentUserService.UserId;
-                        break;
-                }
-            }
-
-=======
                     if (entry.State == EntityState.Added)
                     {
                         auditable.CreatedDate = now;
@@ -571,7 +540,7 @@ namespace Restino.Persistence
                     }
                 }
             }
->>>>>>> Stashed changes
+
             return base.SaveChangesAsync(cancellationToken);
         }
     }
