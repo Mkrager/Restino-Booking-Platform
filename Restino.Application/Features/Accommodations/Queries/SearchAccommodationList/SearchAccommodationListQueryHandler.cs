@@ -21,12 +21,6 @@ namespace Restino.Application.Features.Accommodations.Queries.SearchAccommodatio
 
         public async Task<List<SearchAccommodationListVm>> Handle(SearchAccommodationListQuery request, CancellationToken cancellationToken)
         {
-            var validator = new SearchAccommodationQueryValidator(_accommodationRepository);
-            var validatorResult = await validator.ValidateAsync(request);
-
-            if (validatorResult.Errors.Count > 0)
-                throw new ValidationException(validatorResult);
-
             var searchResult = await _accommodationRepository.SearchAccommodation(request.Name);
             var mappedSearchResult = _mapper.Map<List<SearchAccommodationListVm>>(searchResult);
             var categories = await _categoryRepository.ListAllAsync();

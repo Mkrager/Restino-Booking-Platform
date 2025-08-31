@@ -21,13 +21,6 @@ namespace Restino.Application.Features.Reservations.Commands.CreateReservation
 
         public async Task<Guid> Handle(CreateReservationCommand request, CancellationToken cancellationToken)
         {
-            var validator = new CreateReservationCommandValidator(_reservationRepository);
-
-            var validatorResult = await validator.ValidateAsync(request);
-
-            if (validatorResult.Errors.Count > 0)
-                throw new ValidationException(validatorResult);
-
             var reservation = new Domain.Entities.Reservation()
             {
                 AccommodationId = request.AccommodationId,

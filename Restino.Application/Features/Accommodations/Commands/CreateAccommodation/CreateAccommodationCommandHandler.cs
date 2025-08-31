@@ -21,12 +21,6 @@ namespace Restino.Application.Features.Accommodations.Commands.CreateAccommodati
         }
         public async Task<Guid> Handle(CreateAccommodationCommand request, CancellationToken cancellationToken)
         {
-            var validator = new CreateAccommodationCommandValidator(_accommodationRepository);
-            var validatorResult = await validator.ValidateAsync(request);
-
-            if (validatorResult.Errors.Count > 0)
-                throw new ValidationException(validatorResult);
-
             var accommodation = new Accommodation()
             {
                 Name = request.Name,

@@ -1,7 +1,6 @@
 ﻿using AutoMapper;
 using MediatR;
 using Restino.Application.Contracts.Identity;
-using Restino.Application.Exceptions;
 
 namespace Restino.Application.Features.User.Commands.ChangeUserPassword
 {
@@ -17,12 +16,6 @@ namespace Restino.Application.Features.User.Commands.ChangeUserPassword
 
         public async Task<Unit> Handle(ChangeUserPasswordCommand request, CancellationToken cancellationToken)
         {
-            var validation = new ChangeUserPasswordCommandValidator();
-            var validationResult = await validation.ValidateAsync(request);
-
-            if (validationResult.Errors.Count > 0)
-                throw new ValidationException(validationResult);
-
             await _userService.ResetPasswordAsync(request.Email, request.Token, request.NewPassword);
             return Unit.Value;
         }

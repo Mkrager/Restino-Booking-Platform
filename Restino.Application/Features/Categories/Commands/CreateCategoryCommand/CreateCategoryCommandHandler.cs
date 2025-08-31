@@ -19,12 +19,6 @@ namespace Restino.Application.Features.Categories.Commands.CreateCategoryCommand
 
         public async Task<Guid> Handle(CreateCategoryCommand request, CancellationToken cancellationToken)
         {
-            var validation = new CreateCategoryCommandValidator(_categoryRepository);
-            var validationResult = await validation.ValidateAsync(request);
-
-            if (validationResult.Errors.Count > 0)
-                throw new ValidationException(validationResult);
-
             var category = new Category() 
             { 
                 Name = request.Name, 

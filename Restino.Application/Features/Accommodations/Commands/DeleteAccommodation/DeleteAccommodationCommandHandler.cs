@@ -19,12 +19,6 @@ namespace Restino.Application.Features.Accommodations.Commands.DeleteAccommodati
 
         public async Task<Unit> Handle(DeleteAccommodationCommand request, CancellationToken cancellationToken)
         {
-            var validator = new DeleteAccommodationCommandValidator(_accommodationRepository);
-            var validatorResult = await validator.ValidateAsync(request);
-
-            if (validatorResult.Errors.Count > 0)
-                throw new ValidationException(validatorResult);
-
             var accommodationToDelete = await _accommodationRepository.GetByIdAsync(request.Id);
             await _accommodationRepository.DeleteAsync(accommodationToDelete);
 
