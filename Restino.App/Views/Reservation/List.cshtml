@@ -16,8 +16,8 @@
                     <div class="accommodation-item">
                         <div class="accommodation-content">
                             <h2 class="accommodation-title">User id: @reservation.UserId</h2>
-                            <p class="accommodation-description"><strong>Accommodation id:</strong> @reservation.AccommodationsId</p>
-                            <p class="accommodation-description"><strong>Reservation id:</strong> @reservation.ReservationId</p>
+                            <p class="accommodation-description"><strong>Accommodation id:</strong> @reservation.AccommodationId</p>
+                            <p class="accommodation-description"><strong>Reservation id:</strong> @reservation.Id</p>
                             <p class="accommodation-description"><strong>Customer note:</strong> @reservation.CustomerNote</p>
                             <p class="accommodation-description"><strong>Reservation price:</strong> @reservation.ReservationPrice</p>
                             <p class="accommodation-description"><strong>Additional services:</strong> @reservation.AdditionalServices</p>
@@ -26,7 +26,7 @@
                             <p class="accommodation-description"><strong>Guests count:</strong> @reservation.GuestsCount</p>
                             <p class="accommodation-description"><strong>Reservation created:</strong> @reservation.ReservationCreated</p>
 
-                            <button class="hot-btn" onclick="deleteReservation('@reservation.ReservationId')">Delete</button>
+                            <button class="hot-btn" onclick="deleteReservation('@reservation.Id')">Delete</button>
                         </div>
 
                     </div>

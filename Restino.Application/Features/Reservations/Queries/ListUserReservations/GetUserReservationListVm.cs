@@ -1,6 +1,6 @@
-﻿namespace Restino.App.ViewModels
+﻿namespace Restino.Application.Features.Reservations.Queries.ListUserReservations
 {
-    public class ReservationListViewModel
+    public class GetUserReservationListVm
     {
         public Guid Id { get; set; }
         public string UserId { get; set; } = string.Empty;
@@ -12,6 +12,6 @@
         public int GuestsCount { get; set; }
         public string AdditionalServices { get; set; } = string.Empty;
         public string CustomerNote { get; set; } = string.Empty;
-        public AccommodationListViewModel Accommodation { get; set; } = default!;
+        public AccommodationDtoReservation Accommodation { get; set; } = default!;
     }
 }

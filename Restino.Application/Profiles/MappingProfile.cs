@@ -10,12 +10,11 @@ using Restino.Application.Features.Categories.Commands.CreateCategoryCommand;
 using Restino.Application.Features.Categories.Queries.GetCategoriesList;
 using Restino.Application.Features.Categories.Queries.GetCategoriesListWithAccommodation;
 using Restino.Application.Features.Categories.Queries.GetCategoryDetails;
-using Restino.Application.Features.Reservation.Commands.CreateReservation;
-using Restino.Application.Features.Reservation.Commands.DeleteReservation;
-using Restino.Application.Features.Reservation.Queries.GetReservatioDetails;
-using Restino.Application.Features.Reservation.Queries.GetReservationList;
-using Restino.Application.Features.Reservation.Queries.GetUserReservations;
-using Restino.Application.Features.Reservation.Queries.ListUserReservations;
+using Restino.Application.Features.Reservations.Commands.CreateReservation;
+using Restino.Application.Features.Reservations.Commands.DeleteReservation;
+using Restino.Application.Features.Reservations.Queries.GetReservatioDetails;
+using Restino.Application.Features.Reservations.Queries.GetReservationList;
+using Restino.Application.Features.Reservations.Queries.ListUserReservations;
 using Restino.Domain.Entities;
 
 namespace Restino.Application.Profiles
@@ -45,11 +44,11 @@ namespace Restino.Application.Profiles
             CreateMap<Category, CategoryAccommodationListVm>();
             CreateMap<Category, CreateCategoryCommand>();
 
-            CreateMap<Reservations, CreateReservationCommand>().ReverseMap();
-            CreateMap<Reservations, ReservationListVm>().ReverseMap();
-            CreateMap<Reservations, ReservationDetailsVm>().ReverseMap();
-            CreateMap<Reservations, DeleteReservationCommand>().ReverseMap();
-            CreateMap<Reservations, GetUserReservationListVm>().ReverseMap();
+            CreateMap<Reservation, CreateReservationCommand>().ReverseMap();
+            CreateMap<Reservation, ReservationListVm>().ReverseMap();
+            CreateMap<Reservation, ReservationDetailsVm>().ReverseMap();
+            CreateMap<Reservation, DeleteReservationCommand>().ReverseMap();
+            CreateMap<Reservation, GetUserReservationListVm>().ReverseMap();
         }
     }
 }

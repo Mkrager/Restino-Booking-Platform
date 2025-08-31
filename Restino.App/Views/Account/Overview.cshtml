@@ -39,7 +39,7 @@
                                 <div class="account-content">
                                     <h2 class="hot-title">@accommodation.Name</h2>
                                     <p class="hot-description">@accommodation.ShortDescription</p>
-                                    <p class="hot-description">Category: @accommodation.Category.CategoryName</p>
+                                    <p class="hot-description">Category: @accommodation.Category.Name</p>
                                     <p class="hot-description">Price: @accommodation.Price per day</p>
                                     <p class="hot-description">Capacity: @accommodation.Capacity</p>
                                     <p class="hot-description">Address: @accommodation.Address</p>
@@ -71,8 +71,8 @@
                                     <p class="hot-description">Customer note: @reservation.CustomerNote</p>
                                     <p class="hot-description">Guest count: @reservation.GuestsCount</p>
                                     <p class="hot-description">Price: @reservation.ReservationPrice</p>
-                                    <a asp-controller="Accommodation" asp-action="Details" asp-route-AccommodationId="@reservation.AccommodationsId" class="account-accommodation-btn">Accommodation details</a>
-                                    <a class="account-accommodation-btn" onclick="deleteReservation('@reservation.ReservationId')">Delete</a>
+                                    <a asp-controller="Accommodation" asp-action="Details" asp-route-AccommodationId="@reservation.AccommodationId" class="account-accommodation-btn">Accommodation details</a>
+                                    <a class="account-accommodation-btn" onclick="deleteReservation('@reservation.Id')">Delete</a>
                                 </div>
                             </div>
                         }

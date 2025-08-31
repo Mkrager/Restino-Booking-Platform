@@ -4,9 +4,9 @@ namespace Restino.App.ViewModels
 {
     public class ReservationDetailViewModel
     {
-        public Guid ReservationId { get; set; }
+        public Guid Id { get; set; }
         public string UserId { get; set; } = string.Empty;
-        public Guid AccommodationsId { get; set; }
+        public Guid AccommodationId { get; set; }
         public string AccommodationName { get; set; } = string.Empty;
         public int ReservationPrice { get; set; }
         public DateTime ReservationCreated { get; set; }

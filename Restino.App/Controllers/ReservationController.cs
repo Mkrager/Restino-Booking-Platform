@@ -29,12 +29,12 @@ namespace Restino.App.Controllers
             var allReservations = await _reservationDataService.GetAllReservation();
 
             var existingReservations = allReservations
-                .Where(r => r.AccommodationsId == id)
+                .Where(r => r.AccommodationId == id)
                 .ToList();
 
             var reservationModel = new ReservationDetailViewModel
             {
-                AccommodationsId = id,
+                AccommodationId = id,
                 AccommodationName = accommodation.Name,
                 ExistingReservations = existingReservations
             };
@@ -47,7 +47,7 @@ namespace Restino.App.Controllers
         {
             var newReservation = await _reservationDataService.CreateReservation(reservation);
             TempData["Message"] = HandleResponse<Guid>(newReservation);
-            return RedirectToAction(nameof(Create), new { id = reservation.AccommodationsId });
+            return RedirectToAction(nameof(Create), new { id = reservation.AccommodationId });
         }
 
         [HttpDelete]

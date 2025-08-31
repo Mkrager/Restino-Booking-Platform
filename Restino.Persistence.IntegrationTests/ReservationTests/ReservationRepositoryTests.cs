@@ -80,10 +80,10 @@ namespace Restino.Persistence.IntegrationTests.ReservationTests
             var checkOutDate = DateTime.Today.AddDays(7);
             var accommodationId = Guid.NewGuid();
 
-            _dbContext.Reservation.Add(new Reservations
+            _dbContext.Reservation.Add(new Reservation
             {
-                ReservationId = Guid.NewGuid(),
-                AccommodationsId = accommodationId,
+                Id = Guid.NewGuid(),
+                AccommodationId = accommodationId,
                 CheckInDate = DateTime.Today.AddDays(8),
                 CheckOutDate = DateTime.Today.AddDays(11),
                 GuestsCount = 2
@@ -167,12 +167,12 @@ namespace Restino.Persistence.IntegrationTests.ReservationTests
         {
             string userId = "00000000-0000-0000-0000-000000000000"; 
             // Arrange
-            _dbContext.Reservation.AddRange(new List<Reservations>
+            _dbContext.Reservation.AddRange(new List<Reservation>
             {
-                new Reservations
+                new Reservation
                 {
-                    ReservationId = Guid.NewGuid(),
-                    AccommodationsId = Guid.NewGuid(),         
+                    Id = Guid.NewGuid(),
+                    AccommodationId = Guid.NewGuid(),         
                 }
  
             });
@@ -183,7 +183,7 @@ namespace Restino.Persistence.IntegrationTests.ReservationTests
 
             // Assert
             Assert.Equal(1, result.Count);
-            Assert.Contains(result, a => a.UserId == userId);
+            Assert.Contains(result, a => a.CreatedBy == userId);
         }
     }
 }

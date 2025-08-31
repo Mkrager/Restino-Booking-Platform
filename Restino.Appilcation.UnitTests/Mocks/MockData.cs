@@ -4,7 +4,7 @@ namespace Restino.Appilcation.UnitTests.Mock
 {
     public class MockData
     {
-        public static List<Domain.Entities.Category> GetCategories()
+        public static List<Category> GetCategories()
         {
             var appartamentsGuid = Guid.Parse("c119661c-1d5a-42c1-8819-6b0885af4d4a");
             var villaGuid = Guid.Parse("8f67819c-0d09-43e8-b64f-17c9123b6040");
@@ -14,51 +14,51 @@ namespace Restino.Appilcation.UnitTests.Mock
             var hostelGuid = Guid.Parse("9fbd8bb8-1a85-4305-87fd-4b3d011b1a5a");
             var campingGuid = Guid.Parse("6f80d6e0-54b3-495d-847b-16a092c8b626");
 
-            return new List<Domain.Entities.Category>
+            return new List<Category>
             {
-                new Domain.Entities.Category
+                new Category
                 {
                     Id = appartamentsGuid,
                     Name = "Appartaments",
                     Description = "Apartments are a modern type of accommodation...",
                     ImgUrl = "https://cdn.pixabay.com/photo/2016/11/30/08/48/bedroom-1872196_1280.jpg"
                 },
-                new Domain.Entities.Category
+                new Category
                 {
                     Id = villaGuid,
                     Name = "Villa",
                     Description = "A villa is a luxurious house typically situated...",
                     ImgUrl = "https://cdn.pixabay.com/photo/2013/10/12/18/05/villa-194671_1280.jpg"
                 },
-                new Domain.Entities.Category
+                new Category
                 {
                     Id = chaletGuid,
                     Name = "Chalet",
                     Description = "A chalet is a traditional mountain house...",
                     ImgUrl = "https://cdn.pixabay.com/photo/2019/12/11/12/00/mountain-4688203_1280.jpg"
                 },
-                new Domain.Entities.Category
+                new Category
                 {
                     Id = cottageGuid,
                     Name = "Cottage",
                     Description = "A cottage is a small country house offering...",
                     ImgUrl = "https://cdn.pixabay.com/photo/2015/08/25/14/16/small-wooden-house-906912_1280.jpg"
                 },
-                new Domain.Entities.Category
+                new Category
                 {
                     Id = glampingGuid,
                     Name = "Glamping",
                     Description = "Glamping is a combination of luxury and closeness to nature...",
                     ImgUrl = "https://cdn.pixabay.com/photo/2021/07/25/06/26/glamping-6490987_1280.jpg"
                 },
-                new Domain.Entities.Category
+                new Category
                 {
                     Id = hostelGuid,
                     Name = "Hostel",
                     Description = "A hostel is a budget-friendly accommodation option...",
                     ImgUrl = "https://cdn.pixabay.com/photo/2013/06/30/19/07/bed-142516_1280.jpg"
                 },
-                new Domain.Entities.Category
+                new Category
                 {
                     Id = campingGuid,
                     Name = "Camping",
@@ -68,7 +68,7 @@ namespace Restino.Appilcation.UnitTests.Mock
             };
         }
 
-        public static List<Domain.Entities.Accommodation> GetAccommodations()
+        public static List<Accommodation> GetAccommodations()
         {
             var appartamentsGuid = Guid.Parse("c119661c-1d5a-42c1-8819-6b0885af4d4a");
             var villaGuid = Guid.Parse("8f67819c-0d09-43e8-b64f-17c9123b6040");
@@ -78,9 +78,9 @@ namespace Restino.Appilcation.UnitTests.Mock
             var hostelGuid = Guid.Parse("9fbd8bb8-1a85-4305-87fd-4b3d011b1a5a");
             var campingGuid = Guid.Parse("6f80d6e0-54b3-495d-847b-16a092c8b626");
 
-            return new List<Domain.Entities.Accommodation>
+            return new List<Accommodation>
             {
-                new Domain.Entities.Accommodation
+                new Accommodation
                 {
                     Id = Guid.Parse("1a4ab6df-66b8-46f7-8198-c94332964001"),
                     Name = "City View Apartment",
@@ -93,7 +93,7 @@ namespace Restino.Appilcation.UnitTests.Mock
                     ImgUrl = "https://cdn.pixabay.com/photo/2015/09/05/21/51/room-924058_1280.jpg",
                     Price = 7000
                 },
-                new Domain.Entities.Accommodation
+                new Accommodation
                 {
                     Id = Guid.Parse("2a4ab6df-66b8-46f7-8198-c94332964002"),
                     Name = "Oceanfront Villa",
@@ -107,7 +107,7 @@ namespace Restino.Appilcation.UnitTests.Mock
                     Price = 12000,
                     CreatedBy = "12334556456745"
                 },
-                new Domain.Entities.Accommodation
+                new Accommodation
                 {
                     Id = Guid.Parse("3a4ab6df-66b8-46f7-8198-c94332964003"),
                     Name = "Mountain Retreat Chalet",
@@ -120,7 +120,7 @@ namespace Restino.Appilcation.UnitTests.Mock
                     ImgUrl = "https://cdn.pixabay.com/photo/2015/09/05/20/02/mountain-hut-924050_1280.jpg",
                     Price = 8500
                 },
-                new Domain.Entities.Accommodation
+                new Accommodation
                 {
                     Id = Guid.Parse("4a4ab6df-66b8-46f7-8198-c94332964004"),
                     Name = "Forest Hideaway Cottage",
@@ -133,7 +133,7 @@ namespace Restino.Appilcation.UnitTests.Mock
                     ImgUrl = "https://cdn.pixabay.com/photo/2015/09/01/09/14/cabin-914092_1280.jpg",
                     Price = 6000
                 },
-                new Domain.Entities.Accommodation
+                new Accommodation
                 {
                     Id = Guid.Parse("5a4ab6df-66b8-46f7-8198-c94332964005"),
                     Name = "Luxury Glamping Tent",
@@ -146,7 +146,7 @@ namespace Restino.Appilcation.UnitTests.Mock
                     ImgUrl = "https://cdn.pixabay.com/photo/2016/11/21/15/53/camping-1840052_1280.jpg",
                     Price = 5000
                 },
-                new Domain.Entities.Accommodation
+                new Accommodation
                 {
                     Id = Guid.Parse("6a4ab6df-66b8-46f7-8198-c94332964006"),
                     Name = "Downtown Hostel",
@@ -159,7 +159,7 @@ namespace Restino.Appilcation.UnitTests.Mock
                     ImgUrl = "https://cdn.pixabay.com/photo/2017/01/22/14/14/hostel-1990300_1280.jpg",
                     Price = 1500
                 },
-                new Domain.Entities.Accommodation
+                new Accommodation
                 {
                     Id = Guid.Parse("7a4ab6df-66b8-46f7-8198-c94332964007"),
                     Name = "Desert Camping",
@@ -175,20 +175,20 @@ namespace Restino.Appilcation.UnitTests.Mock
             };
         }
 
-        public static List<Reservations> GetReservations()
+        public static List<Reservation> GetReservations()
         {
-            return new List<Reservations>
+            return new List<Reservation>
             {
-                new Reservations
+                new Reservation
                 {
-                    ReservationId = Guid.Parse("7a4ab6df-66b8-55f7-6698-c94332964007"),
-                    AccommodationsId = Guid.Parse("1a4ab6df-66b8-46f7-8198-c94332964001"),
+                    Id = Guid.Parse("7a4ab6df-66b8-55f7-6698-c94332964007"),
+                    AccommodationId = Guid.Parse("1a4ab6df-66b8-46f7-8198-c94332964001"),
                     AdditionalServices = "test",
                     CustomerNote = "test",
                     GuestsCount = 1,
                     CheckInDate = DateTime.Today,
                     CheckOutDate = DateTime.Today.AddDays(42),
-                    UserId = "534ab6df-66b8-46f7-8198-c94332964001"
+                    CreatedBy = "534ab6df-66b8-46f7-8198-c94332964001"
                 }
             };
         }

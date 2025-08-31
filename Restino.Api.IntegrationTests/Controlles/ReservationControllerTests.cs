@@ -1,8 +1,8 @@
 ﻿using Restino.Api.IntegrationTests.Base;
-using Restino.Application.Features.Reservation.Commands.CreateReservation;
-using Restino.Application.Features.Reservation.Queries.GetReservatioDetails;
-using Restino.Application.Features.Reservation.Queries.GetReservationList;
-using Restino.Application.Features.Reservation.Queries.GetUserReservations;
+using Restino.Application.Features.Reservations.Commands.CreateReservation;
+using Restino.Application.Features.Reservations.Queries.GetReservatioDetails;
+using Restino.Application.Features.Reservations.Queries.GetReservationList;
+using Restino.Application.Features.Reservations.Queries.ListUserReservations;
 using System.Net;
 using System.Text;
 using System.Text.Json;
@@ -66,7 +66,7 @@ namespace Restino.Api.IntegrationTests.Controlles
             var result = JsonSerializer.Deserialize<ReservationDetailsVm>(responseString);
 
             Assert.NotNull(result);
-            Assert.Equal(reservationId, result.ReservationId);
+            Assert.Equal(reservationId, result.Id);
             Assert.NotEmpty(result.AdditionalServices);
         }
 
@@ -77,7 +77,7 @@ namespace Restino.Api.IntegrationTests.Controlles
 
             var createReservationCommand = new CreateReservationCommand
             {
-                AccommodationsId = Guid.Parse("47fc830b-751c-4b54-88e3-3281d746f3fd"),
+                AccommodationId = Guid.Parse("47fc830b-751c-4b54-88e3-3281d746f3fd"),
                 AdditionalServices = "Test",
                 CheckInDate = DateTime.Now.AddDays(100),
                 CheckOutDate = DateTime.Now.AddDays(124),

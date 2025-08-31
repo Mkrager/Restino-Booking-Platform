@@ -15,7 +15,7 @@ namespace Restino.Persistence
 
         public DbSet<Accommodation> Accommodations { get; set; }
         public DbSet<Category> Categories { get; set; }
-        public DbSet<Reservations> Reservation { get; set; }
+        public DbSet<Reservation> Reservation { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -506,11 +506,11 @@ namespace Restino.Persistence
                 Price = 4500
             });
 
-            modelBuilder.Entity<Reservations>().HasData(new Reservations
+            modelBuilder.Entity<Reservation>().HasData(new Reservation
             {
-                ReservationId = Guid.Parse("{c4046135-7ef7-4a85-a125-feeea203d4de}"),
-                AccommodationsId = Guid.Parse("{a4ab6df6-66b8-46f7-8198-c94332964006}"),
-                UserId = "TestFirstUserId",
+                Id = Guid.Parse("{c4046135-7ef7-4a85-a125-feeea203d4de}"),
+                AccommodationId = Guid.Parse("{a4ab6df6-66b8-46f7-8198-c94332964006}"),
+                CreatedBy = "TestFirstUserId",
                 AdditionalServices = "test",
                 CheckInDate = DateTime.Today,
                 CheckOutDate = DateTime.Today.AddDays(7),
@@ -536,12 +536,12 @@ namespace Restino.Persistence
                 }
             }
 
-            foreach (var entry in ChangeTracker.Entries<Reservations>())
+            foreach (var entry in ChangeTracker.Entries<Reservation>())
             {
                 switch (entry.State)
                 {
                     case EntityState.Added:
-                        entry.Entity.UserId = _currentUserService.UserId;
+                        entry.Entity.CreatedBy = _currentUserService.UserId;
                         break;
                 }
             }

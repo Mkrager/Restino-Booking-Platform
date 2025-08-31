@@ -4,16 +4,16 @@ using Restino.Domain.Entities;
 
 namespace Restino.Persistence.Repositories
 {
-    public class ReservationRepository : BaseRepositrory<Reservations>, IReservationRepository
+    public class ReservationRepository : BaseRepositrory<Reservation>, IReservationRepository
     {
         public ReservationRepository(RestinoDbContext dbContext) : base(dbContext)
         {
 
         }
 
-        public Task<List<Reservations>> ListUserReservations(string userId)
+        public Task<List<Reservation>> ListUserReservations(string userId)
         {
-            var userReservation = _dbContext.Reservation.Where(e => e.UserId == userId);
+            var userReservation = _dbContext.Reservation.Where(e => e.CreatedBy == userId);
             return userReservation.ToListAsync();
         }
 
@@ -38,7 +38,7 @@ namespace Restino.Persistence.Repositories
             }
 
             var isOverlap = await _dbContext.Reservation
-                .Where(r => r.AccommodationsId == accommodationId)
+                .Where(r => r.AccommodationId == accommodationId)
                 .AnyAsync(r =>
                     (checkInDate < r.CheckOutDate && checkOutDate > r.CheckInDate) 
                 );
