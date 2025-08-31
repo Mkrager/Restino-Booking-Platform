@@ -1,6 +1,7 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+<<<<<<< Updated upstream
 using Restino.Application.Features.Accommodation.Commands.CreateAccommodation;
 using Restino.Application.Features.Accommodation.Commands.DeleteAccommodation;
 using Restino.Application.Features.Accommodation.Commands.UpdateAccommodation;
@@ -8,13 +9,23 @@ using Restino.Application.Features.Accommodation.Queries.GetAccommodationDetails
 using Restino.Application.Features.Accommodation.Queries.GetAccommodationList;
 using Restino.Application.Features.Accommodation.Queries.GetUserAccommodationList;
 using Restino.Application.Features.Accommodation.Queries.SearchAccommodationList;
+=======
+using Restino.Application.Contracts;
+using Restino.Application.Features.Accommodations.Commands.CreateAccommodation;
+using Restino.Application.Features.Accommodations.Commands.DeleteAccommodation;
+using Restino.Application.Features.Accommodations.Commands.UpdateAccommodation;
+using Restino.Application.Features.Accommodations.Queries.GetAccommodationDetails;
+using Restino.Application.Features.Accommodations.Queries.GetAccommodationList;
+using Restino.Application.Features.Accommodations.Queries.GetUserAccommodationList;
+using Restino.Application.Features.Accommodations.Queries.SearchAccommodationList;
+>>>>>>> Stashed changes
 using System.Security.Claims;
 
 namespace Restino.Api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class AccommodationController(IMediator mediator) : Controller
+    public class AccommodationController(IMediator mediator, ICurrentUserService currentUserService) : Controller
     {
         [HttpGet(Name = "GetAllAccommodations")]
         [ProducesResponseType(StatusCodes.Status200OK)]
@@ -70,8 +81,8 @@ namespace Restino.Api.Controllers
         public async Task<ActionResult> Update([FromBody] UpdateAccommodationCommand
             updateAccommodationCommand)
         {
-            var userId = User.FindFirst("uid")?.Value;
-            var userRole = User.FindFirst(ClaimTypes.Role)?.Value;
+            var userId = currentUserService.UserId;
+            var userRole = currentUserService.UserRole;
 
             updateAccommodationCommand.UserId = userId;
             updateAccommodationCommand.UserRole = userRole;
@@ -87,9 +98,8 @@ namespace Restino.Api.Controllers
         [ProducesDefaultResponseType]
         public async Task<ActionResult> Delete(Guid id)
         {
-            var userId = User.FindFirst("uid")?.Value;
-
-            var userRole = User.FindFirst(ClaimTypes.Role)?.Value;
+            var userId = currentUserService.UserId;
+            var userRole = currentUserService.UserRole;
 
             var deleteAccommodationCommand = new DeleteAccommodationCommand() { AccommodationsId = id, UserId = userId, UserRole = userRole };
             await mediator.Send(deleteAccommodationCommand);

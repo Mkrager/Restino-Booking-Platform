@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Restino.Application.Contracts;
+using Restino.Domain.Common;
 using Restino.Domain.Entities;
 
 namespace Restino.Persistence
@@ -71,17 +72,29 @@ namespace Restino.Persistence
 
             modelBuilder.Entity<Categories>().HasData(new Categories
             {
+<<<<<<< Updated upstream
                 CategoriesId = hostelGuid,
                 CategoryName = "Hostel",
                 Description = "A hostel is a budget-friendly accommodation option for travelers. Typically, it features shared rooms with individual beds, although private rooms are also available. Hostels are ideal for young people and those looking to meet fellow travelers. They often include shared kitchens, common areas, and are usually located in city centers.", 
+=======
+                Id = hostelGuid,
+                Name = "Hostel",
+                Description = "A hostel is a budget-friendly accommodation option for travelers. Typically, it features shared rooms with individual beds, although private rooms are also available. Hostels are ideal for young people and those looking to meet fellow travelers. They often include shared kitchens, common areas, and are usually located in city centers.",
+>>>>>>> Stashed changes
                 ImgUrl = "https://cdn.pixabay.com/photo/2013/06/30/19/07/bed-142516_1280.jpg"
             });
 
             modelBuilder.Entity<Categories>().HasData(new Categories
             {
+<<<<<<< Updated upstream
                 CategoriesId = campingGuid,
                 CategoryName = "Camping",
                 Description = "Camping is a way to spend time in nature by staying in tents or trailers. It’s a great opportunity to escape civilization, enjoying quiet mornings and starry nights. Campsites are often located near forests, rivers, or mountains, providing opportunities for active leisure such as fishing, hiking, or cycling.", 
+=======
+                Id = campingGuid,
+                Name = "Camping",
+                Description = "Camping is a way to spend time in nature by staying in tents or trailers. It’s a great opportunity to escape civilization, enjoying quiet mornings and starry nights. Campsites are often located near forests, rivers, or mountains, providing opportunities for active leisure such as fishing, hiking, or cycling.",
+>>>>>>> Stashed changes
                 ImgUrl = "https://cdn.pixabay.com/photo/2017/08/17/08/08/camp-2650359_1280.jpg"
             });
 
@@ -518,13 +531,20 @@ namespace Restino.Persistence
                 GuestsCount = 4,
             });
         }
-        public override Task<int> SaveChangesAsync(CancellationToken cancellationToken
-            = new CancellationToken())
+        public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
         {
+<<<<<<< Updated upstream
             foreach (var entry in ChangeTracker.Entries<Accommodations>())
+=======
+            var now = DateTime.UtcNow;
+            var userId = _currentUserService.UserId;
+
+            foreach (var entry in ChangeTracker.Entries())
+>>>>>>> Stashed changes
             {
-                switch (entry.State)
+                if (entry.Entity is AuditableEntity auditable)
                 {
+<<<<<<< Updated upstream
                     case EntityState.Added:
                         entry.Entity.CreatedDate = DateTime.Now;
                         entry.Entity.UserId = _currentUserService.UserId;
@@ -546,8 +566,21 @@ namespace Restino.Persistence
                 }
             }
 
+=======
+                    if (entry.State == EntityState.Added)
+                    {
+                        auditable.CreatedDate = now;
+                        auditable.CreatedBy = userId;
+                    }
+                    else if (entry.State == EntityState.Modified)
+                    {
+                        auditable.LastModifiedDate = now;
+                        auditable.LastModifiedBy = userId;
+                    }
+                }
+            }
+>>>>>>> Stashed changes
             return base.SaveChangesAsync(cancellationToken);
         }
     }
 }
-

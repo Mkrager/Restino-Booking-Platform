@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Restino.Application.Contracts.Persistance;
+using Restino.Domain.Common;
 
 namespace Restino.Persistence.Repositories
 {
@@ -39,15 +40,15 @@ namespace Restino.Persistence.Repositories
             await _dbContext.SaveChangesAsync();
         }
 
+<<<<<<< Updated upstream
         public async Task<bool> CheckUserPermissionAsync(string userId, Guid entityId, string userRole) where T : class, IOwnedEntity
+=======
+        public Task<bool> CheckUserPermissionAsync<R>(R entity, string userId, string userRole) where R : AuditableEntity
+>>>>>>> Stashed changes
         {
-            var entity = await _dbContext.Set<T>().FindAsync(entityId);
-
-            if (entity == null)
-                return false;
-
-            //return entity.UserId == userId || userRole == "Admin";
-            return false;
+            if (entity.CreatedBy == userId || userRole == "Admin")
+                return Task.FromResult(true);
+            return Task.FromResult(false);
         }
     }
 }

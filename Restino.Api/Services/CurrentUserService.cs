@@ -12,5 +12,6 @@ namespace Restino.Api.Services
         }
 
         public string UserId => _contextAccessor.HttpContext?.User?.FindFirstValue("uid");
+        public string UserRole => _contextAccessor.HttpContext?.User.FindFirstValue(ClaimTypes.Role);
     }
 }
