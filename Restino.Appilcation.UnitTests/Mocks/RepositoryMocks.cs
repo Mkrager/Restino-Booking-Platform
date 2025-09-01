@@ -20,6 +20,7 @@ namespace Restino.Appilcation.UnitTests.Mock
 
 
             var mockCategoryRepository = new Mock<ICategoryRepository>();
+
             mockCategoryRepository.Setup(repo => repo.ListAllAsync()).ReturnsAsync(categories);
 
             mockCategoryRepository.Setup(repo => repo.GetCategoryWithAccommodationAsync(It.IsAny<bool>(), It.IsAny<Guid>())).ReturnsAsync(categories);
@@ -73,7 +74,10 @@ namespace Restino.Appilcation.UnitTests.Mock
         {
             var accommodations = MockData.GetAccommodations();
             var categories = MockData.GetCategories();
+
             var mockAccommodationRepository = new Mock<IAccommodationRepository>();
+
+            mockAccommodationRepository.Setup(repo => repo.ListAllAsync()).ReturnsAsync(accommodations);
 
             mockAccommodationRepository.Setup(repo => repo.GetAccommodationsWithCategoriesAsync(It.IsAny<bool>
                 ())).ReturnsAsync(
@@ -95,18 +99,21 @@ namespace Restino.Appilcation.UnitTests.Mock
                 return accommodation;
             });
 
-            mockAccommodationRepository.Setup(repo =>
-                    repo.IsAccommodationNameAndCategoryUniqueAsync(It.IsAny<string>(), It.IsAny<Guid>()))
+            mockAccommodationRepository.Setup(repo => repo.IsAccommodationNameAndCategoryUniqueAsync(It.IsAny<string>(), It.IsAny<Guid>()))
                 .ReturnsAsync((string name, Guid categoryId) =>
                 {
                     return accommodations.Any(a => a.Name == name && a.CategoryId == categoryId);
                 });
 
-            mockAccommodationRepository.Setup(repo => repo.DeleteAsync(It.IsAny<Accommodation>())).Callback<Accommodation>(
-            (Accommodation accommodation) =>
-            {
-                accommodations.Remove(accommodation);
-            }).Returns(Task.CompletedTask);
+            mockAccommodationRepository
+                .Setup(repo => repo.GetAccommodationWithCategoryByIdAsync(It.IsAny<Guid>()))
+                .ReturnsAsync((Guid id) =>
+                {
+                    return accommodations.FirstOrDefault(a => a.Id == id);
+                });
+
+            mockAccommodationRepository.Setup(r => r.DeleteAsync(It.IsAny<Accommodation>()))
+                .Callback((Accommodation accommodation) => accommodations.Remove(accommodation));
 
             mockAccommodationRepository.Setup(repo => repo.GetByIdAsync(It.IsAny<Guid>
             ())).ReturnsAsync(

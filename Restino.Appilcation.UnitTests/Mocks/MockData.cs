@@ -91,7 +91,12 @@ namespace Restino.Appilcation.UnitTests.Mock
                     IsHotProposition = true,
                     ShortDescription = "A modern apartment with a city view.",
                     ImgUrl = "https://cdn.pixabay.com/photo/2015/09/05/21/51/room-924058_1280.jpg",
-                    Price = 7000
+                    Price = 7000,
+                    Category = new Category
+                    {
+                        Id = appartamentsGuid,
+                        Name = "Appartament"
+                    }
                 },
                 new Accommodation
                 {

@@ -30,6 +30,7 @@ namespace Restino.Appilcation.UnitTests.Accommodations.Queries
 
             var result = await handler.Handle(new GetAccommodationDetailsQuery() { Id = Guid.Parse("1a4ab6df-66b8-46f7-8198-c94332964001") }, CancellationToken.None);
 
+            result.ShouldNotBeNull();
             result.ShouldBeOfType<AccommodationDetailsVm>();
 
             result.Id.ShouldBe(Guid.Parse("1a4ab6df-66b8-46f7-8198-c94332964001"));
@@ -41,6 +42,7 @@ namespace Restino.Appilcation.UnitTests.Accommodations.Queries
             result.ShortDescription.ShouldBe("A modern apartment with a city view.");
             result.ImgUrl.ShouldBe("https://cdn.pixabay.com/photo/2015/09/05/21/51/room-924058_1280.jpg");
             result.Price.ShouldBe(7000);
+            result.Category.Id.ShouldBe(Guid.Parse("c119661c-1d5a-42c1-8819-6b0885af4d4a"));
         }
     }
 }

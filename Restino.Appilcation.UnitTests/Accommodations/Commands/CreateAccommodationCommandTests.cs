@@ -60,30 +60,25 @@ namespace Restino.Appilcation.UnitTests.Accommodations.Commands
         }
 
         [Fact]
-        public async Task Should_Not_Add_Already_Existing_Accommodation()
+        public async void Validator_ShouldHaveError_WhenAccommodationWithSameNameAndCAtegoryIdAlreadyExsit()
         {
-            var handler = new CreateAccommodationCommandHandler(_mapper, _mockAccommodationRepository.Object);
-            var command = new CreateAccommodationCommand
+            var validator = new CreateAccommodationCommandValidator(_mockAccommodationRepository.Object);
+            var query = new CreateAccommodationCommand
             {
-                Name = "Test",
+                Name = "City View Apartment",
                 Address = "Test",
-                Capacity = 42,
+                Capacity = 2,
                 CategoryId = Guid.Parse("c119661c-1d5a-42c1-8819-6b0885af4d4a"),
                 ShortDescription = "Testtesttesttesttesttesttest",
                 LongDescription = "Testtesttesttesttesttesttest",
                 ImgUrl = "test",
-                Price = 42
+                Price = 3000
             };
 
-            await handler.Handle(command, CancellationToken.None);
-            var exception = await Assert.ThrowsAsync<ValidationException>(async () =>
-                await handler.Handle(command, CancellationToken.None)
-            );
+            var result = await validator.ValidateAsync(query);
 
-            exception.ValidationErrors.ShouldContain("An accommodation with the same name and category already exists");
-
-            var allCategories = await _mockAccommodationRepository.Object.GetAccommodationsWithCategoriesAsync(false);
-            allCategories.Count.ShouldBe(8);
+            Assert.False(result.IsValid);
+            Assert.Contains(result.Errors, f => f.ErrorMessage == "An accommodation with the same name and category already exists");
         }
     }
 }

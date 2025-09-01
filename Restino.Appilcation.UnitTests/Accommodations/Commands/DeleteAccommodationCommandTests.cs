@@ -1,9 +1,7 @@
-﻿using AutoMapper;
-using Moq;
+﻿using Moq;
 using Restino.Appilcation.UnitTests.Mock;
 using Restino.Application.Contracts.Persistance;
 using Restino.Application.Features.Accommodations.Commands.DeleteAccommodation;
-using Restino.Application.Profiles;
 using Shouldly;
 
 namespace Restino.Appilcation.UnitTests.Accommodations.Commands
