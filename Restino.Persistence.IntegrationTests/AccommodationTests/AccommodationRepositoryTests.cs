@@ -89,6 +89,36 @@ namespace Restino.Persistence.IntegrationTests.AccommodationTests
         }
 
         [Fact]
+        public async Task GetAccommodationWithCategoryById_ShouldReturnAccommodation()
+        {
+            var accommodationId = Guid.Parse("e7c5b4d0-a0f2-4f25-8c75-6918bf632f2e");
+
+            var categoryId = Guid.Parse("8f67819c-0d09-43e8-b64f-17c9123b6040");
+
+            _dbContext.Categories.Add(new Category
+            {
+                Id = categoryId,
+            });
+
+            _dbContext.Accommodations.Add(new Accommodation
+            {
+                Id = accommodationId,
+                Address = "Testtestesttesttesttesttest",
+                Capacity = 42,
+                ShortDescription = "Testtestesttesttesttesttest",
+                ImgUrl = "test",
+                Price = 42,
+                IsHotProposition = true,
+                Name = "Test42",
+                CategoryId = categoryId
+            });
+            await _dbContext.SaveChangesAsync();
+            var result = await _repository.GetAccommodationWithCategoryByIdAsync(accommodationId);
+
+            Assert.Equal(accommodationId, result.Id);
+        }
+
+        [Fact]
         public async Task ListAllAccommodationsWithCategories_ShouldReturnAll_WhenNoFilterIsApplied()
         {
             var categoryId = Guid.Parse("c4605626-8183-4927-90b7-c98a98ea0c32");

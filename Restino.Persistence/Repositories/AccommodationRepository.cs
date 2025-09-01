@@ -53,7 +53,7 @@ namespace Restino.Persistence.Repositories
             return matches;
         }
 
-        public async Task<Accommodation?> GetAccommodationWithCategoryById(Guid id)
+        public async Task<Accommodation?> GetAccommodationWithCategoryByIdAsync(Guid id)
         {
             return await _dbContext.Accommodations
                 .Include(r => r.Category)

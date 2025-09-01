@@ -16,7 +16,7 @@ namespace Restino.Application.Features.Accommodations.Queries.GetAccommodationDe
         }
         public async Task<AccommodationDetailsVm> Handle(GetAccommodationDetailsQuery request, CancellationToken cancellationToken)
         {
-            var @accommodation = await _accommodationRepository.GetAccommodationWithCategoryById(request.Id);
+            var @accommodation = await _accommodationRepository.GetAccommodationWithCategoryByIdAsync(request.Id);
             return _mapper.Map<AccommodationDetailsVm>(@accommodation);
         }
     }
