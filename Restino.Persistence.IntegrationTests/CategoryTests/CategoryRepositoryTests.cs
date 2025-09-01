@@ -48,15 +48,15 @@ namespace Restino.Persistence.IntegrationTests.CategoryTests
         [Fact]
         public async Task GetCategoryWithAccommodation_ReturnsCategoriesWithAccommodations_WhenOnlyOneCategoryResultIsFalse()
         {
-            var Id = Guid.NewGuid();
+            var categoryId = Guid.NewGuid();
             var category = new Category
             {
-                Id = Id,
+                Id = categoryId,
                 Name = "Test Category"
             };
 
-            var accommodation1 = new Accommodation { Id = Id, Name = "Accommodation 1" };
-            var accommodation2 = new Accommodation { Id = Id, Name = "Accommodation 2" };
+            var accommodation1 = new Accommodation { Id = Guid.NewGuid(), Name = "Accommodation 1", CategoryId = categoryId };
+            var accommodation2 = new Accommodation { Id = Guid.NewGuid(), Name = "Accommodation 2", CategoryId = categoryId };
 
             category.Accommodations = new List<Accommodation> { accommodation1, accommodation2 };
 
@@ -64,13 +64,12 @@ namespace Restino.Persistence.IntegrationTests.CategoryTests
             _dbContext.Accommodations.AddRange(accommodation1, accommodation2);
             await _dbContext.SaveChangesAsync();
 
-            var result = await _repository.GetCategoryWithAccommodationAsync(false, Id);
+            var result = await _repository.GetCategoryWithAccommodationAsync(false, categoryId);
 
             Assert.NotNull(result);
             Assert.Single(result);
-            var returnedCategory = result.First();
-            Assert.Equal(category.Name, returnedCategory.Name);
-            Assert.Equal(2, returnedCategory.Accommodations.Count);
+            Assert.Equal(category.Name, result[0].Name);
+            Assert.Equal(2, result[0].Accommodations.Count);
         }
 
         [Fact]
@@ -88,9 +87,9 @@ namespace Restino.Persistence.IntegrationTests.CategoryTests
                 Name = "Category 2"
             };
 
-            var accommodation1 = new Accommodation { Id = Id, Name = "Accommodation 1" };
-            var accommodation2 = new Accommodation { Id = Id, Name = "Accommodation 2" };
-            var accommodation3 = new Accommodation { Id = category2.Id, Name = "Accommodation 3" };
+            var accommodation1 = new Accommodation { Id = Guid.NewGuid(), Name = "Accommodation 1" };
+            var accommodation2 = new Accommodation { Id = Guid.NewGuid(), Name = "Accommodation 2" };
+            var accommodation3 = new Accommodation { Id = Guid.NewGuid(), Name = "Accommodation 3" };
 
             category1.Accommodations = new List<Accommodation> { accommodation1, accommodation2 };
             category2.Accommodations = new List<Accommodation> { accommodation3 };
@@ -103,9 +102,8 @@ namespace Restino.Persistence.IntegrationTests.CategoryTests
 
             Assert.NotNull(result);
             Assert.Single(result);
-            var returnedCategory = result.First();
-            Assert.Equal(category1.Name, returnedCategory.Name);
-            Assert.Equal(2, returnedCategory.Accommodations.Count);
+            Assert.Equal(category1.Name, result[0].Name);
+            Assert.Equal(2, result[0].Accommodations.Count);
         }
     }
 }

@@ -38,10 +38,10 @@ namespace Restino.Persistence.IntegrationTests.AccommodationTests
             {
                 Id = Guid.NewGuid(),
                 Address = "Testtestesttesttesttesttest",
-                Capacity = 42,
+                Capacity = 10,
                 ShortDescription = "Testtestesttesttesttesttest",
                 ImgUrl = "test",
-                Price = 42,
+                Price = 5000,
                 IsHotProposition = true,
                 Name = name,
                 CategoryId = categoryId
@@ -54,34 +54,55 @@ namespace Restino.Persistence.IntegrationTests.AccommodationTests
         }
 
         [Fact]
-        public async Task SearchAccommodation_ShouldReturn()
+        public async Task SearchAccommodation_ShouldReturn2Accommodation()
         {
             string searchString = "Test";
             Guid categoryId = Guid.Parse("8f67819c-0d09-43e8-b64f-17c9123b6040");
-            _dbContext.Accommodations.Add(new Accommodation
+
+            _dbContext.Categories.Add(new Category
+            {
+                Id = categoryId
+            });
+            await _dbContext.SaveChangesAsync();
+
+            _dbContext.Accommodations.AddRange(
+                new Accommodation
             {
                 Id = Guid.NewGuid(),
                 Address = "Testtestesttesttesttesttest",
-                Capacity = 42,
+                Capacity = 10,
                 ShortDescription = "Testtestesttesttesttesttest",
                 ImgUrl = "test",
-                Price = 42,
+                Price = 5000,
                 IsHotProposition = true,
                 Name = "Test",
                 CategoryId = categoryId
-            });
-            _dbContext.Accommodations.Add(new Accommodation
+            },
+            new Accommodation
             {
                 Id = Guid.NewGuid(),
                 Address = "Testtestesttesttesttesttest",
-                Capacity = 42,
+                Capacity = 10,
                 ShortDescription = "Testtestesttesttesttesttest",
                 ImgUrl = "test",
-                Price = 42,
+                Price = 5000,
                 IsHotProposition = true,
-                Name = "Test42",
+                Name = "Test123",
                 CategoryId = categoryId
-            });
+            },
+            new Accommodation
+            {
+                Id = Guid.NewGuid(),
+                Address = "Testtestesttesttesttesttest",
+                Capacity = 10,
+                ShortDescription = "Testtestesttesttesttesttest",
+                ImgUrl = "test",
+                Price = 5000,
+                IsHotProposition = true,
+                Name = "tset",
+                CategoryId = categoryId
+            }
+            );
             await _dbContext.SaveChangesAsync();
             var result = await _repository.SearchAccommodationAsync(searchString);
 
