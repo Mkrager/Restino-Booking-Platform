@@ -28,7 +28,7 @@ builder.Services.AddSession(options =>
 builder.Services.AddRazorPages();
 
 builder.Services.AddScoped<IAccommodationDataService, AccommodationDataService>();
-builder.Services.AddScoped<ICategoryDataService, CategoriesDataService>();
+builder.Services.AddScoped<ICategoryDataService, CategoryDataService>();
 builder.Services.AddScoped<IReservationDataService, ReservationDataService>();
 builder.Services.AddScoped<IAuthenticationService, AuthenticationService>();
 builder.Services.AddScoped<IUserDataService, UserDataService>();

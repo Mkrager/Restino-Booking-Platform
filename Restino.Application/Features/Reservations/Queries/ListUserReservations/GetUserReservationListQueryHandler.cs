@@ -18,7 +18,7 @@ namespace Restino.Application.Features.Reservations.Queries.ListUserReservations
 
         public async Task<List<GetUserReservationListVm>> Handle(GetUserReservationListQuery request, CancellationToken cancellationToken)
         {
-            var userReservation = (await _reservationRepository.ListUserReservations(request.UserId)).OrderBy(x => x.CreatedBy);
+            var userReservation = (await _reservationRepository.GetReservationsByUserIdAsync(request.UserId)).OrderBy(x => x.CreatedBy);
 
             var userReservationDetailsDto = _mapper.Map<List<GetUserReservationListVm>>(userReservation);
 

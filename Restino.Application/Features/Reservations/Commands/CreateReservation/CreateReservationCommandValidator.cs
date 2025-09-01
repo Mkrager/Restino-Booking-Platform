@@ -29,12 +29,12 @@ namespace Restino.Application.Features.Reservations.Commands.CreateReservation
 
         private async Task<bool> GuestsCountMustBeWithinCapacity(CreateReservationCommand e, CancellationToken cancellationToken)
         {
-            return !await _reservationRepository.IsGuestsCountWithinCapacity(e.GuestsCount, e.AccommodationId);
+            return !await _reservationRepository.IsGuestsCountWithinCapacityAsync(e.GuestsCount, e.AccommodationId);
         }
 
         private async Task<bool> DateRangeValid(CreateReservationCommand e, CancellationToken cancellationToken)
         {
-            return !await _reservationRepository.IsDateRangeValid(e.CheckInDate, e.CheckOutDate, e.AccommodationId);
+            return !await _reservationRepository.IsDateRangeValidAsync(e.CheckInDate, e.CheckOutDate, e.AccommodationId);
         }
     }
 }

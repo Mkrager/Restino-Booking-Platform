@@ -6,12 +6,12 @@ using System.Text.Json;
 
 namespace Restino.App.Services
 {
-    public class CategoriesDataService : ICategoryDataService
+    public class CategoryDataService : ICategoryDataService
     {
         private readonly HttpClient _httpClient;
         private readonly IAuthenticationService _authenticationService;
 
-        public CategoriesDataService(HttpClient httpClient, IAuthenticationService authenticationService)
+        public CategoryDataService(HttpClient httpClient, IAuthenticationService authenticationService)
         {
             _httpClient = httpClient;
             _authenticationService = authenticationService;

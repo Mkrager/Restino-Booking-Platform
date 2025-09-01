@@ -179,7 +179,7 @@ namespace Restino.Appilcation.UnitTests.Mock
                     return reservations.FirstOrDefault(reservation => reservation.Id == id);
                 });
 
-            mockReservationRepository.Setup(repo => repo.IsDateRangeValid(It.IsAny<DateTime>(), It.IsAny<DateTime>(), It.IsAny<Guid>()))
+            mockReservationRepository.Setup(repo => repo.IsDateRangeValidAsync(It.IsAny<DateTime>(), It.IsAny<DateTime>(), It.IsAny<Guid>()))
                 .ReturnsAsync((DateTime checkInDate, DateTime checkOutDate, Guid accommodationId) =>
                 {
                     return reservations.Any(r =>
@@ -188,7 +188,7 @@ namespace Restino.Appilcation.UnitTests.Mock
                      checkOutDate > r.CheckInDate);
                 });
 
-            mockReservationRepository.Setup(repo => repo.IsGuestsCountWithinCapacity(It.IsAny<int>(), It.IsAny<Guid>()))
+            mockReservationRepository.Setup(repo => repo.IsGuestsCountWithinCapacityAsync(It.IsAny<int>(), It.IsAny<Guid>()))
                 .ReturnsAsync((int guestsCount, Guid accommodationId) =>
                 {
                     var accommodation = accommodations.FirstOrDefault(a => a.Id == accommodationId);
@@ -200,7 +200,7 @@ namespace Restino.Appilcation.UnitTests.Mock
                     return guestsCount > accommodation.Capacity;
                 });
 
-            mockReservationRepository.Setup(repo => repo.ListUserReservations(It.IsAny<string>()))
+            mockReservationRepository.Setup(repo => repo.GetReservationsByUserIdAsync(It.IsAny<string>()))
                 .ReturnsAsync((string userId) =>
                 {
                     var userReservations = reservations.Where(r => r.CreatedBy == userId).ToList();

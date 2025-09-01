@@ -1,7 +1,6 @@
 ﻿using AutoMapper;
 using Moq;
 using Restino.Appilcation.UnitTests.Mock;
-using Restino.Application.Contracts.Identity;
 using Restino.Application.Contracts.Persistance;
 using Restino.Application.Exceptions;
 using Restino.Application.Features.Reservations.Commands.CreateReservation;
@@ -14,12 +13,10 @@ namespace Restino.Appilcation.UnitTests.Reservations.Commands
     {
         private readonly IMapper _mapper;
         private readonly Mock<IReservationRepository> _mockReservationRepository;
-        private readonly Mock<IUserService> _mockUserService;
 
         public CreateReservationCommandTests()
         {
             _mockReservationRepository = RepositoryMocks.GetReservationRepository();
-            _mockUserService = RepositoryMocks.GetUserService();
             var configurationProvider = new MapperConfiguration(cfg =>
             {
                 cfg.AddProfile<MappingProfile>();
@@ -30,8 +27,7 @@ namespace Restino.Appilcation.UnitTests.Reservations.Commands
         [Fact]
         public async Task Should_Create_Reservation_Successfully()
         {
-            // Arrange
-            var handler = new CreateReservationCommandHandler(_mapper, _mockReservationRepository.Object, _mockUserService.Object);
+            var handler = new CreateReservationCommandHandler(_mapper, _mockReservationRepository.Object);
             var command = new CreateReservationCommand
             {
                 AccommodationId = Guid.Parse("6a4ab6df-66b8-46f7-8198-c94332964006"),
@@ -42,11 +38,9 @@ namespace Restino.Appilcation.UnitTests.Reservations.Commands
                 CheckOutDate = DateTime.Today.AddDays(42)
             };
 
-            // Act
             await handler.Handle(command, CancellationToken.None);
 
 
-            // Assert
             var allReservation = await _mockReservationRepository.Object.ListAllAsync();
             allReservation.Count.ShouldBe(2);
 
@@ -63,8 +57,7 @@ namespace Restino.Appilcation.UnitTests.Reservations.Commands
         [Fact]
         public async Task Should_FailToCreateReservation_WhenDateRangesOverlap()
         {
-            // Arrange
-            var handler = new CreateReservationCommandHandler(_mapper, _mockReservationRepository.Object, _mockUserService.Object);
+            var handler = new CreateReservationCommandHandler(_mapper, _mockReservationRepository.Object);
             var command = new CreateReservationCommand
             {
                 AccommodationId = Guid.Parse("1a4ab6df-66b8-46f7-8198-c94332964001"),
@@ -75,12 +68,10 @@ namespace Restino.Appilcation.UnitTests.Reservations.Commands
                 CheckOutDate = DateTime.Today.AddDays(42)
             };
 
-            // Act
             var exception = await Assert.ThrowsAsync<ValidationException>(async () =>
                 await handler.Handle(command, CancellationToken.None)
             );
 
-            // Assert
             exception.ValidationErrors.ShouldContain("Invalid date range");
 
             var allReservation = await _mockReservationRepository.Object.ListAllAsync();
@@ -90,8 +81,7 @@ namespace Restino.Appilcation.UnitTests.Reservations.Commands
         [Fact]
         public async Task Should_FailToCreateReservation_WhenInvalidGuestCount()
         {
-            // Arrange
-            var handler = new CreateReservationCommandHandler(_mapper, _mockReservationRepository.Object, _mockUserService.Object);
+            var handler = new CreateReservationCommandHandler(_mapper, _mockReservationRepository.Object);
             var command = new CreateReservationCommand
             {
                 AccommodationId = Guid.Parse("6a4ab6df-66b8-46f7-8198-c94332964006"),
@@ -102,12 +92,10 @@ namespace Restino.Appilcation.UnitTests.Reservations.Commands
                 CheckOutDate = DateTime.Today.AddDays(42)
             };
 
-            // Act
             var exception = await Assert.ThrowsAsync<ValidationException>(async () =>
                 await handler.Handle(command, CancellationToken.None)
             );
 
-            // Assert
             exception.ValidationErrors.ShouldContain("Guest count exceeds accommodation capacity");
 
             var allReservation = await _mockReservationRepository.Object.ListAllAsync();

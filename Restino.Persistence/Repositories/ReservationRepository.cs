@@ -11,13 +11,13 @@ namespace Restino.Persistence.Repositories
 
         }
 
-        public Task<List<Reservation>> ListUserReservations(string userId)
+        public async Task<List<Reservation>> GetReservationsByUserIdAsync(string userId)
         {
             var userReservation = _dbContext.Reservation.Where(e => e.CreatedBy == userId);
-            return userReservation.ToListAsync();
+            return await userReservation.ToListAsync();
         }
 
-        public async Task<bool> IsDateRangeValid(DateTime checkInDate, DateTime checkOutDate, Guid accommodationId)
+        public async Task<bool> IsDateRangeValidAsync(DateTime checkInDate, DateTime checkOutDate, Guid accommodationId)
         {
 
             if (checkInDate >= checkOutDate)
@@ -46,17 +46,16 @@ namespace Restino.Persistence.Repositories
             return isOverlap;
         }
 
-
-        public Task<bool> IsGuestsCountWithinCapacity(int guestsCount, Guid accommodationId)
+        public async Task<bool> IsGuestsCountWithinCapacityAsync(int guestsCount, Guid accommodationId)
         {
-            var exceedsCapacity = _dbContext.Accommodations
+            var exceedsCapacity = await _dbContext.Accommodations
                 .Where(e => e.Id == accommodationId)
-                .Any(e => guestsCount > e.Capacity);
+                .AnyAsync(e => guestsCount > e.Capacity);
 
-            return Task.FromResult(exceedsCapacity);
+            return exceedsCapacity;
         }
 
-        public async Task<decimal> TotalPrice(Guid accommodationId, DateTime checkInDate, DateTime checkOutDate)
+        public async Task<decimal> GetTotalPriceAsync(Guid accommodationId, DateTime checkInDate, DateTime checkOutDate)
         {
             var accommodation = await _dbContext.Accommodations
                 .FirstOrDefaultAsync(a => a.Id == accommodationId);

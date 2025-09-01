@@ -10,6 +10,5 @@ namespace Restino.Application.Features.Reservations.Commands.CreateReservation
         public int GuestsCount { get; set; }
         public string AdditionalServices { get; set; } = string.Empty;
         public string CustomerNote { get; set; } = string.Empty;
-
     }
 }

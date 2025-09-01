@@ -34,10 +34,10 @@ namespace Restino.Api.Controllers
             return Ok(dtos);
         }
 
-        [HttpGet("{CategoriesId}", Name = "GetCategoryById")]
-        public async Task<ActionResult<CategoryDetailsVm>> GetCategoryById(Guid CategoriesId)
+        [HttpGet("{id}", Name = "GetCategoryById")]
+        public async Task<ActionResult<CategoryDetailsVm>> GetCategoryById(Guid id)
         {
-            var getCategoryDeatailQuery = new GetCategoryDetailQuery() { Id = CategoriesId };
+            var getCategoryDeatailQuery = new GetCategoryDetailQuery() { Id = id };
             return Ok(await mediator.Send(getCategoryDeatailQuery));
         }
 
