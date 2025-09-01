@@ -26,7 +26,7 @@ namespace Restino.Appilcation.UnitTests.Reservations.Queries
         }
 
         [Fact]
-        public async Task ListUserReservationListTest()
+        public async Task GetUserReservationList_ReturnsListOfUserReservation()
         {
             var handler = new GetUserReservationListQueryHandler(_mapper, _mockReservationRepository.Object, _mockAccommodationRepository.Object);
 

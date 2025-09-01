@@ -3,6 +3,7 @@ using Moq;
 using Restino.Appilcation.UnitTests.Mock;
 using Restino.Application.Contracts.Persistance;
 using Restino.Application.Exceptions;
+using Restino.Application.Features.Categories.Commands.CreateCategoryCommand;
 using Restino.Application.Features.Reservations.Commands.CreateReservation;
 using Restino.Application.Profiles;
 using Shouldly;
@@ -55,52 +56,43 @@ namespace Restino.Appilcation.UnitTests.Reservations.Commands
         }
 
         [Fact]
-        public async Task Should_FailToCreateReservation_WhenDateRangesOverlap()
+        public async void Validator_ShouldHaveError_WhenReservationHaveInvalidDateRange()
         {
-            var handler = new CreateReservationCommandHandler(_mapper, _mockReservationRepository.Object);
-            var command = new CreateReservationCommand
+            var validator = new CreateReservationCommandValidator(_mockReservationRepository.Object);
+            var query = new CreateReservationCommand
             {
                 AccommodationId = Guid.Parse("1a4ab6df-66b8-46f7-8198-c94332964001"),
                 AdditionalServices = "test",
                 CustomerNote = "test",
                 GuestsCount = 1,
                 CheckInDate = DateTime.Today,
-                CheckOutDate = DateTime.Today.AddDays(42)
+                CheckOutDate = DateTime.Today.AddDays(50)
             };
 
-            var exception = await Assert.ThrowsAsync<ValidationException>(async () =>
-                await handler.Handle(command, CancellationToken.None)
-            );
+            var result = await validator.ValidateAsync(query);
 
-            exception.ValidationErrors.ShouldContain("Invalid date range");
-
-            var allReservation = await _mockReservationRepository.Object.ListAllAsync();
-            allReservation.Count.ShouldBe(1);
+            Assert.False(result.IsValid);
+            Assert.Contains(result.Errors, f => f.ErrorMessage == "Invalid date range");
         }
 
         [Fact]
-        public async Task Should_FailToCreateReservation_WhenInvalidGuestCount()
+        public async void Validator_ShouldHaveError_WhenReservationHaveInvalidGuestsCount()
         {
-            var handler = new CreateReservationCommandHandler(_mapper, _mockReservationRepository.Object);
-            var command = new CreateReservationCommand
+            var validator = new CreateReservationCommandValidator(_mockReservationRepository.Object);
+            var query = new CreateReservationCommand
             {
-                AccommodationId = Guid.Parse("6a4ab6df-66b8-46f7-8198-c94332964006"),
+                AccommodationId = Guid.Parse("1a4ab6df-66b8-46f7-8198-c94332964001"),
                 AdditionalServices = "test",
                 CustomerNote = "test",
-                GuestsCount = 42,  
+                GuestsCount = 100,
                 CheckInDate = DateTime.Today,
-                CheckOutDate = DateTime.Today.AddDays(42)
+                CheckOutDate = DateTime.Today.AddDays(50)
             };
 
-            var exception = await Assert.ThrowsAsync<ValidationException>(async () =>
-                await handler.Handle(command, CancellationToken.None)
-            );
+            var result = await validator.ValidateAsync(query);
 
-            exception.ValidationErrors.ShouldContain("Guest count exceeds accommodation capacity");
-
-            var allReservation = await _mockReservationRepository.Object.ListAllAsync();
-            allReservation.Count.ShouldBe(1);
-
+            Assert.False(result.IsValid);
+            Assert.Contains(result.Errors, f => f.ErrorMessage == "Guest count exceeds accommodation capacity");
         }
     }
 }

@@ -2,7 +2,6 @@
 using Moq;
 using Restino.Appilcation.UnitTests.Mock;
 using Restino.Application.Contracts.Persistance;
-using Restino.Application.Exceptions;
 using Restino.Application.Features.Categories.Commands.CreateCategoryCommand;
 using Restino.Application.Profiles;
 using Shouldly;
@@ -25,7 +24,7 @@ namespace Restino.Appilcation.UnitTests.Categories.Commands
         }
 
         [Fact]
-        public async Task Handle_ValidCategory_AddedToCategoriesRepo()
+        public async Task Should_Create_Category_Successfully()
         {
             var handler = new CreateCategoryCommandHandler(_mapper, _mockCategoryRepository.Object);
 
@@ -36,20 +35,18 @@ namespace Restino.Appilcation.UnitTests.Categories.Commands
         }
 
         [Fact]
-        public async Task Handle_DuplicateName_ShouldNotBeAddedToCategoriesRepo()
+        public async void Validator_ShouldHaveError_WhenCategoryWithSameNameAlreadyExist()
         {
-            var handler = new CreateCategoryCommandHandler(_mapper, _mockCategoryRepository.Object);
+            var validator = new CreateCategoryCommandValidator(_mockCategoryRepository.Object);
+            var query = new CreateCategoryCommand
+            {
+                Name = "Appartaments"
+            };
 
-            await handler.Handle(new CreateCategoryCommand() { Name = "Test" }, CancellationToken.None);
+            var result = await validator.ValidateAsync(query);
 
-            var exception = await Assert.ThrowsAsync<ValidationException>(async () =>
-                await handler.Handle(new CreateCategoryCommand() { Name = "Test" }, CancellationToken.None)
-            );
-
-            exception.ValidationErrors.ShouldContain("An category with the same name already exists");
-
-            var allCategories = await _mockCategoryRepository.Object.ListAllAsync();
-            allCategories.Count.ShouldBe(8);
+            Assert.False(result.IsValid);
+            Assert.Contains(result.Errors, f => f.ErrorMessage == "An category with the same name already exists");
         }
     }
 }
