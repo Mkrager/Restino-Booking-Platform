@@ -116,7 +116,7 @@ namespace Restino.Appilcation.UnitTests.Mock
             });
 
             mockAccommodationRepository.Setup(repo => repo.UpdateAsync(It.IsAny<Accommodation>()))
-                .Returns((Accommodation accommodation) =>
+                .Callback((Accommodation accommodation) =>
                 {
                     var existingAccommodation = accommodations.FirstOrDefault(a => a.Id == accommodation.Id);
                     if (existingAccommodation != null)
@@ -129,11 +129,9 @@ namespace Restino.Appilcation.UnitTests.Mock
                         existingAccommodation.ImgUrl = accommodation.ImgUrl;
                         existingAccommodation.Price = accommodation.Price;
                     }
-
-                    return Task.FromResult<Accommodation>(existingAccommodation);
                 });
 
-            mockAccommodationRepository.Setup(repo => repo.SearchAccommodation(It.IsAny<string>()))
+            mockAccommodationRepository.Setup(repo => repo.SearchAccommodationAsync(It.IsAny<string>()))
                 .ReturnsAsync((string name) =>
                 {
                     var accommodations = MockData.GetAccommodations();

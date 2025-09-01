@@ -99,7 +99,7 @@ namespace Restino.App.Services
             return new List<CategoryViewModel>();
         }
 
-        public async Task<List<CategoryAccommodationViewModel>> GetAllCategoriesWithAccommodations(bool onlyOneCategoryResult, Guid? categoryId)
+        public async Task<List<CategoryViewModel>> GetAllCategoriesWithAccommodations(bool onlyOneCategoryResult, Guid? categoryId)
         {
             var queryParams = new List<string>();
 
@@ -119,12 +119,12 @@ namespace Restino.App.Services
             {
                 var responseContent = await response.Content.ReadAsStringAsync();
 
-                var categoriesWithAccommodations = JsonSerializer.Deserialize<List<CategoryAccommodationViewModel>>(responseContent);
+                var categoriesWithAccommodations = JsonSerializer.Deserialize<List<CategoryViewModel>>(responseContent);
 
                 return categoriesWithAccommodations;
             }
 
-            return new List<CategoryAccommodationViewModel>();
+            return new List<CategoryViewModel>();
         }
 
 

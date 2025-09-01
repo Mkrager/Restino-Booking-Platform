@@ -2,6 +2,7 @@
 using Moq;
 using Restino.Appilcation.UnitTests.Mock;
 using Restino.Application.Contracts.Persistance;
+using Restino.Application.Features.Accommodations.Queries.GetAccommodationList;
 using Restino.Application.Features.Accommodations.Queries.GetUserAccommodationList;
 using Restino.Application.Profiles;
 using Shouldly;
@@ -35,7 +36,7 @@ namespace Restino.Appilcation.UnitTests.Accommodations.Queries
 
             var result = await handler.Handle(new GetUserAccommodationListQuery() { UserId = userId }, CancellationToken.None);
 
-            result.ShouldBeOfType<List<UserAccommodationListVm>>();
+            result.ShouldBeOfType<List<AccommodationListVm>>();
 
             result.Count.ShouldBe(1);
         }

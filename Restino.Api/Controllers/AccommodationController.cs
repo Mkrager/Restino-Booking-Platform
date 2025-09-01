@@ -29,7 +29,7 @@ namespace Restino.Api.Controllers
         [HttpGet("[action]/{userId}", Name = "GetUserAccommodations")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesDefaultResponseType]
-        public async Task<ActionResult<List<UserAccommodationListVm>>> GetUserAccommodations(string? userId)
+        public async Task<ActionResult<List<AccommodationListVm>>> GetUserAccommodations(string? userId)
         {
             var dtos = await mediator.Send(new GetUserAccommodationListQuery() { UserId = userId });
             return Ok(dtos);
@@ -43,14 +43,14 @@ namespace Restino.Api.Controllers
         }
 
 
-        [HttpGet("[action]/{AccommodationName?}", Name = "SearchAccommodation")]
+        [HttpGet("search", Name = "SearchAccommodation")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesDefaultResponseType]
-        public async Task<ActionResult<List<SearchAccommodationListVm>>> SearchAccommodation(string? AccommodationName)
+        public async Task<ActionResult<List<AccommodationListVm>>> SearchAccommodation([FromQuery] string? searchString)
         {
-            var searchAccommodationDeatailQuery = new SearchAccommodationListQuery { Name = AccommodationName };
-            return Ok(await mediator.Send(searchAccommodationDeatailQuery));
+            var query = new SearchAccommodationListQuery { SearchString = searchString };
+            return Ok(await mediator.Send(query));
         }
 
         [Authorize]

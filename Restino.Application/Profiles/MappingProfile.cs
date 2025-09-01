@@ -29,16 +29,12 @@ namespace Restino.Application.Profiles
             CreateMap<Accommodation, UpdateAccommodationCommand>().ReverseMap();
             CreateMap<Accommodation, DeleteAccommodationCommand>().ReverseMap();
             CreateMap<Accommodation, CategoryAccommodationDto>().ReverseMap();
-            CreateMap<Accommodation, SearchAccommodationListVm>().ReverseMap();
-            CreateMap<Accommodation, UserAccommodationListVm>().ReverseMap();
 
             CreateMap<Accommodation, AccommodationDtoReservation>()
                 .ForMember(dest => dest.AccommodationName, opt => opt.MapFrom(src => src.Name));
 
             CreateMap<Category, CategoryDetailsVm>().ReverseMap();
             CreateMap<Category, CategoryDto>();
-            CreateMap<Category, CategoryDtoAccommodationSearch>();
-            CreateMap<Category, CategoryUserDtoAccommodation>();
             CreateMap<Category, CategoryDtoAccommodation>();
             CreateMap<Category, CategoryListVm>();
             CreateMap<Category, CategoryAccommodationListVm>();

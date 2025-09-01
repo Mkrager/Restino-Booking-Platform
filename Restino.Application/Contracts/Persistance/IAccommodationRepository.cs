@@ -6,7 +6,7 @@ namespace Restino.Application.Contracts.Persistance
     {
         Task<List<Accommodation>> GetAccommodationsWithCategoriesAsync(bool isAccommodationHot);
         Task<List<Accommodation>> GetAccommodationsWithCategoriesByUserIdAsync(string userId);
-        Task<List<Accommodation>> SearchAccommodation(string searchString);
+        Task<List<Accommodation>> SearchAccommodationAsync(string searchString);
         Task<bool> IsAccommodationNameAndCategoryUnique(string name, Guid categoryId);
         Task<bool> IsAccommodationNameAndCategoryUniqueUpdate(string name, Guid categoryId, Guid? accommodationsId);
     }

@@ -1,36 +1,25 @@
 ﻿using AutoMapper;
 using MediatR;
 using Restino.Application.Contracts.Persistance;
-using Restino.Application.Exceptions;
-using Restino.Domain.Entities;
+using Restino.Application.Features.Accommodations.Queries.GetAccommodationList;
 
 namespace Restino.Application.Features.Accommodations.Queries.SearchAccommodationList
 {
-    public class SearchAccommodationListQueryHandler : IRequestHandler<SearchAccommodationListQuery, List<SearchAccommodationListVm>>
+    public class SearchAccommodationListQueryHandler : IRequestHandler<SearchAccommodationListQuery, List<AccommodationListVm>>
     {
         private readonly IAccommodationRepository _accommodationRepository;
         private readonly IMapper _mapper;
-        private readonly IAsyncRepository<Category> _categoryRepository;
 
-        public SearchAccommodationListQueryHandler(IAccommodationRepository accommodationRepository, IMapper mapper, IAsyncRepository<Category> categoryRepository)
+        public SearchAccommodationListQueryHandler(IAccommodationRepository accommodationRepository, IMapper mapper)
         {
             _accommodationRepository = accommodationRepository;
             _mapper = mapper;
-            _categoryRepository = categoryRepository;
         }
 
-        public async Task<List<SearchAccommodationListVm>> Handle(SearchAccommodationListQuery request, CancellationToken cancellationToken)
+        public async Task<List<AccommodationListVm>> Handle(SearchAccommodationListQuery request, CancellationToken cancellationToken)
         {
-            var searchResult = await _accommodationRepository.SearchAccommodation(request.Name);
-            var mappedSearchResult = _mapper.Map<List<SearchAccommodationListVm>>(searchResult);
-            var categories = await _categoryRepository.ListAllAsync();
-
-            foreach (var searchResults in mappedSearchResult)
-            {
-                searchResults.Category = _mapper.Map<CategoryDtoAccommodationSearch>(categories.FirstOrDefault(c => c.Id == searchResults.CategoryId));
-            }
-
-            return mappedSearchResult;
+            var searchResult = await _accommodationRepository.SearchAccommodationAsync(request.SearchString);
+            return _mapper.Map<List<AccommodationListVm>>(searchResult);
         }
     }
 }

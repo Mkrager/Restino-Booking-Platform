@@ -1,17 +1,12 @@
 ﻿using FluentValidation;
-using Restino.Application.Contracts.Persistance;
 
 namespace Restino.Application.Features.Accommodations.Queries.SearchAccommodationList
 {
     public class SearchAccommodationQueryValidator : AbstractValidator<SearchAccommodationListQuery>
     {
-        private readonly IAccommodationRepository _accommodationRepository;
-        public SearchAccommodationQueryValidator(IAccommodationRepository accommodationRepository)
+        public SearchAccommodationQueryValidator()
         {
-            _accommodationRepository = accommodationRepository;
-            RuleFor(a => a.Name)
-            .NotNull()
-            .WithMessage("Accommodation name must not be empty.")
+            RuleFor(a => a.SearchString)
             .NotEmpty()
             .WithMessage("Accommodation name must not be empty.")
             .MinimumLength(3)

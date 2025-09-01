@@ -5,6 +5,6 @@ namespace Restino.Application.Features.Accommodations.Queries.SearchAccommodatio
 {
     public class SearchAccommodationListQuery : IRequest<List<AccommodationListVm>>
     {
-        public string? Name { get; set; }
+        public string SearchString { get; set; } = string.Empty;
     }
 }

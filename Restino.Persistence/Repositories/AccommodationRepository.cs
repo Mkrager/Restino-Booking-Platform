@@ -23,6 +23,13 @@ namespace Restino.Persistence.Repositories
 
             return await query.ToListAsync();
         }
+        public Task<List<Accommodation>> SearchAccommodationAsync(string searchString)
+        {
+            var searchResults = _dbContext.Accommodations
+                .Include(r => r.Category)
+                .Where(n => n.Name.Contains(searchString)).ToListAsync();
+            return searchResults;
+        }
         public async Task<List<Accommodation>> GetAccommodationsWithCategoriesByUserIdAsync(string userId)
         {
             return await _dbContext.Accommodations
@@ -47,12 +54,6 @@ namespace Restino.Persistence.Repositories
         }
 
 
-        public Task<List<Accommodation>> SearchAccommodation(string? searchString)
-        {
-            var searchResults = _dbContext.Accommodations.
-                Where(n => n.Name.Contains(searchString)).ToListAsync();
-            return searchResults;
-        }
     }
 }
 

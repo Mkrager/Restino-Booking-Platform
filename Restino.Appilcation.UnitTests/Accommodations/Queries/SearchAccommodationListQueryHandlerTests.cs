@@ -2,6 +2,7 @@
 using Moq;
 using Restino.Appilcation.UnitTests.Mock;
 using Restino.Application.Contracts.Persistance;
+using Restino.Application.Features.Accommodations.Queries.GetAccommodationList;
 using Restino.Application.Features.Accommodations.Queries.SearchAccommodationList;
 using Restino.Application.Profiles;
 using Shouldly;
@@ -12,12 +13,10 @@ namespace Restino.Appilcation.UnitTests.Accommodations.Queries
     {
         private readonly IMapper _mapper;
         private readonly Mock<IAccommodationRepository> _mockAccommodationRepository;
-        private readonly Mock<ICategoryRepository> _mockCategoryRepository;
 
         public SearchAccommodationListQueryHandlerTests()
         {
             _mockAccommodationRepository = RepositoryMocks.GetAccommodationRepository();
-            _mockCategoryRepository = RepositoryMocks.GetCategoryRepository();
             var configurationProvider = new MapperConfiguration(cfg =>
             {
                 cfg.AddProfile<MappingProfile>();
@@ -26,14 +25,13 @@ namespace Restino.Appilcation.UnitTests.Accommodations.Queries
         }
 
         [Fact]
-        public async Task SearchAccommodationTest()
+        public async Task SearchAccommodationsList_ReturnsListOfAccommodations()
         {
-            
-            var handler = new SearchAccommodationListQueryHandler(_mockAccommodationRepository.Object, _mapper, _mockCategoryRepository.Object);
+            var handler = new SearchAccommodationListQueryHandler(_mockAccommodationRepository.Object, _mapper);
 
-            var result = await handler.Handle(new SearchAccommodationListQuery() { Name = "City" }, CancellationToken.None);
+            var result = await handler.Handle(new SearchAccommodationListQuery() { SearchString = "City" }, CancellationToken.None);
 
-            result.ShouldBeOfType<List<SearchAccommodationListVm>>();
+            result.ShouldBeOfType<List<AccommodationListVm>>();
             result.Count.ShouldBe(1);
 
             var accommodation = result.First();

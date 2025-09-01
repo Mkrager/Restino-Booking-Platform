@@ -2,7 +2,7 @@
 @inject JwtHelper JwtHelper
 
 @{
-    var accommodations = TempData["Accommodations"] as List<AccommodationUserListViewModel>;
+    var accommodations = TempData["Accommodations"] as List<AccommodationListViewModel>;
     var reservations = TempData["Reservations"] as List<ReservationListViewModel>;
 }
 
@@ -65,7 +65,7 @@
                         {
                             <div class="account-item">
                                 <div class="account-content">
-                                    <h2 class="hot-title">Accommodation: @reservation.Accommodation.AccommodationName</h2>
+                                    <h2 class="hot-title">Accommodation: @reservation.Accommodation.Name</h2>
                                     <p class="hot-description">Check-in date: @reservation.CheckInDate</p>
                                     <p class="hot-description">Check-out date: @reservation.CheckOutDate</p>
                                     <p class="hot-description">Customer note: @reservation.CustomerNote</p>

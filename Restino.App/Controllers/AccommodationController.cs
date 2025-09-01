@@ -27,7 +27,7 @@ namespace Restino.App.Controllers
         public async Task<IActionResult> SearchList(string searchString)
         {
             var searchResult = await _accommodationDataService.SearchAccommodation(searchString);
-            TempData["SearchMessage"] = HandleResponse<List<AccommodationSearchListViewModel>>(searchResult, $"Result {searchString}");
+            TempData["SearchMessage"] = HandleResponse<List<AccommodationListViewModel>>(searchResult, $"Result {searchString}");
             return View(searchResult.Data);
         }
 

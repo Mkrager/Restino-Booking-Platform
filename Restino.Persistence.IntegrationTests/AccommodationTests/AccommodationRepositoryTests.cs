@@ -83,7 +83,7 @@ namespace Restino.Persistence.IntegrationTests.AccommodationTests
                 CategoryId = categoryId
             });
             await _dbContext.SaveChangesAsync();
-            var result = await _repository.SearchAccommodation(searchString);
+            var result = await _repository.SearchAccommodationAsync(searchString);
 
             Assert.Equal(2, result.Count);
         }

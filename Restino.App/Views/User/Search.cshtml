@@ -4,7 +4,7 @@
 
 @{
     var userRole = JwtHelper.GetClaimFromToken("roles");
-    var accommodations = TempData["Accommodations"] as List<AccommodationUserListViewModel>;
+    var accommodations = TempData["Accommodations"] as List<AccommodationListViewModel>;
 }
 
 @if (HttpContextAccessor.HttpContext.Request.Cookies.ContainsKey("access_token") && userRole == "Admin")

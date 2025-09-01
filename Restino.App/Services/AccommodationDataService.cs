@@ -4,6 +4,7 @@ using Restino.App.ViewModels;
 using System.Net.Http.Headers;
 using System.Text;
 using System.Text.Json;
+using System.Xml.Linq;
 
 namespace Restino.App.Services
 {
@@ -120,7 +121,7 @@ namespace Restino.App.Services
             return new List<AccommodationListViewModel>();
         }
 
-        public async Task<List<AccommodationUserListViewModel>> GetAllUserAccommodations(string userId)
+        public async Task<List<AccommodationListViewModel>> GetAllUserAccommodations(string userId)
         {
             var request = new HttpRequestMessage(HttpMethod.Get, $"https://localhost:7288/api/Accommodation/GetUserAccommodations/{userId}");
 
@@ -134,13 +135,13 @@ namespace Restino.App.Services
             {
                 var responseContent = await response.Content.ReadAsStringAsync();
 
-                return JsonSerializer.Deserialize<List<AccommodationUserListViewModel>>(responseContent);
+                return JsonSerializer.Deserialize<List<AccommodationListViewModel>>(responseContent);
             }
 
-            return new List<AccommodationUserListViewModel>();
+            return new List<AccommodationListViewModel>();
         }
 
-        public async Task<ApiResponse<List<AccommodationSearchListViewModel>>> SearchAccommodation(string? AccommodationName)
+        public async Task<ApiResponse<List<AccommodationListViewModel>>> SearchAccommodation(string? AccommodationName)
         {
             try
             {
@@ -156,18 +157,18 @@ namespace Restino.App.Services
                 {
                     var responseContent = await response.Content.ReadAsStringAsync();
 
-                    var accommodationDetails = JsonSerializer.Deserialize<List<AccommodationSearchListViewModel>>(responseContent);
+                    var accommodationDetails = JsonSerializer.Deserialize<List<AccommodationListViewModel>>(responseContent);
 
-                    return new ApiResponse<List<AccommodationSearchListViewModel>>(System.Net.HttpStatusCode.OK, accommodationDetails);
+                    return new ApiResponse<List<AccommodationListViewModel>>(System.Net.HttpStatusCode.OK, accommodationDetails);
                 }
 
                 var errorContent = await response.Content.ReadAsStringAsync();
                 var errorMessages = JsonSerializer.Deserialize<List<string>>(errorContent);
-                return new ApiResponse<List<AccommodationSearchListViewModel>>(System.Net.HttpStatusCode.BadRequest, new List<AccommodationSearchListViewModel>(), errorMessages.FirstOrDefault());
+                return new ApiResponse<List<AccommodationListViewModel>>(System.Net.HttpStatusCode.BadRequest, new List<AccommodationListViewModel>(), errorMessages.FirstOrDefault());
             }
             catch (Exception ex)
             {
-                return new ApiResponse<List<AccommodationSearchListViewModel>>(System.Net.HttpStatusCode.BadRequest, new List<AccommodationSearchListViewModel>(), ex.Message);
+                return new ApiResponse<List<AccommodationListViewModel>>(System.Net.HttpStatusCode.BadRequest, new List<AccommodationListViewModel>(), ex.Message);
             }
         }
 
