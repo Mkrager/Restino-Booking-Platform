@@ -37,23 +37,21 @@ namespace Restino.Persistence.Repositories
                 .Where(e => e.CreatedBy == userId).ToListAsync();
         }
 
-        public Task<bool> IsAccommodationNameAndCategoryUnique(string name, Guid categoryId)
+        public async Task<bool> IsAccommodationNameAndCategoryUniqueAsync(string name, Guid categoryId)
         {
-            var matches = _dbContext.Accommodations.Any(e => e.Name.Equals(name) && e.CategoryId.Equals(categoryId));
-            return Task.FromResult(matches);
+            var matches = await _dbContext.Accommodations.AnyAsync(e => e.Name.Equals(name) && e.CategoryId.Equals(categoryId));
+            return matches;
         }
 
-        public Task<bool> IsAccommodationNameAndCategoryUniqueUpdate(string name, Guid categoryId, Guid? accommodationsId)
+        public async Task<bool> IsAccommodationNameAndCategoryUniqueForUpdateAsync(string name, Guid categoryId, Guid? accommodationsId)
         {
-            var matches = _dbContext.Accommodations.Any(e =>
+            var matches = await _dbContext.Accommodations.AnyAsync(e =>
                 e.Name.Equals(name) &&
                 e.CategoryId.Equals(categoryId) &&
                 (accommodationsId == null || e.Id != accommodationsId)
         );
-            return Task.FromResult(matches);
+            return matches;
         }
-
-
     }
 }
 

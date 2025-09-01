@@ -84,14 +84,14 @@ namespace Restino.App.Controllers
             return View();
         }
 
-
+        //TODO: Refactor
         [HttpGet]
-        public async Task<IActionResult> Overview(string accountId)
+        public async Task<IActionResult> Overview()
         {
-            var accommodations = await _accommodationDataService.GetAllUserAccommodations(accountId);
-            var reservations = await _reservationDataService.GetUserReservation(accountId);
+            var accommodations = await _accommodationDataService.GetAllUserAccommodations();
+            //var reservations = await _reservationDataService.GetUserReservation(accountId);
             TempData["Accommodations"] = accommodations;
-            TempData["Reservations"] = reservations;
+            //TempData["Reservations"] = reservations;
             return View();
         }
 

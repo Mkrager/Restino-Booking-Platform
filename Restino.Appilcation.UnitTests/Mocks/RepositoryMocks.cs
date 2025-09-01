@@ -96,7 +96,7 @@ namespace Restino.Appilcation.UnitTests.Mock
             });
 
             mockAccommodationRepository.Setup(repo =>
-                    repo.IsAccommodationNameAndCategoryUnique(It.IsAny<string>(), It.IsAny<Guid>()))
+                    repo.IsAccommodationNameAndCategoryUniqueAsync(It.IsAny<string>(), It.IsAny<Guid>()))
                 .ReturnsAsync((string name, Guid categoryId) =>
                 {
                     return accommodations.Any(a => a.Name == name && a.CategoryId == categoryId);

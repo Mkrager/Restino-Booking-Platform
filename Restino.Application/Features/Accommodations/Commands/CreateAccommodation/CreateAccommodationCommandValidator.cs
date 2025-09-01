@@ -48,7 +48,7 @@ namespace Restino.Application.Features.Accommodations.Commands.CreateAccommodati
         private async Task<bool> AccommodationNameAndCategoryUnique(CreateAccommodationCommand e,
             CancellationToken cancellationToken)
         {
-            return !await _accommodationRepository.IsAccommodationNameAndCategoryUnique(e.Name, e.CategoryId);
+            return !await _accommodationRepository.IsAccommodationNameAndCategoryUniqueAsync(e.Name, e.CategoryId);
         }
     }
 }

@@ -34,7 +34,7 @@ namespace Restino.Application.Features.Accommodations.Commands.UpdateAccommodati
         private async Task<bool> AccommodationNameAndCategoryUnique(UpdateAccommodationCommand e,
             CancellationToken cancellationToken)
         {
-            return !await _accommodationRepository.IsAccommodationNameAndCategoryUniqueUpdate(e.Name, e.CategoryId, e.Id);
+            return !await _accommodationRepository.IsAccommodationNameAndCategoryUniqueForUpdateAsync(e.Name, e.CategoryId, e.Id);
         }
         private async Task<bool> CheckUserPermissionAsync(UpdateAccommodationCommand e,
             CancellationToken cancellationToken)

@@ -47,7 +47,7 @@ namespace Restino.Persistence.IntegrationTests.AccommodationTests
                 CategoryId = categoryId
             });
             await _dbContext.SaveChangesAsync();
-            var result = await _repository.IsAccommodationNameAndCategoryUnique("Forest Tent", Guid.Parse("8f67819c-0d09-43e8-b64f-17c9123b6040"));
+            var result = await _repository.IsAccommodationNameAndCategoryUniqueAsync("Forest Tent", Guid.Parse("8f67819c-0d09-43e8-b64f-17c9123b6040"));
 
 
             Assert.True(result);
