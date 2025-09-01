@@ -9,9 +9,9 @@ namespace Restino.Application.Features.Accommodations.Commands.UpdateAccommodati
     public class UpdateAccommodationCommandHandler : IRequestHandler<UpdateAccommodationCommand>
     {
         private readonly IMapper _mapper;
-        private readonly IAccommodationRepository _accommodationRepository;
+        private readonly IAsyncRepository<Accommodation> _accommodationRepository;
 
-        public UpdateAccommodationCommandHandler(IMapper mapper, IAccommodationRepository accommodationRepository)
+        public UpdateAccommodationCommandHandler(IMapper mapper, IAsyncRepository<Accommodation> accommodationRepository)
         {
             _mapper = mapper;
             _accommodationRepository = accommodationRepository;

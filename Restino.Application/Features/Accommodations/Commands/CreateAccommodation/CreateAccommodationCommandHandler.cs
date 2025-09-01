@@ -8,9 +8,9 @@ namespace Restino.Application.Features.Accommodations.Commands.CreateAccommodati
     public class CreateAccommodationCommandHandler : IRequestHandler<CreateAccommodationCommand, Guid>
     {
         private readonly IMapper _mapper;
-        private readonly IAccommodationRepository _accommodationRepository;
+        private readonly IAsyncRepository<Accommodation> _accommodationRepository;
 
-        public CreateAccommodationCommandHandler(IMapper mapper, IAccommodationRepository accommodationRepository)
+        public CreateAccommodationCommandHandler(IMapper mapper, IAsyncRepository<Accommodation> accommodationRepository)
         {
             _accommodationRepository = accommodationRepository;
             _mapper = mapper;

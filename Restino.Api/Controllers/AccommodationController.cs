@@ -36,10 +36,10 @@ namespace Restino.Api.Controllers
             return Ok(dtos);
         }
 
-        [HttpGet("{AccommodationId}", Name = "GetAccommodationById")]
-        public async Task<ActionResult<AccommodationDetailsVm>> GetAccommodationById(Guid AccommodationId)
+        [HttpGet("{id}", Name = "GetAccommodationById")]
+        public async Task<ActionResult<AccommodationDetailsVm>> GetAccommodationById(Guid id)
         {
-            var getAccommodationDeatailQuery = new GetAccommodationDetailsQuery() { Id = AccommodationId };
+            var getAccommodationDeatailQuery = new GetAccommodationDetailsQuery() { Id = id };
             return Ok(await mediator.Send(getAccommodationDeatailQuery));
         }
 
