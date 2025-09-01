@@ -39,7 +39,7 @@ namespace Restino.Persistence.IntegrationTests.CategoryTests
                 ImgUrl = "Test"
             });
             await _dbContext.SaveChangesAsync();
-            var result = await _repository.IsCategoryNameUnique(name);
+            var result = await _repository.IsCategoryNameUniqueAsync(name);
 
 
             Assert.True(result);
@@ -48,7 +48,6 @@ namespace Restino.Persistence.IntegrationTests.CategoryTests
         [Fact]
         public async Task GetCategoryWithAccommodation_ReturnsCategoriesWithAccommodations_WhenOnlyOneCategoryResultIsFalse()
         {
-            // Arrange
             var Id = Guid.NewGuid();
             var category = new Category
             {
@@ -65,10 +64,8 @@ namespace Restino.Persistence.IntegrationTests.CategoryTests
             _dbContext.Accommodations.AddRange(accommodation1, accommodation2);
             await _dbContext.SaveChangesAsync();
 
-            // Act
-            var result = await _repository.GetCategoryWithAccommodation(false, Id);
+            var result = await _repository.GetCategoryWithAccommodationAsync(false, Id);
 
-            // Assert
             Assert.NotNull(result);
             Assert.Single(result);
             var returnedCategory = result.First();
@@ -79,7 +76,6 @@ namespace Restino.Persistence.IntegrationTests.CategoryTests
         [Fact]
         public async Task GetCategoryWithAccommodation_ReturnsOnlyCategoriesWithSpecificAccommodation_WhenOnlyOneCategoryResultIsTrue()
         {
-            // Arrange
             var Id = Guid.NewGuid();
             var category1 = new Category
             {
@@ -103,10 +99,8 @@ namespace Restino.Persistence.IntegrationTests.CategoryTests
             _dbContext.Accommodations.AddRange(accommodation1, accommodation2, accommodation3);
             await _dbContext.SaveChangesAsync();
 
-            // Act
-            var result = await _repository.GetCategoryWithAccommodation(true, Id);
+            var result = await _repository.GetCategoryWithAccommodationAsync(true, Id);
 
-            // Assert
             Assert.NotNull(result);
             Assert.Single(result);
             var returnedCategory = result.First();

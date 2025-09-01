@@ -19,7 +19,7 @@ namespace Restino.Application.Features.Categories.Queries.GetCategoriesListWithA
 
         public async Task<List<CategoryAccommodationListVm>> Handle(GetCategoryListWithAccommodationQuery request, CancellationToken cancellationToken)
         {
-            var list = await _categoryRepository.GetCategoryWithAccommodation(request.OnlyOneCategoryResult, request.Id);
+            var list = await _categoryRepository.GetCategoryWithAccommodationAsync(request.OnlyOneCategoryResult, request.Id);
             return _mapper.Map<List<CategoryAccommodationListVm>>(list);
         }
     }

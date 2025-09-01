@@ -1,7 +1,6 @@
 ﻿using AutoMapper;
 using MediatR;
 using Restino.Application.Contracts.Persistance;
-using Restino.Application.Exceptions;
 using Restino.Domain.Entities;
 
 namespace Restino.Application.Features.Categories.Commands.CreateCategoryCommand
@@ -9,7 +8,7 @@ namespace Restino.Application.Features.Categories.Commands.CreateCategoryCommand
     public class CreateCategoryCommandHandler : IRequestHandler<CreateCategoryCommand, Guid>
     {
         private readonly IMapper _mapper;
-        private readonly ICategoryRepository _categoryRepository;
+        private readonly IAsyncRepository<Category> _categoryRepository;
 
         public CreateCategoryCommandHandler(IMapper mapper, ICategoryRepository categoryRepository)
         {
@@ -19,16 +18,9 @@ namespace Restino.Application.Features.Categories.Commands.CreateCategoryCommand
 
         public async Task<Guid> Handle(CreateCategoryCommand request, CancellationToken cancellationToken)
         {
-            var category = new Category() 
-            { 
-                Name = request.Name, 
-                Description = request.Description, 
-                ImgUrl = request.ImgUrl 
-            };
+            var category = _mapper.Map<Category>(request);
 
             await _categoryRepository.AddAsync(category);
-
-            category = _mapper.Map<Category>(category);
 
             return category.Id;
         }

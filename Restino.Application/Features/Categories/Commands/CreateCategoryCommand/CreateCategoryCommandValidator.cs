@@ -24,7 +24,7 @@ namespace Restino.Application.Features.Categories.Commands.CreateCategoryCommand
         private async Task<bool> CategoryNameUnique(CreateCategoryCommand e,
             CancellationToken cancellationToken)
         {
-            return !await _categoryRepository.IsCategoryNameUnique(e.Name);
+            return !await _categoryRepository.IsCategoryNameUniqueAsync(e.Name);
         }
     }
 }

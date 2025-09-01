@@ -22,7 +22,7 @@ namespace Restino.Appilcation.UnitTests.Mock
             var mockCategoryRepository = new Mock<ICategoryRepository>();
             mockCategoryRepository.Setup(repo => repo.ListAllAsync()).ReturnsAsync(categories);
 
-            mockCategoryRepository.Setup(repo => repo.GetCategoryWithAccommodation(It.IsAny<bool>(), It.IsAny<Guid>())).ReturnsAsync(categories);
+            mockCategoryRepository.Setup(repo => repo.GetCategoryWithAccommodationAsync(It.IsAny<bool>(), It.IsAny<Guid>())).ReturnsAsync(categories);
 
             mockCategoryRepository.Setup(repo => repo.AddAsync(It.IsAny<Category>
                 ())).ReturnsAsync(
@@ -48,11 +48,11 @@ namespace Restino.Appilcation.UnitTests.Mock
 
             var categoryNames = categories.Select(c => c.Name).ToList();
 
-            mockCategoryRepository.Setup(repo => repo.IsCategoryNameUnique(It.Is<string>(name =>
+            mockCategoryRepository.Setup(repo => repo.IsCategoryNameUniqueAsync(It.Is<string>(name =>
                 categories.Any(c => c.Name == name))))
                 .ReturnsAsync(true);
 
-            mockCategoryRepository.Setup(repo => repo.GetCategoryWithAccommodation(It.IsAny<bool>(), It.IsAny<Guid?>()))
+            mockCategoryRepository.Setup(repo => repo.GetCategoryWithAccommodationAsync(It.IsAny<bool>(), It.IsAny<Guid?>()))
                .ReturnsAsync((bool onlyOneCategoryResult, Guid? categoryId) =>
                {
                    var allCategories = categories.AsQueryable();

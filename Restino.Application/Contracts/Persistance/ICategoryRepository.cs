@@ -4,7 +4,7 @@ namespace Restino.Application.Contracts.Persistance
 {
     public interface ICategoryRepository : IAsyncRepository<Category>
     {
-        Task<List<Category>> GetCategoryWithAccommodation(bool onlyOneCategoryResult, Guid? CategoryId);
-        Task<bool> IsCategoryNameUnique(string name);
+        Task<List<Category>> GetCategoryWithAccommodationAsync(bool onlyOneCategoryResult, Guid? CategoryId);
+        Task<bool> IsCategoryNameUniqueAsync(string name);
     }
 }
