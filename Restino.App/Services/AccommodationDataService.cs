@@ -1,10 +1,8 @@
-﻿using AutoMapper;
-using Restino.App.Contracts;
+﻿using Restino.App.Contracts;
 using Restino.App.ViewModels;
 using System.Net.Http.Headers;
 using System.Text;
 using System.Text.Json;
-using System.Xml.Linq;
 
 namespace Restino.App.Services
 {
@@ -102,11 +100,9 @@ namespace Restino.App.Services
             return new AccommodationDetailViewModel();
         }
 
-        public async Task<List<AccommodationListViewModel>> GetAllAccommodations(bool? isAccommodationHot)
+        public async Task<List<AccommodationListViewModel>> GetAllAccommodations(bool isAccommodationHot = false)
         {
-            var queryString = isAccommodationHot.HasValue ? $"?isAccommodationHot={isAccommodationHot.Value}" : "";
-            var request = new HttpRequestMessage(HttpMethod.Get, $"https://localhost:7288/api/Accommodation{queryString}");
-
+            var request = new HttpRequestMessage(HttpMethod.Get, $"https://localhost:7288/api/Accommodation?isHot={isAccommodationHot}");
             var response = await _httpClient.SendAsync(request);
 
             if (response.IsSuccessStatusCode)
@@ -121,9 +117,9 @@ namespace Restino.App.Services
             return new List<AccommodationListViewModel>();
         }
 
-        public async Task<List<AccommodationListViewModel>> GetAllUserAccommodations(string userId)
+        public async Task<List<AccommodationListViewModel>> GetAllUserAccommodations()
         {
-            var request = new HttpRequestMessage(HttpMethod.Get, $"https://localhost:7288/api/Accommodation/GetUserAccommodations/{userId}");
+            var request = new HttpRequestMessage(HttpMethod.Get, $"https://localhost:7288/api/Accommodation/user");
 
             string accessToken = _authenticationService.GetAccessToken();
 
@@ -141,15 +137,11 @@ namespace Restino.App.Services
             return new List<AccommodationListViewModel>();
         }
 
-        public async Task<ApiResponse<List<AccommodationListViewModel>>> SearchAccommodation(string? AccommodationName)
+        public async Task<ApiResponse<List<AccommodationListViewModel>>> SearchAccommodation(string searchString)
         {
             try
             {
-                var url = string.IsNullOrWhiteSpace(AccommodationName)
-                    ? "https://localhost:7288/api/Accommodation/SearchAccommodation"
-                    : $"https://localhost:7288/api/Accommodation/SearchAccommodation/{Uri.EscapeDataString(AccommodationName)}";
-
-                var request = new HttpRequestMessage(HttpMethod.Get, url);
+                var request = new HttpRequestMessage(HttpMethod.Get, $"https://localhost:7288/api/Accommodation?search={searchString}");
 
                 var response = await _httpClient.SendAsync(request);
 

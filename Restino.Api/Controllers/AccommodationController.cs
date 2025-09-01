@@ -26,11 +26,12 @@ namespace Restino.Api.Controllers
         }
 
         [Authorize]
-        [HttpGet("[action]/{userId}", Name = "GetUserAccommodations")]
+        [HttpGet("user", Name = "GetUserAccommodations")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesDefaultResponseType]
-        public async Task<ActionResult<List<AccommodationListVm>>> GetUserAccommodations(string? userId)
+        public async Task<ActionResult<List<AccommodationListVm>>> GetUserAccommodations()
         {
+            var userId = currentUserService.UserId;
             var dtos = await mediator.Send(new GetUserAccommodationListQuery() { UserId = userId });
             return Ok(dtos);
         }
