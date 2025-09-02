@@ -1,18 +1,18 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Restino.Application.Contracts;
 using Restino.Application.Features.Reservations.Commands.CreateReservation;
 using Restino.Application.Features.Reservations.Commands.DeleteReservation;
 using Restino.Application.Features.Reservations.Queries.GetReservatioDetails;
 using Restino.Application.Features.Reservations.Queries.GetReservationList;
 using Restino.Application.Features.Reservations.Queries.GetUserReservations;
-using System.Security.Claims;
 
 namespace Restino.Api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class ReservationController(IMediator mediator) : Controller
+    public class ReservationController(IMediator mediator, ICurrentUserService currentUserService) : Controller
     {
         [Authorize]
         [HttpGet(Name = "GetAllReservation")]
@@ -25,10 +25,10 @@ namespace Restino.Api.Controllers
         }
 
         [Authorize(Roles = "Admin")]
-        [HttpGet("{ReservationsId}", Name = "GetReservationById")]
-        public async Task<ActionResult<ReservationDetailsVm>> GetReservationById(Guid ReservationsId)
+        [HttpGet("{reservationsId}", Name = "GetReservationById")]
+        public async Task<ActionResult<ReservationDetailsVm>> GetReservationById(Guid reservationsId)
         {
-            var getReservationDetailsQuery = new GetReservationDetailQuery() { Id = ReservationsId };
+            var getReservationDetailsQuery = new GetReservationDetailQuery() { Id = reservationsId };
             return Ok(await mediator.Send(getReservationDetailsQuery));
         }
 
@@ -47,16 +47,22 @@ namespace Restino.Api.Controllers
         [ProducesDefaultResponseType]
         public async Task<ActionResult> Delete(Guid id)
         {
-            var userId = User.FindFirst("uid")?.Value;
-            var userRole = User.FindFirst(ClaimTypes.Role)?.Value;
+            var userId = currentUserService.UserId;
+            var userRole = currentUserService.UserRole;
 
-            var deleteReservationCommand = new DeleteReservationCommand() { Id = id, UserId = userId, UserRole = userRole };
+            var deleteReservationCommand = new DeleteReservationCommand() 
+            { 
+                Id = id, 
+                UserId = userId, 
+                UserRole = userRole
+            };
+
             await mediator.Send(deleteReservationCommand);
             return NoContent();
         }
 
         [Authorize]
-        [HttpGet("[action]/{userId}", Name = "GetUserReservations")]
+        [HttpGet("{userId}/user", Name = "GetUserReservations")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesDefaultResponseType]
         public async Task<ActionResult<List<GetUserReservationListVm>>> GetUserReservations(string userId)

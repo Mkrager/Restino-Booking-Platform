@@ -14,7 +14,7 @@ namespace Restino.Api.Controllers
     public class CategoryController(IMediator mediator) : Controller
     {
 
-        [HttpGet("all", Name = "GetAllCategories")]
+        [HttpGet(Name = "GetAllCategories")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<ActionResult<List<CategoryListVm>>> GetAllCategories()
         {
@@ -22,7 +22,7 @@ namespace Restino.Api.Controllers
             return Ok(dtos);
         }
 
-        [HttpGet("allwithcategories", Name = "GetAllCategoriesWithAccommodations")]
+        [HttpGet("accommodations", Name = "GetAllCategoriesWithAccommodations")]
         [ProducesDefaultResponseType]
         [ProducesResponseType(StatusCodes.Status200OK)]
 

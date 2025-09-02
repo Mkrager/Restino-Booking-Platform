@@ -208,7 +208,7 @@ namespace Restino.Appilcation.UnitTests.Mock
                     return guestsCount > accommodation.Capacity;
                 });
 
-            mockReservationRepository.Setup(repo => repo.GetReservationsByUserIdAsync(It.IsAny<string>()))
+            mockReservationRepository.Setup(repo => repo.GetReservationsWithAccommodationByUserIdAsync(It.IsAny<string>()))
                 .ReturnsAsync((string userId) =>
                 {
                     var userReservations = reservations.Where(r => r.CreatedBy == userId).ToList();

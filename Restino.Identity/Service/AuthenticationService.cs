@@ -4,7 +4,6 @@ using Microsoft.IdentityModel.Tokens;
 using Restino.Application.Contracts.Identity;
 using Restino.Application.DTOs.Authentication;
 using Restino.Identity.Models;
-using System.Collections.ObjectModel;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
@@ -99,7 +98,7 @@ namespace Restino.Identity.Service
         }
 
 
-        public async Task<RegistrationResponse> RegisterAsync(RegistrationRequest request)
+        public async Task<string> RegisterAsync(RegistrationRequest request)
         {
             if (string.IsNullOrEmpty(request.Password))
             {
@@ -130,7 +129,7 @@ namespace Restino.Identity.Service
 
                 if (result.Succeeded)
                 {
-                    return new RegistrationResponse() { UserId = user.Id };
+                    return user.Id ;
                 }
                 else
                 {

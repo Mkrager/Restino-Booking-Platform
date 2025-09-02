@@ -1,9 +1,8 @@
 ﻿using MediatR;
-using Restino.Application.DTOs.Authentication;
 
 namespace Restino.Application.Features.Accounts.Queries.Authentication
 {
-    public class AuthenticationQuery : IRequest<AuthenticationResponse>
+    public class AuthenticationQuery : IRequest<AuthenticationVm>
     {
         public string Email { get; set; } = string.Empty;
         public string Password { get; set; } = string.Empty;

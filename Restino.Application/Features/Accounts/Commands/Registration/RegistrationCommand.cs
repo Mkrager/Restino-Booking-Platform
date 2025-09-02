@@ -1,9 +1,8 @@
 ﻿using MediatR;
-using Restino.Application.DTOs.Authentication;
 
 namespace Restino.Application.Features.Accounts.Commands.Registration
 {
-    public class RegistrationCommand : IRequest<RegistrationResponse>
+    public class RegistrationCommand : IRequest<string>
     {
         public string UserId { get; set; } = string.Empty;
         public string FirstName { get; set; } = string.Empty;

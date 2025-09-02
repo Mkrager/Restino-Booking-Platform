@@ -5,7 +5,7 @@ using Restino.Application.DTOs.Authentication;
 
 namespace Restino.Application.Features.Accounts.Commands.Registration
 {
-    public class RegistrationCommandHandler : IRequestHandler<RegistrationCommand, RegistrationResponse>
+    public class RegistrationCommandHandler : IRequestHandler<RegistrationCommand, string>
     {
         private readonly IMapper _mapper;
         private readonly IAuthenticationService _authenticationService;
@@ -16,18 +16,10 @@ namespace Restino.Application.Features.Accounts.Commands.Registration
             _mapper = mapper;
         }
 
-        public async Task<RegistrationResponse> Handle(RegistrationCommand request, CancellationToken cancellationToken)
+        public async Task<string> Handle(RegistrationCommand request, CancellationToken cancellationToken)
         {
-            var registerUser = new RegistrationRequest
-            {
-                Email = request.Email,
-                FirstName = request.FirstName,
-                LastName = request.LastName,
-                Password = request.Password,
-                UserName = request.UserName
-            };
-
-            var register = await _authenticationService.RegisterAsync(registerUser);
+            var register = await _authenticationService
+                .RegisterAsync(_mapper.Map<RegistrationRequest>(request));
 
             return register;
         }
