@@ -1,9 +1,7 @@
 ﻿using AutoMapper;
 using Moq;
-using Restino.Appilcation.UnitTests.Mock;
-using Restino.Application.Contracts.Identity;
+using Restino.Appilcation.UnitTests.Mocks;
 using Restino.Application.Contracts.Persistance;
-using Restino.Application.Exceptions;
 using Restino.Application.Features.Accommodations.Commands.CreateAccommodation;
 using Restino.Application.Profiles;
 using Shouldly;
@@ -14,11 +12,10 @@ namespace Restino.Appilcation.UnitTests.Accommodations.Commands
     {
         private readonly IMapper _mapper;
         private readonly Mock<IAccommodationRepository> _mockAccommodationRepository;
-        private readonly Mock<IUserService> _mockUserService;
 
         public CreateAccommodationCommandTests()
         {
-            _mockAccommodationRepository = RepositoryMocks.GetAccommodationRepository();
+            _mockAccommodationRepository = AccommodationRepositoryMock.GetAccommodationRepository();
             var configurationProvider = new MapperConfiguration(cfg =>
             {
                 cfg.AddProfile<MappingProfile>();

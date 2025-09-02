@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Moq;
 using Restino.Appilcation.UnitTests.Mock;
+using Restino.Appilcation.UnitTests.Mocks;
 using Restino.Application.Contracts.Persistance;
 using Restino.Application.Features.Accommodations.Queries.GetAccommodationDetails;
 using Restino.Application.Profiles;
@@ -15,7 +16,7 @@ namespace Restino.Appilcation.UnitTests.Accommodations.Queries
 
         public GetAccommodationDetailsQueryHandlerTests()
         {
-            _mockAccommodationRepository = RepositoryMocks.GetAccommodationRepository();
+            _mockAccommodationRepository = AccommodationRepositoryMock.GetAccommodationRepository();
             var configurationProvider = new MapperConfiguration(cfg =>
             {
                 cfg.AddProfile<MappingProfile>();

@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Moq;
 using Restino.Appilcation.UnitTests.Mock;
+using Restino.Appilcation.UnitTests.Mocks;
 using Restino.Application.Contracts.Persistance;
 using Restino.Application.Features.Accommodations.Commands.UpdateAccommodation;
 using Restino.Application.Profiles;
@@ -15,7 +16,7 @@ namespace Restino.Appilcation.UnitTests.Accommodations.Commands
 
         public UpdateAccommodationCommandTests()
         {
-            _mockAccommodationRepository = RepositoryMocks.GetAccommodationRepository();
+            _mockAccommodationRepository = AccommodationRepositoryMock.GetAccommodationRepository();
             var configurationProvider = new MapperConfiguration(cfg =>
             {
                 cfg.AddProfile<MappingProfile>();
@@ -26,7 +27,6 @@ namespace Restino.Appilcation.UnitTests.Accommodations.Commands
         [Fact]
         public async Task UpdateAccommodation_ValidCommand_UpdatesAccommodationSuccessfully()
         {
-            // Arrange
             var handler = new UpdateAccommodationCommandHandler(_mapper, _mockAccommodationRepository.Object);
             var updateCommand = new UpdateAccommodationCommand
             {
@@ -41,10 +41,8 @@ namespace Restino.Appilcation.UnitTests.Accommodations.Commands
                 UserRole = "Admin"
             };
 
-            // Act
             await handler.Handle(updateCommand, CancellationToken.None);
 
-            // Assert
             var updatedAccommodation = await _mockAccommodationRepository.Object.GetByIdAsync(updateCommand.Id);
 
             updatedAccommodation.ShouldNotBeNull();

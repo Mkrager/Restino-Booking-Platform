@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Moq;
 using Restino.Appilcation.UnitTests.Mock;
+using Restino.Appilcation.UnitTests.Mocks;
 using Restino.Application.Contracts.Persistance;
 using Restino.Application.Features.Accommodations.Queries.GetAccommodationList;
 using Restino.Application.Profiles;
@@ -15,7 +16,7 @@ namespace Restino.Appilcation.UnitTests.Accommodations.Queries
 
         public GetAccommodationListQueryHandlerTests()
         {
-            _mockAccommodationRepository = RepositoryMocks.GetAccommodationRepository();
+            _mockAccommodationRepository = AccommodationRepositoryMock.GetAccommodationRepository();
             var configurationProvider = new MapperConfiguration(cfg =>
             {
                 cfg.AddProfile<MappingProfile>();
@@ -29,7 +30,10 @@ namespace Restino.Appilcation.UnitTests.Accommodations.Queries
             bool? isAccommodationHot = null;
             var handler = new GetAccommodationListQueryHandler(_mapper, _mockAccommodationRepository.Object);
 
-            var result = await handler.Handle(new GetAccommodationListQuery() { IsAccommodationHot = isAccommodationHot.HasValue }, CancellationToken.None);
+            var result = await handler.Handle(new GetAccommodationListQuery() 
+            {
+                IsAccommodationHot = isAccommodationHot.HasValue 
+            }, CancellationToken.None);
 
             result.ShouldBeOfType<List<AccommodationListVm>>();
 

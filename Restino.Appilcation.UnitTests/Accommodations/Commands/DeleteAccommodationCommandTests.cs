@@ -1,5 +1,6 @@
 ﻿using Moq;
 using Restino.Appilcation.UnitTests.Mock;
+using Restino.Appilcation.UnitTests.Mocks;
 using Restino.Application.Contracts.Persistance;
 using Restino.Application.Features.Accommodations.Commands.DeleteAccommodation;
 using Shouldly;
@@ -12,7 +13,7 @@ namespace Restino.Appilcation.UnitTests.Accommodations.Commands
 
         public DeleteAccommodationCommandTests()
         {
-            _mockAccommodationRepository = RepositoryMocks.GetAccommodationRepository();
+            _mockAccommodationRepository = AccommodationRepositoryMock.GetAccommodationRepository();
         }
 
         [Fact]

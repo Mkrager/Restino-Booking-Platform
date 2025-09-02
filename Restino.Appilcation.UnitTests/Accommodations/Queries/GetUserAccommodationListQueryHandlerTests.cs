@@ -14,12 +14,10 @@ namespace Restino.Appilcation.UnitTests.Accommodations.Queries
     {
         private readonly IMapper _mapper;
         private readonly Mock<IAccommodationRepository> _mockAccommodationRepository;
-        private readonly Mock<ICategoryRepository> _mockCategoryRepository;
 
         public GetUserAccommodationListQueryHandlerTests()
         {
-            _mockAccommodationRepository = RepositoryMocks.GetAccommodationRepository();
-            _mockCategoryRepository = CategoryRepositoryMock.GetCategoryRepository();
+            _mockAccommodationRepository = AccommodationRepositoryMock.GetAccommodationRepository();
 
             var configurationProvider = new MapperConfiguration(cfg =>
             {
@@ -29,9 +27,9 @@ namespace Restino.Appilcation.UnitTests.Accommodations.Queries
         }
 
         [Fact]
-        public async Task ListUserAccommodationListTest()
+        public async Task GetUserAccommdoationsList_ReturnsListOfUserAccommodations()
         {
-            var handler = new GetUserAccommodationListQueryHandler(_mapper, _mockAccommodationRepository.Object, _mockCategoryRepository.Object);
+            var handler = new GetUserAccommodationListQueryHandler(_mapper, _mockAccommodationRepository.Object);
 
             string userId = "12334556456745";
 

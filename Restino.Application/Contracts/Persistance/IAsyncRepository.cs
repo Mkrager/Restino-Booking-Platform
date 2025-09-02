@@ -1,6 +1,4 @@
-﻿using Restino.Domain.Common;
-
-namespace Restino.Application.Contracts.Persistance
+﻿namespace Restino.Application.Contracts.Persistance
 {
     public interface IAsyncRepository<T> where T : class
     {

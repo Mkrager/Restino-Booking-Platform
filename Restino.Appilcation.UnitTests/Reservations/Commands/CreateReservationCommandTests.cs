@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Moq;
 using Restino.Appilcation.UnitTests.Mock;
+using Restino.Appilcation.UnitTests.Mocks;
 using Restino.Application.Contracts.Application;
 using Restino.Application.Contracts.Persistance;
 using Restino.Application.Exceptions;
@@ -15,12 +16,12 @@ namespace Restino.Appilcation.UnitTests.Reservations.Commands
     {
         private readonly IMapper _mapper;
         private readonly Mock<IReservationRepository> _mockReservationRepository;
-        private readonly Mock<IAccommodationRepository> _mockAccommodatioRepository;
+        private readonly Mock<IAccommodationRepository> _mockAccommodationRepository;
         private readonly Mock<IReservationService> _mockReservationService;
         public CreateReservationCommandTests()
         {
             _mockReservationRepository = RepositoryMocks.GetReservationRepository();
-            _mockAccommodatioRepository = RepositoryMocks.GetAccommodationRepository();
+            _mockAccommodationRepository = AccommodationRepositoryMock.GetAccommodationRepository();
             _mockReservationService = RepositoryMocks.GetReservationService();
             var configurationProvider = new MapperConfiguration(cfg =>
             {
@@ -35,7 +36,7 @@ namespace Restino.Appilcation.UnitTests.Reservations.Commands
             var handler = new CreateReservationCommandHandler(
                 _mapper, 
                 _mockReservationRepository.Object,
-                _mockAccommodatioRepository.Object,
+                _mockAccommodationRepository.Object,
                 _mockReservationService.Object);
             var command = new CreateReservationCommand
             {
