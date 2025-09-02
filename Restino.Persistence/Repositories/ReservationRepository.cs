@@ -36,17 +36,5 @@ namespace Restino.Persistence.Repositories
 
             return exceedsCapacity;
         }
-
-        public async Task<decimal> GetTotalPriceAsync(Guid accommodationId, DateTime checkInDate, DateTime checkOutDate)
-        {
-            var accommodation = await _dbContext.Accommodations
-                .FirstOrDefaultAsync(a => a.Id == accommodationId);
-
-            var numberOfDays = (checkOutDate - checkInDate).TotalDays;
-
-            var totalPrice = (decimal)numberOfDays * accommodation.Price;
-
-            return totalPrice;
-        }
     }
 }

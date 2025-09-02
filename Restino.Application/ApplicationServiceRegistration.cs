@@ -17,7 +17,7 @@ namespace Restino.Application
             services.AddMediatR(Assembly.GetExecutingAssembly());
 
             services.AddScoped<IPermissionService, PermissionService>();
-
+            services.AddScoped<IReservationService, ReservationService>();
 
             services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
             services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBehaviour<,>));

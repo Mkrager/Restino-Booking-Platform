@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Moq;
 using Restino.Appilcation.UnitTests.Mock;
+using Restino.Application.Contracts.Application;
 using Restino.Application.Contracts.Persistance;
 using Restino.Application.Exceptions;
 using Restino.Application.Features.Categories.Commands.CreateCategoryCommand;
@@ -14,10 +15,13 @@ namespace Restino.Appilcation.UnitTests.Reservations.Commands
     {
         private readonly IMapper _mapper;
         private readonly Mock<IReservationRepository> _mockReservationRepository;
-
+        private readonly Mock<IAccommodationRepository> _mockAccommodatioRepository;
+        private readonly Mock<IReservationService> _mockReservationService;
         public CreateReservationCommandTests()
         {
             _mockReservationRepository = RepositoryMocks.GetReservationRepository();
+            _mockAccommodatioRepository = RepositoryMocks.GetAccommodationRepository();
+            _mockReservationService = RepositoryMocks.GetReservationService();
             var configurationProvider = new MapperConfiguration(cfg =>
             {
                 cfg.AddProfile<MappingProfile>();
@@ -28,7 +32,11 @@ namespace Restino.Appilcation.UnitTests.Reservations.Commands
         [Fact]
         public async Task Should_Create_Reservation_Successfully()
         {
-            var handler = new CreateReservationCommandHandler(_mapper, _mockReservationRepository.Object);
+            var handler = new CreateReservationCommandHandler(
+                _mapper, 
+                _mockReservationRepository.Object,
+                _mockAccommodatioRepository.Object,
+                _mockReservationService.Object);
             var command = new CreateReservationCommand
             {
                 AccommodationId = Guid.Parse("6a4ab6df-66b8-46f7-8198-c94332964006"),
@@ -36,7 +44,7 @@ namespace Restino.Appilcation.UnitTests.Reservations.Commands
                 CustomerNote = "test",
                 GuestsCount = 1,
                 CheckInDate = DateTime.Today,
-                CheckOutDate = DateTime.Today.AddDays(42)
+                CheckOutDate = DateTime.Today.AddDays(10)
             };
 
             await handler.Handle(command, CancellationToken.None);
@@ -53,12 +61,13 @@ namespace Restino.Appilcation.UnitTests.Reservations.Commands
             createdReservation.GuestsCount.ShouldBe(command.GuestsCount);
             createdReservation.CheckInDate.ShouldBe(command.CheckInDate);
             createdReservation.CheckOutDate.ShouldBe(command.CheckOutDate);
+            createdReservation.Price.ShouldBe(15000);
         }
 
         [Fact]
         public async void Validator_ShouldHaveError_WhenReservationHaveInvalidDateRange()
         {
-            var validator = new CreateReservationCommandValidator(_mockReservationRepository.Object);
+            var validator = new CreateReservationCommandValidator(_mockReservationRepository.Object, _mockReservationService.Object);
             var query = new CreateReservationCommand
             {
                 AccommodationId = Guid.Parse("1a4ab6df-66b8-46f7-8198-c94332964001"),
@@ -72,13 +81,13 @@ namespace Restino.Appilcation.UnitTests.Reservations.Commands
             var result = await validator.ValidateAsync(query);
 
             Assert.False(result.IsValid);
-            Assert.Contains(result.Errors, f => f.ErrorMessage == "Invalid date range");
+            Assert.Contains(result.Errors, f => f.ErrorMessage == "The selected dates overlap with an existing reservation");
         }
 
         [Fact]
         public async void Validator_ShouldHaveError_WhenReservationHaveInvalidGuestsCount()
         {
-            var validator = new CreateReservationCommandValidator(_mockReservationRepository.Object);
+            var validator = new CreateReservationCommandValidator(_mockReservationRepository.Object, _mockReservationService.Object);
             var query = new CreateReservationCommand
             {
                 AccommodationId = Guid.Parse("1a4ab6df-66b8-46f7-8198-c94332964001"),

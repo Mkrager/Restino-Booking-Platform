@@ -40,7 +40,7 @@ namespace Restino.Application.Features.Reservations.Commands.CreateReservation
         }
         private async Task<bool> HasNoOverlapAsync(CreateReservationCommand e, CancellationToken cancellationToken)
         {
-            return !await _reservationRepository.IsDateRangeValidAsync(e.CheckInDate, e.CheckOutDate, e.AccommodationId);
+            return !await _reservationRepository.HasOverlapAsync(e.CheckInDate, e.CheckOutDate, e.AccommodationId);
         }
         private bool IsDateRangeValid(CreateReservationCommand e)
         {

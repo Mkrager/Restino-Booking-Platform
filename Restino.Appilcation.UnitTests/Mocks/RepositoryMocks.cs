@@ -1,4 +1,5 @@
 ﻿using Moq;
+using Restino.Application.Contracts.Application;
 using Restino.Application.Contracts.Identity;
 using Restino.Application.Contracts.Persistance;
 using Restino.Application.DTOs.Authentication;
@@ -186,7 +187,7 @@ namespace Restino.Appilcation.UnitTests.Mock
                     return reservations.FirstOrDefault(reservation => reservation.Id == id);
                 });
 
-            mockReservationRepository.Setup(repo => repo.IsDateRangeValidAsync(It.IsAny<DateTime>(), It.IsAny<DateTime>(), It.IsAny<Guid>()))
+            mockReservationRepository.Setup(repo => repo.HasOverlapAsync(It.IsAny<DateTime>(), It.IsAny<DateTime>(), It.IsAny<Guid>()))
                 .ReturnsAsync((DateTime checkInDate, DateTime checkOutDate, Guid accommodationId) =>
                 {
                     return reservations.Any(r =>
@@ -216,6 +217,40 @@ namespace Restino.Appilcation.UnitTests.Mock
                 });
 
             return mockReservationRepository;
+        }
+
+        public static Mock<IReservationService> GetReservationService()
+        {
+            var mockReservationService = new Mock<IReservationService>();
+
+            mockReservationService.Setup(service => service.IsDateRangeValid(It.IsAny<DateTime>(), It.IsAny<DateTime>()))
+                .Returns((DateTime checkInDate, DateTime checkOutDate) =>
+                {
+                    if (checkInDate >= checkOutDate)
+                        return true;
+
+                    var currentDate = DateTime.Today;
+                    if (checkInDate < currentDate)
+                        return true;
+
+                    var lastDate = currentDate.AddYears(1);
+                    if (checkInDate > lastDate)
+                        return true;
+
+                    return false;
+                });
+
+            mockReservationService.Setup(service => service.GetTotalPrice(It.IsAny<Accommodation>(), It.IsAny<DateTime>(), It.IsAny<DateTime>()))
+                .Returns((Accommodation accommodation, DateTime checkInDate, DateTime checkOutDate) =>
+                {
+                    var numberOfDays = (checkOutDate - checkInDate).TotalDays;
+
+                    var totalPrice = (decimal)numberOfDays * accommodation.Price;
+
+                    return totalPrice;
+                });
+
+            return mockReservationService;
         }
 
         public static Mock<IAuthenticationService> GetAuthenticationService()
