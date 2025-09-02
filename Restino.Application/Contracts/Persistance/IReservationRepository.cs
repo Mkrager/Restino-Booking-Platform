@@ -6,6 +6,6 @@ namespace Restino.Application.Contracts.Persistance
     {
         Task<bool> IsGuestsCountWithinCapacityAsync(int guestsCount, Guid accommodationId);
         Task<bool> HasOverlapAsync(DateTime checkInDate, DateTime checkOutDate, Guid accommodationId);
-        Task<List<Reservation>> GetReservationsByUserIdAsync(string userId);
+        Task<List<Reservation>> GetReservationsWithAccommodationByUserIdAsync(string userId);
     }
 }

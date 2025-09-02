@@ -11,10 +11,11 @@ namespace Restino.Persistence.Repositories
 
         }
 
-        public async Task<List<Reservation>> GetReservationsByUserIdAsync(string userId)
+        public async Task<List<Reservation>> GetReservationsWithAccommodationByUserIdAsync(string userId)
         {
-            var userReservation = _dbContext.Reservation.Where(e => e.CreatedBy == userId);
-            return await userReservation.ToListAsync();
+            return await _dbContext.Reservation
+                .Include(r => r.Accommodation)
+                .Where(e => e.CreatedBy == userId).OrderBy(r => r.CreatedBy).ToListAsync();
         }
 
         public async Task<bool> HasOverlapAsync(DateTime checkInDate, DateTime checkOutDate, Guid accommodationId)

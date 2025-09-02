@@ -2,7 +2,7 @@
 using Moq;
 using Restino.Appilcation.UnitTests.Mock;
 using Restino.Application.Contracts.Persistance;
-using Restino.Application.Features.Reservations.Queries.ListUserReservations;
+using Restino.Application.Features.Reservations.Queries.GetUserReservations;
 using Restino.Application.Profiles;
 using Shouldly;
 

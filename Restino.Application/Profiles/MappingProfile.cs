@@ -14,7 +14,7 @@ using Restino.Application.Features.Reservations.Commands.CreateReservation;
 using Restino.Application.Features.Reservations.Commands.DeleteReservation;
 using Restino.Application.Features.Reservations.Queries.GetReservatioDetails;
 using Restino.Application.Features.Reservations.Queries.GetReservationList;
-using Restino.Application.Features.Reservations.Queries.ListUserReservations;
+using Restino.Application.Features.Reservations.Queries.GetUserReservations;
 using Restino.Domain.Entities;
 
 namespace Restino.Application.Profiles

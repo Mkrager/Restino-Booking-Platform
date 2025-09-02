@@ -1,6 +1,6 @@
 ﻿using MediatR;
 
-namespace Restino.Application.Features.Reservations.Queries.ListUserReservations
+namespace Restino.Application.Features.Reservations.Queries.GetUserReservations
 {
     public class GetUserReservationListQuery : IRequest<List<GetUserReservationListVm>>
     {

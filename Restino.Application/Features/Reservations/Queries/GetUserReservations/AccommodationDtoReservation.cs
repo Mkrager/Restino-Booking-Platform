@@ -1,4 +1,4 @@
-﻿namespace Restino.Application.Features.Reservations.Queries.ListUserReservations
+﻿namespace Restino.Application.Features.Reservations.Queries.GetUserReservations
 {
     public class AccommodationDtoReservation
     {
