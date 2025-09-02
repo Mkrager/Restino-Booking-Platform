@@ -1,9 +1,7 @@
-﻿using AutoMapper;
-using Moq;
-using Restino.Appilcation.UnitTests.Mock;
+﻿using Moq;
+using Restino.Appilcation.UnitTests.Mocks;
 using Restino.Application.Contracts.Persistance;
 using Restino.Application.Features.Categories.Commands.DeleteCategoryCommand;
-using Restino.Application.Profiles;
 using Shouldly;
 
 namespace Restino.Appilcation.UnitTests.Categories.Commands
@@ -14,7 +12,7 @@ namespace Restino.Appilcation.UnitTests.Categories.Commands
 
         public DeleteCategoryCommandTests()
         {
-            _mockCategoryRepository = RepositoryMocks.GetCategoryRepository();
+            _mockCategoryRepository = CategoryRepositoryMock.GetCategoryRepository();
         }
 
         [Fact]

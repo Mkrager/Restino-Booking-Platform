@@ -9,67 +9,6 @@ namespace Restino.Appilcation.UnitTests.Mock
 {
     public class RepositoryMocks
     {
-        public static Mock<ICategoryRepository> GetCategoryRepository()
-        {
-            var categories = MockData.GetCategories();
-            var accommodations = MockData.GetAccommodations();
-
-            foreach (var category in categories)
-            {
-                category.Accommodations = accommodations.Where(a => a.CategoryId == category.Id).ToList();
-            }
-
-
-            var mockCategoryRepository = new Mock<ICategoryRepository>();
-
-            mockCategoryRepository.Setup(repo => repo.ListAllAsync()).ReturnsAsync(categories);
-
-            mockCategoryRepository.Setup(repo => repo.GetCategoryWithAccommodationAsync(It.IsAny<bool>(), It.IsAny<Guid>())).ReturnsAsync(categories);
-
-            mockCategoryRepository.Setup(repo => repo.AddAsync(It.IsAny<Category>
-                ())).ReturnsAsync(
-                (Category category) =>
-                {
-                    category.Id = Guid.NewGuid();
-                    categories.Add(category);
-                    return category;
-                });
-
-            mockCategoryRepository.Setup(repo => repo.GetByIdAsync(It.IsAny<Guid>
-                ())).ReturnsAsync(
-                (Guid id) =>
-                {
-                    return categories.FirstOrDefault(category => category.Id == id);
-                });
-
-            mockCategoryRepository.Setup(repo => repo.DeleteAsync(It.IsAny<Category>())).Callback<Category>(
-                (Category category) =>
-                {
-                    categories.Remove(category);
-                }).Returns(Task.CompletedTask);
-
-            var categoryNames = categories.Select(c => c.Name).ToList();
-
-            mockCategoryRepository.Setup(repo => repo.IsCategoryNameUniqueAsync(It.Is<string>(name =>
-                categories.Any(c => c.Name == name))))
-                .ReturnsAsync(true);
-
-            mockCategoryRepository.Setup(repo => repo.GetCategoryWithAccommodationAsync(It.IsAny<bool>(), It.IsAny<Guid?>()))
-               .ReturnsAsync((bool onlyOneCategoryResult, Guid? categoryId) =>
-               {
-                   var allCategories = categories.AsQueryable();
-
-                   if (onlyOneCategoryResult && categoryId.HasValue)
-                   {
-                       allCategories = allCategories.Where(x => x.Accommodations.Any(a => a.CategoryId == categoryId.Value));
-                   }
-
-                   return allCategories.ToList();
-               });
-
-
-            return mockCategoryRepository;
-        }
 
         public static Mock<IAccommodationRepository> GetAccommodationRepository()
         {

@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using Moq;
-using Restino.Appilcation.UnitTests.Mock;
+using Restino.Appilcation.UnitTests.Mocks;
 using Restino.Application.Contracts.Persistance;
 using Restino.Application.Features.Categories.Commands.CreateCategoryCommand;
 using Restino.Application.Profiles;
@@ -15,7 +15,7 @@ namespace Restino.Appilcation.UnitTests.Categories.Commands
 
         public CreateCategoryCommandTests()
         {
-            _mockCategoryRepository = RepositoryMocks.GetCategoryRepository();
+            _mockCategoryRepository = CategoryRepositoryMock.GetCategoryRepository();
             var configurationProvider = new MapperConfiguration(cfg =>
             {
                 cfg.AddProfile<MappingProfile>();

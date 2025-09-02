@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Moq;
 using Restino.Appilcation.UnitTests.Mock;
+using Restino.Appilcation.UnitTests.Mocks;
 using Restino.Application.Contracts.Persistance;
 using Restino.Application.Features.Accommodations.Queries.GetAccommodationList;
 using Restino.Application.Features.Accommodations.Queries.GetUserAccommodationList;
@@ -18,7 +19,7 @@ namespace Restino.Appilcation.UnitTests.Accommodations.Queries
         public GetUserAccommodationListQueryHandlerTests()
         {
             _mockAccommodationRepository = RepositoryMocks.GetAccommodationRepository();
-            _mockCategoryRepository = RepositoryMocks.GetCategoryRepository();
+            _mockCategoryRepository = CategoryRepositoryMock.GetCategoryRepository();
 
             var configurationProvider = new MapperConfiguration(cfg =>
             {

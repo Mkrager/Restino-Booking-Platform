@@ -13,13 +13,16 @@ namespace Restino.Persistence.Repositories
 
         public async Task<List<Category>> GetCategoryWithAccommodationAsync(bool onlyOneCategoryResult, Guid? categoryId)
         {
-            var allCategories = await _dbContext.Categories.Include(x => x.Accommodations).ToListAsync();
-            if (onlyOneCategoryResult)
+            var query = _dbContext.Categories
+                .Include(x => x.Accommodations)
+                .AsQueryable();
+
+            if (onlyOneCategoryResult && categoryId.HasValue)
             {
-                allCategories = allCategories.Where(x => x.Accommodations.Any(a => a.CategoryId == categoryId)).ToList();
+                query = query.Where(c => c.Accommodations.Any(a => a.CategoryId == categoryId.Value));
             }
 
-            return allCategories;
+            return await query.ToListAsync();
         }
 
         public async Task<bool> IsCategoryNameUniqueAsync(string name)
