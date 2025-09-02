@@ -17,26 +17,8 @@ namespace Restino.Persistence.Repositories
             return await userReservation.ToListAsync();
         }
 
-        public async Task<bool> IsDateRangeValidAsync(DateTime checkInDate, DateTime checkOutDate, Guid accommodationId)
+        public async Task<bool> HasOverlapAsync(DateTime checkInDate, DateTime checkOutDate, Guid accommodationId)
         {
-
-            if (checkInDate >= checkOutDate)
-            {
-                return true;
-            }
-
-            var currentDate = DateTime.Today;
-            if (checkInDate < currentDate)
-            {
-                return true;
-            }
-
-            var lastDate = currentDate.AddYears(1);
-            if (checkInDate > lastDate)
-            {
-                return true;
-            }
-
             var isOverlap = await _dbContext.Reservation
                 .Where(r => r.AccommodationId == accommodationId)
                 .AnyAsync(r =>
