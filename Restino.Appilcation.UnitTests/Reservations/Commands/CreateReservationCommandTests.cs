@@ -20,7 +20,7 @@ namespace Restino.Appilcation.UnitTests.Reservations.Commands
         {
             _mockReservationRepository = ReservationRepositoryMock.GetReservationRepository();
             _mockAccommodationRepository = AccommodationRepositoryMock.GetAccommodationRepository();
-            _mockReservationService = RepositoryMocks.GetReservationService();
+            _mockReservationService = ReservationServiceMock.GetReservationService();
             var configurationProvider = new MapperConfiguration(cfg =>
             {
                 cfg.AddProfile<MappingProfile>();

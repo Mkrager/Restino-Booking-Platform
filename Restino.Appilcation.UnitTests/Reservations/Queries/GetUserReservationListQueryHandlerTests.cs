@@ -1,6 +1,5 @@
 ﻿using AutoMapper;
 using Moq;
-using Restino.Appilcation.UnitTests.Mock;
 using Restino.Appilcation.UnitTests.Mocks;
 using Restino.Application.Contracts.Persistance;
 using Restino.Application.Features.Reservations.Queries.GetUserReservations;
