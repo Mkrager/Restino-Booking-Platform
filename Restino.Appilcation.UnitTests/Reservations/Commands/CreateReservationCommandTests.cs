@@ -4,8 +4,6 @@ using Restino.Appilcation.UnitTests.Mock;
 using Restino.Appilcation.UnitTests.Mocks;
 using Restino.Application.Contracts.Application;
 using Restino.Application.Contracts.Persistance;
-using Restino.Application.Exceptions;
-using Restino.Application.Features.Categories.Commands.CreateCategoryCommand;
 using Restino.Application.Features.Reservations.Commands.CreateReservation;
 using Restino.Application.Profiles;
 using Shouldly;
@@ -20,7 +18,7 @@ namespace Restino.Appilcation.UnitTests.Reservations.Commands
         private readonly Mock<IReservationService> _mockReservationService;
         public CreateReservationCommandTests()
         {
-            _mockReservationRepository = RepositoryMocks.GetReservationRepository();
+            _mockReservationRepository = ReservationRepositoryMock.GetReservationRepository();
             _mockAccommodationRepository = AccommodationRepositoryMock.GetAccommodationRepository();
             _mockReservationService = RepositoryMocks.GetReservationService();
             var configurationProvider = new MapperConfiguration(cfg =>

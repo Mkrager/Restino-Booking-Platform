@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Moq;
 using Restino.Appilcation.UnitTests.Mock;
+using Restino.Appilcation.UnitTests.Mocks;
 using Restino.Application.Contracts.Persistance;
 using Restino.Application.Features.Reservations.Queries.GetUserReservations;
 using Restino.Application.Profiles;
@@ -15,7 +16,7 @@ namespace Restino.Appilcation.UnitTests.Reservations.Queries
 
         public GetUserReservationListQueryHandlerTests()
         {
-            _mockReservationRepository = RepositoryMocks.GetReservationRepository();
+            _mockReservationRepository = ReservationRepositoryMock.GetReservationRepository();
             var configurationProvider = new MapperConfiguration(cfg =>
             {
                 cfg.AddProfile<MappingProfile>();
