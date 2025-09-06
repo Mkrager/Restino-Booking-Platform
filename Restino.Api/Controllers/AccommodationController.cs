@@ -14,85 +14,79 @@ namespace Restino.Api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class AccommodationController(IMediator mediator, ICurrentUserService currentUserService) : Controller
+    public class AccommodationController(IMediator mediator, ICurrentUserService currentUserService) : ControllerBase
     {
-        [HttpGet(Name = "GetAllAccommodations")]
+        [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesDefaultResponseType]
         public async Task<ActionResult<List<AccommodationListVm>>> GetAllAccommodations([FromQuery] bool isAccommodationHot)
         {
-            var dtos = await mediator.Send(new GetAccommodationListQuery() { IsAccommodationHot = isAccommodationHot });
+            var dtos = await mediator.Send(new GetAccommodationListQuery { IsAccommodationHot = isAccommodationHot });
             return Ok(dtos);
         }
 
         [Authorize]
-        [HttpGet("user", Name = "GetUserAccommodations")]
+        [HttpGet("user")]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesDefaultResponseType]
         public async Task<ActionResult<List<AccommodationListVm>>> GetUserAccommodations()
         {
-            var userId = currentUserService.UserId;
-            var dtos = await mediator.Send(new GetUserAccommodationListQuery() { UserId = userId });
+            var dtos = await mediator.Send(new GetUserAccommodationListQuery { UserId = currentUserService.UserId });
             return Ok(dtos);
         }
 
-        [HttpGet("{id}", Name = "GetAccommodationById")]
+        [HttpGet("{id}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<ActionResult<AccommodationDetailsVm>> GetAccommodationById(Guid id)
         {
-            var getAccommodationDeatailQuery = new GetAccommodationDetailsQuery() { Id = id };
-            return Ok(await mediator.Send(getAccommodationDeatailQuery));
+            var dto = await mediator.Send(new GetAccommodationDetailsQuery { Id = id });
+            return Ok(dto);
         }
 
-
-        [HttpGet("search", Name = "SearchAccommodation")]
-        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [HttpGet("search")]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesDefaultResponseType]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
         public async Task<ActionResult<List<AccommodationListVm>>> SearchAccommodation([FromQuery] string? searchString)
         {
-            var query = new SearchAccommodationListQuery { SearchString = searchString };
-            return Ok(await mediator.Send(query));
+            var dtos = await mediator.Send(new SearchAccommodationListQuery { SearchString = searchString });
+            return Ok(dtos);
         }
 
         [Authorize]
-        [HttpPost(Name = "AddAccommodation")]
-        public async Task<ActionResult<Guid>> Create([FromBody] CreateAccommodationCommand createAccommodationCommand)
+        [HttpPost]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public async Task<ActionResult<Guid>> Create([FromBody] CreateAccommodationCommand command)
         {
-            var response = await mediator.Send(createAccommodationCommand);
+            var response = await mediator.Send(command);
             return Ok(response);
         }
 
         [Authorize]
-        [HttpPut(Name = "UpdateAccommdation")]
-        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [HttpPut]
+        [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        [ProducesDefaultResponseType]
-
-        public async Task<ActionResult> Update([FromBody] UpdateAccommodationCommand
-            updateAccommodationCommand)
+        public async Task<ActionResult> Update([FromBody] UpdateAccommodationCommand command)
         {
-            var userId = currentUserService.UserId;
-            var userRole = currentUserService.UserRole;
+            command.UserId = currentUserService.UserId;
+            command.UserRole = currentUserService.UserRole;
 
-            updateAccommodationCommand.UserId = userId;
-            updateAccommodationCommand.UserRole = userRole;
-
-            var response = await mediator.Send(updateAccommodationCommand);
+            var response = await mediator.Send(command);
             return Ok(response);
         }
 
         [Authorize]
-        [HttpDelete("{id}", Name = "DeleteAccommodation")]
+        [HttpDelete("{id}")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        [ProducesDefaultResponseType]
         public async Task<ActionResult> Delete(Guid id)
         {
-            var userId = currentUserService.UserId;
-            var userRole = currentUserService.UserRole;
+            var command = new DeleteAccommodationCommand
+            {
+                Id = id,
+                UserId = currentUserService.UserId,
+                UserRole = currentUserService.UserRole
+            };
 
-            var deleteAccommodationCommand = new DeleteAccommodationCommand() { Id = id, UserId = userId, UserRole = userRole };
-            await mediator.Send(deleteAccommodationCommand);
+            await mediator.Send(command);
             return NoContent();
         }
     }
