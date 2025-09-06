@@ -1,7 +1,7 @@
 using Restino.Api;
+using Restino.Identity.Initialization;
 using Serilog;
 
-//TODO: Добавити усі логування де треба в Application layer
 Log.Logger = new LoggerConfiguration()
     .WriteTo.Console()
     .CreateBootstrapLogger();
@@ -24,6 +24,9 @@ var app = builder
 
 app.UseSerilogRequestLogging();
 
+await app.SeedIdentityAsync();
+
 app.Run();
+
 public partial class Program { }
 

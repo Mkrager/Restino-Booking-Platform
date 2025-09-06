@@ -68,14 +68,6 @@ namespace Restino.Api
 
             app.MapControllers();
 
-            using (var scope = app.Services.CreateScope())
-            {
-                var services = scope.ServiceProvider;
-                var roleManager = services.GetRequiredService<RoleManager<IdentityRole>>();
-                var userManager = services.GetRequiredService<UserManager<ApplicationUser>>();
-                Task.Run(() => IdentityServiceExtensions.InitializeRoles(roleManager, userManager)).Wait();
-            }
-
             return app;
         }
 

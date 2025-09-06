@@ -18,19 +18,19 @@ namespace Restino.Api.Controllers
     [ApiController]
     public class UserController(IMediator mediator) : Controller
     {
-        [HttpGet("[action]/{UserName?}", Name = "SearchUser")]
+        [HttpGet(Name = "SearchUser")]
         [Authorize(Roles = "Admin")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesDefaultResponseType]
-        public async Task<ActionResult<List<SearchUserResponse>>> SearchUser(string? UserName)
+        public async Task<ActionResult<List<SearchUserResponse>>> SearchUser([FromQuery] string? userName)
         {
-            var searchUserDeatailQuery = new SearchUserQuery { UserName = UserName };
+            var searchUserDeatailQuery = new SearchUserQuery { UserName = userName };
             return Ok(await mediator.Send(searchUserDeatailQuery));
         }
 
         [Authorize(Roles = "Admin")]
-        [HttpGet("[action]/{userId}", Name = "GetById")]
+        [HttpGet("{userId}", Name = "GetUserById")]
         public async Task<ActionResult<GetUserDetailsResponse>> GetByIdAsync(string userId)
         {
             var dtos = await mediator.Send(new GetUserDetailsQuery() { UserId = userId });

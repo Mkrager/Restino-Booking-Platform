@@ -23,8 +23,7 @@ namespace Restino.Identity
             services.AddDbContext<RestinoIdentityDbContext>(options => options.UseSqlServer(configuration.GetConnectionString("RestinoIdentityConnectionString"),
                 b => b.MigrationsAssembly(typeof(RestinoIdentityDbContext).Assembly.FullName)));
 
-            services.AddIdentity<ApplicationUser, IdentityRole>()
-                .AddEntityFrameworkStores<RestinoIdentityDbContext>().AddDefaultTokenProviders();
+            services.AddIdentity<ApplicationUser, IdentityRole>().AddEntityFrameworkStores<RestinoIdentityDbContext>().AddDefaultTokenProviders();
 
             services.AddTransient<IAuthenticationService, AuthenticationService>();
             services.AddTransient<IUserService, UserService>();
@@ -76,63 +75,6 @@ namespace Restino.Identity
                         }
                     };
                 });
-        }
-
-        public static async Task InitializeRoles(RoleManager<IdentityRole> roleManager, UserManager<ApplicationUser> userManager)
-        {
-            string[] roleNames = { "Admin", "User" };
-
-            foreach (var roleName in roleNames)
-            {
-                if (!await roleManager.RoleExistsAsync(roleName))
-                {
-                    await roleManager.CreateAsync(new IdentityRole(roleName));
-                }
-            }
-
-            var adminEmail = "admin@gmail.com";
-            var adminUser = await userManager.FindByEmailAsync(adminEmail);
-
-            if (adminUser == null)
-            {
-                adminUser = new ApplicationUser
-                {
-                    Id = "0ee44930-75f2-4ffe-bf30-bce82bf45ddd",
-                    FirstName = "Admin",
-                    LastName = "Admin",
-                    UserName = adminEmail,
-                    Email = adminEmail
-                };
-
-                var result = await userManager.CreateAsync(adminUser, "Admin123!");
-
-                if (result.Succeeded)
-                {
-                    await userManager.AddToRoleAsync(adminUser, "Admin");
-                }
-            }
-
-            var testUserEmail = "testuser@gmail.com";
-            var testUser = await userManager.FindByEmailAsync(testUserEmail);
-
-            if (testUser == null)
-            {
-                testUser = new ApplicationUser
-                {
-                    Id = "9d1f8b6d-3c22-4b41-a6d8-1f848d4d2e99",
-                    FirstName = "Test",
-                    LastName = "User",
-                    UserName = testUserEmail,
-                    Email = testUserEmail
-                };
-
-                var testUserResult = await userManager.CreateAsync(testUser, "TestUser123!");
-
-                if (testUserResult.Succeeded)
-                {
-                    await userManager.AddToRoleAsync(testUser, "User");
-                }
-            }
         }
     }
 }
