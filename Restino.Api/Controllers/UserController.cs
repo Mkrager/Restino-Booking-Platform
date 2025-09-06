@@ -27,7 +27,7 @@ namespace Restino.Api.Controllers
             var query = new SearchUserQuery { UserName = userName };
             var result = await mediator.Send(query);
 
-            return result.Any() ? Ok(result) : NoContent();
+            return Ok(result);
         }
 
         [HttpGet("{userId}")]
@@ -37,7 +37,7 @@ namespace Restino.Api.Controllers
         public async Task<IActionResult> GetById(string userId)
         {
             var result = await mediator.Send(new GetUserDetailsQuery { UserId = userId });
-            return result is not null ? Ok(result) : NotFound();
+            return Ok(result);
         }
 
         [HttpGet("all")]
@@ -47,7 +47,7 @@ namespace Restino.Api.Controllers
         public async Task<IActionResult> GetAllUsers()
         {
             var result = await mediator.Send(new GetUserListQuery());
-            return result.Any() ? Ok(result) : NoContent();
+            return Ok(result);
         }
 
         [HttpDelete("{userId}")]

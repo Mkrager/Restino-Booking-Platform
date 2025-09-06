@@ -12,12 +12,11 @@ namespace Restino.Api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class ReservationController(IMediator mediator, ICurrentUserService currentUserService) : Controller
+    public class ReservationController(IMediator mediator, ICurrentUserService currentUserService) : ControllerBase
     {
         [Authorize]
-        [HttpGet(Name = "GetAllReservation")]
+        [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesDefaultResponseType]
         public async Task<ActionResult<List<ReservationListVm>>> GetAllReservations()
         {
             var dtos = await mediator.Send(new GetReservationListQuery());
@@ -25,46 +24,46 @@ namespace Restino.Api.Controllers
         }
 
         [Authorize(Roles = "Admin")]
-        [HttpGet("{reservationsId}", Name = "GetReservationById")]
-        public async Task<ActionResult<ReservationDetailsVm>> GetReservationById(Guid reservationsId)
+        [HttpGet("{id}", Name = "GetReservationById")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public async Task<ActionResult<ReservationDetailsVm>> GetReservationById(Guid id)
         {
-            var getReservationDetailsQuery = new GetReservationDetailQuery() { Id = reservationsId };
-            return Ok(await mediator.Send(getReservationDetailsQuery));
+            var dto = await mediator.Send(new GetReservationDetailQuery { Id = id });
+            return Ok(dto);
         }
 
         [Authorize]
-        [HttpPost(Name = "AddReservation")]
-        public async Task<ActionResult<Guid>> Create([FromBody] CreateReservationCommand createReservationCommand)
+        [HttpPost]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public async Task<ActionResult<Guid>> Create([FromBody] CreateReservationCommand command)
         {
-            var response = await mediator.Send(createReservationCommand);
-            return Ok(response);
+            var reservationId = await mediator.Send(command);
+            return Ok(reservationId);
         }
 
+
         [Authorize]
-        [HttpDelete("{id}", Name = "DeleteReservation")]
+        [HttpDelete("{id}")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        [ProducesDefaultResponseType]
-        public async Task<ActionResult> Delete(Guid id)
+        public async Task<IActionResult> Delete(Guid id)
         {
-            var userId = currentUserService.UserId;
-            var userRole = currentUserService.UserRole;
+            await mediator.Send(new DeleteReservationCommand
+            {
+                Id = id,
+                UserId = currentUserService.UserId,
+                UserRole = currentUserService.UserRole
+            });
 
-            var deleteReservationCommand = new DeleteReservationCommand() 
-            { 
-                Id = id, 
-                UserId = userId, 
-                UserRole = userRole
-            };
-
-            await mediator.Send(deleteReservationCommand);
             return NoContent();
         }
 
         [Authorize]
-        [HttpGet("{userId}/user", Name = "GetUserReservations")]
+        [HttpGet("user/{userId}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesDefaultResponseType]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<ActionResult<List<GetUserReservationListVm>>> GetUserReservations(string userId)
         {
             var dtos = await mediator.Send(new GetUserReservationListQuery { UserId = userId });
