@@ -4,8 +4,6 @@ using Restino.Application.Features.Accommodations.Commands.DeleteAccommodation;
 using Restino.Application.Features.Accommodations.Commands.UpdateAccommodation;
 using Restino.Application.Features.Accommodations.Queries.GetAccommodationDetails;
 using Restino.Application.Features.Accommodations.Queries.GetAccommodationList;
-using Restino.Application.Features.Accommodations.Queries.GetUserAccommodationList;
-using Restino.Application.Features.Accommodations.Queries.SearchAccommodationList;
 using Restino.Application.Features.Categories.Commands.CreateCategoryCommand;
 using Restino.Application.Features.Categories.Queries.GetCategoriesList;
 using Restino.Application.Features.Categories.Queries.GetCategoriesListWithAccommodation;

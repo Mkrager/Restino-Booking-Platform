@@ -70,6 +70,5 @@ namespace Restino.Api.Controllers
             var dtos = await mediator.Send(new GetUserReservationListQuery { UserId = userId });
             return Ok(dtos);
         }
-
     }
 }
