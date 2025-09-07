@@ -168,15 +168,15 @@ namespace Restino.Identity.Service
                 throw new Exception("User not found.");
             }
 
-            if (twoFactorCode != user.TwoFactorCode)
-                throw new Exception("Incorrect code");
+            //if (twoFactorCode != user.TwoFactorCode)
+            //    throw new Exception("Incorrect code");
 
-            if (user.TwoFactorCodeDuration <= DateTime.Now)
-                throw new Exception("Code expired");
+            //if (user.TwoFactorCodeDuration <= DateTime.Now)
+            //    throw new Exception("Code expired");
 
-            user.TwoFactorCode = null;
-            user.TwoFactorCodeDuration = null;
-            user.TwoFactorEnabled = true;
+            //user.TwoFactorCode = null;
+            //user.TwoFactorCodeDuration = null;
+            //user.TwoFactorEnabled = true;
 
             var updateResult = await _userManager.UpdateAsync(user);
         }
@@ -190,15 +190,15 @@ namespace Restino.Identity.Service
                 throw new Exception("User not found.");
             }
 
-            if (twoFactorCode != user.TwoFactorCode)
-                throw new Exception("Incorrect code");
+            //if (twoFactorCode != user.TwoFactorCode)
+            //    throw new Exception("Incorrect code");
 
-            if (user.TwoFactorCodeDuration <= DateTime.Now)
-                throw new Exception("Code expired");
+            //if (user.TwoFactorCodeDuration <= DateTime.Now)
+            //    throw new Exception("Code expired");
 
-            user.TwoFactorCode = null;
-            user.TwoFactorCodeDuration = null;
-            user.TwoFactorEnabled = false;
+            //user.TwoFactorCode = null;
+            //user.TwoFactorCodeDuration = null;
+            //user.TwoFactorEnabled = false;
 
             var updateResult = await _userManager.UpdateAsync(user);
         }
@@ -217,8 +217,8 @@ namespace Restino.Identity.Service
             var random = new Random();
             var randomCode = new string(Enumerable.Range(0, 6).Select(_ => chars[random.Next(chars.Length)]).ToArray());
 
-            user.TwoFactorCode = randomCode;
-            user.TwoFactorCodeDuration = DateTime.Now.AddMinutes(10);
+            //user.TwoFactorCode = randomCode;
+            //user.TwoFactorCodeDuration = DateTime.Now.AddMinutes(10);
 
             var updateResult = await _userManager.UpdateAsync(user);
 

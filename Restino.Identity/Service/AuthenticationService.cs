@@ -74,15 +74,15 @@ namespace Restino.Identity.Service
         {
             var user = await _userManager.FindByEmailAsync(request.Email);
 
-            if (user == null || request.TwoFactorCode != user.TwoFactorCode)
-            {
-                throw new Exception("Invalid email or code.");
-            }
+            //if (user == null || request.TwoFactorCode != user.TwoFactorCode)
+            //{
+            //    throw new Exception("Invalid email or code.");
+            //}
 
-            if (user.TwoFactorCodeDuration < DateTime.Now)
-            {
-                throw new Exception("Code duration end.");
-            }
+            //if (user.TwoFactorCodeDuration < DateTime.Now)
+            //{
+            //    throw new Exception("Code duration end.");
+            //}
 
             JwtSecurityToken jwtSecurityToken = await GenerateToken(user);
 
