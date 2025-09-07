@@ -1,7 +1,9 @@
-﻿using Microsoft.Extensions.Configuration;
+﻿using MediatR;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Restino.Application.Contracts.Infrastructure;
 using Restino.Application.DTOs.Mail;
+using Restino.Infrastructure.Code;
 using Restino.Infrastructure.Mail;
 
 namespace Restino.Infrastructure
@@ -13,7 +15,8 @@ namespace Restino.Infrastructure
             services.Configure<EmailSettings>(configuration.GetSection("EmailSettings"));
 
             services.AddTransient<IEmailService, EmailService>();
-
+            services.AddTransient<ICodeGeneratorService, CodeGeneratorService>();
+            
             return services;
         }
     }

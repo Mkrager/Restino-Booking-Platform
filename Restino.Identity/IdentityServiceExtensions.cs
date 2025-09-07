@@ -27,6 +27,7 @@ namespace Restino.Identity
 
             services.AddTransient<IAuthenticationService, AuthenticationService>();
             services.AddTransient<IUserService, UserService>();
+            services.AddTransient<IUserTwoFactorService, UserTwoFactorService>();
 
             services.AddAuthentication(options =>
             {

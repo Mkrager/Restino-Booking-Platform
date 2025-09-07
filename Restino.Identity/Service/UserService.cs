@@ -12,13 +12,11 @@ namespace Restino.Identity.Service
     public class UserService : IUserService
     {
         private readonly UserManager<ApplicationUser> _userManager;
-        private readonly IHttpContextAccessor _httpContextAccessor;
         private readonly IEmailService _emailService;
 
-        public UserService(UserManager<ApplicationUser> userManager, IHttpContextAccessor httpContextAccessor, IEmailService emailService)
+        public UserService(UserManager<ApplicationUser> userManager, IEmailService emailService)
         {
             _userManager = userManager;
-            _httpContextAccessor = httpContextAccessor;
             _emailService = emailService;
         }
         public async Task<GetUserDetailsResponse> GetUserDetailsAsync(string userId)

@@ -18,7 +18,7 @@ namespace Restino.Identity
 
         }
 
-        DbSet<UserTwoFactor> UserTwoFactors { get; set; }
+        public DbSet<UserTwoFactor> UserTwoFactors { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
