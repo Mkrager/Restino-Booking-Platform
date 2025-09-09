@@ -165,31 +165,23 @@ namespace Restino.Identity.Service
             var updateResult = await _userManager.UpdateAsync(user);
         }
 
-        //public async Task SendTwoFactorCodeAsync(string email)
-        //{
-        //    //user.TwoFactorCode = randomCode;
-        //    //user.TwoFactorCodeDuration = DateTime.Now.AddMinutes(10);
+        public async Task SendTwoFactorCodeAsync(string email)
+        {
+            var user = await _userManager.FindByEmailAsync(email);
+            if (user == null)
+                throw new Exception("User not found.");
 
-        //    var updateResult = await _userManager.UpdateAsync(user);
+            var updateResult = await _userManager.UpdateAsync(user);
 
-        //    if (!updateResult.Succeeded)
-        //        throw new Exception("Failed");
+            if (!updateResult.Succeeded)
+                throw new Exception("Failed");
 
-        //    var emailContent = $"Your two-factor authentication code is {randomCode}. It will expire in 10 minutes.";
+            var code = _codeGeneratorService.GenerateCode(6);
 
-        //    var emailToSend = new Email
-        //    {
-        //        To = user.Email,
-        //        Subject = "Two-factor authentication code",
-        //        Body = emailContent
-        //    };
+            bool emailSent = await _emailService.SendTwoFactorCode(email, code);
 
-        //    bool emailSent = await _emailService.SendEmail(emailToSend);
-
-        //    if (!emailSent)
-        //    {
-        //        throw new Exception("Email sending failed.");
-        //    }
-        //}
+            if (!emailSent)
+                throw new Exception("Email sending failed.");
+        }
     }
 }

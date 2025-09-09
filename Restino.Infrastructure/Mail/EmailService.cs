@@ -48,6 +48,18 @@ namespace Restino.Infrastructure.Mail
 
             return await SendEmail(emailToSend);
         }
+
+        public async Task<bool> SendTwoFactorCode(string email, string code)
+        {
+            var emailToSend = new Email
+            {
+                To = email,
+                Subject = "Two-factor authentication code",
+                Body = $"Your two-factor authentication code is {code}. It will expire in 10 minutes.""
+            };
+
+            return await SendEmail(emailToSend);
+        }
     }
 }
 

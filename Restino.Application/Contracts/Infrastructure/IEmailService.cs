@@ -6,5 +6,6 @@ namespace Restino.Application.Contracts.Infrastructure
     {
         Task<bool> SendEmail(Email email);
         Task<bool> SendPasswordResetCode(string email, string code);
+        Task<bool> SendTwoFactorCode(string email, string code);
     }
 }
