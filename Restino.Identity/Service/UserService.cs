@@ -164,23 +164,5 @@ namespace Restino.Identity.Service
             var updateResult = await _userManager.UpdateAsync(user);
         }
 
-        public async Task SendTwoFactorCodeAsync(string email)
-        {
-            var user = await _userManager.FindByEmailAsync(email);
-            if (user == null)
-                throw new Exception("User not found.");
-
-            var updateResult = await _userManager.UpdateAsync(user);
-
-            if (!updateResult.Succeeded)
-                throw new Exception("Failed");
-
-            var code = _codeGeneratorService.GenerateCode(6);
-
-            bool emailSent = await _emailService.SendTwoFactorCode(email, code);
-
-            if (!emailSent)
-                throw new Exception("Email sending failed.");
-        }
     }
 }

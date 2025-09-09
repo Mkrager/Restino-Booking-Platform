@@ -14,28 +14,6 @@ namespace Restino.Infrastructure.Mail
             _emailSettings = mailSettings.Value;
         }
 
-        public async Task<bool> SendEmail(Email email)
-        {
-            var client = new SendGridClient(_emailSettings.ApiKey);
-
-            var subject = email.Subject;
-            var to = new EmailAddress(email.To);
-            var emailBody = email.Body;
-
-            var from = new EmailAddress
-            {
-                Email = _emailSettings.FromAddress,
-                Name = _emailSettings.FromName
-            };
-
-            var sendGridMessage = MailHelper.CreateSingleEmail(from, to, subject, emailBody, emailBody);
-            var response = await client.SendEmailAsync(sendGridMessage);
-
-            if (response.StatusCode == System.Net.HttpStatusCode.Accepted || response.StatusCode == System.Net.HttpStatusCode.OK)
-                return true;
-
-            return false;
-        }
 
         public async Task<bool> SendPasswordResetCode(string email, string code)
         {
@@ -60,6 +38,27 @@ namespace Restino.Infrastructure.Mail
 
             return await SendEmail(emailToSend);
         }
+        private async Task<bool> SendEmail(Email email)
+        {
+            var client = new SendGridClient(_emailSettings.ApiKey);
+
+            var subject = email.Subject;
+            var to = new EmailAddress(email.To);
+            var emailBody = email.Body;
+
+            var from = new EmailAddress
+            {
+                Email = _emailSettings.FromAddress,
+                Name = _emailSettings.FromName
+            };
+
+            var sendGridMessage = MailHelper.CreateSingleEmail(from, to, subject, emailBody, emailBody);
+            var response = await client.SendEmailAsync(sendGridMessage);
+
+            if (response.StatusCode == System.Net.HttpStatusCode.Accepted || response.StatusCode == System.Net.HttpStatusCode.OK)
+                return true;
+
+            return false;
+        }
     }
 }
-
