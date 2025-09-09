@@ -3,7 +3,6 @@ using Microsoft.EntityFrameworkCore;
 using Restino.Application.Contracts.Identity;
 using Restino.Application.Contracts.Infrastructure;
 using Restino.Application.DTOs.Authentication;
-using Restino.Application.DTOs.Mail;
 using Restino.Identity.Models;
 
 namespace Restino.Identity.Service

@@ -5,8 +5,7 @@ namespace Restino.Application.Contracts.Identity
     public interface IUserTwoFactorService
     {
         Task<UserTwoFactor?> GetByUserIdAsync(string userId);
-        Task AddTwoFactorToAccountAsync(UserTwoFactor userTwoFactor);
-        Task DeleteTwoFactorFromAccountAsync(UserTwoFactor userTwoFactor);
-        Task SendTwoFactorCodeAsync(string email);
+        Task<UserTwoFactor> CreateTwoFactorRequestAsync(UserTwoFactor userTwoFactor);
+        Task DeleteTwoFactorRequestAsync(UserTwoFactor userTwoFactor);
     }
 }
