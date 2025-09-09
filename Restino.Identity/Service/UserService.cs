@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Restino.Application.Contracts.Identity;
 using Restino.Application.Contracts.Infrastructure;
@@ -13,11 +12,12 @@ namespace Restino.Identity.Service
     {
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly IEmailService _emailService;
-
-        public UserService(UserManager<ApplicationUser> userManager, IEmailService emailService)
+        private readonly ICodeGeneratorService _codeGeneratorService;
+        public UserService(UserManager<ApplicationUser> userManager, IEmailService emailService, ICodeGeneratorService codeGeneratorService)
         {
             _userManager = userManager;
             _emailService = emailService;
+            _codeGeneratorService = codeGeneratorService;
         }
         public async Task<GetUserDetailsResponse> GetUserDetailsAsync(string userId)
         {
@@ -91,39 +91,19 @@ namespace Restino.Identity.Service
         public async Task SendPasswordResetCodeAsync(string email)
         {
             var user = await _userManager.FindByEmailAsync(email);
-
-            if (user == null)
-            {
+            if (user == null) 
                 throw new Exception("User not found.");
-            }
 
-            var chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
-
-            var random = new Random();
-            var randomCode = new string(Enumerable.Range(0, 6).Select(_ => chars[random.Next(chars.Length)]).ToArray());
-
-            user.Code = randomCode;
+            var code = _codeGeneratorService.GenerateCode(6);
+            user.Code = code;
 
             var updateResult = await _userManager.UpdateAsync(user);
+            if (!updateResult.Succeeded) 
+                throw new Exception("Failed to update user code.");
 
-            if (!updateResult.Succeeded)
-                throw new Exception("Failed");
-
-            var emailContent = $"Your password reset code: {randomCode}";
-
-            var emailToSend = new Email
-            {
-                To = user.Email,
-                Subject = "Password Reset Code",
-                Body = emailContent
-            };
-
-            bool emailSent = await _emailService.SendEmail(emailToSend);
-
-            if (!emailSent)
-            {
+            var emailSent = await _emailService.SendPasswordResetCode(email, code);
+            if (!emailSent) 
                 throw new Exception("Email sending failed.");
-            }
         }
 
         public async Task ResetPasswordAsync(string email, string code, string newPassword)
@@ -166,15 +146,7 @@ namespace Restino.Identity.Service
                 throw new Exception("User not found.");
             }
 
-            //if (twoFactorCode != user.TwoFactorCode)
-            //    throw new Exception("Incorrect code");
-
-            //if (user.TwoFactorCodeDuration <= DateTime.Now)
-            //    throw new Exception("Code expired");
-
-            //user.TwoFactorCode = null;
-            //user.TwoFactorCodeDuration = null;
-            //user.TwoFactorEnabled = true;
+            user.TwoFactorEnabled = true;
 
             var updateResult = await _userManager.UpdateAsync(user);
         }
@@ -188,57 +160,36 @@ namespace Restino.Identity.Service
                 throw new Exception("User not found.");
             }
 
-            //if (twoFactorCode != user.TwoFactorCode)
-            //    throw new Exception("Incorrect code");
-
-            //if (user.TwoFactorCodeDuration <= DateTime.Now)
-            //    throw new Exception("Code expired");
-
-            //user.TwoFactorCode = null;
-            //user.TwoFactorCodeDuration = null;
-            //user.TwoFactorEnabled = false;
+            user.TwoFactorEnabled = false;
 
             var updateResult = await _userManager.UpdateAsync(user);
         }
 
-        public async Task SendTwoFactorCodeAsync(string email)
-        {
-            var user = await _userManager.FindByEmailAsync(email);
+        //public async Task SendTwoFactorCodeAsync(string email)
+        //{
+        //    //user.TwoFactorCode = randomCode;
+        //    //user.TwoFactorCodeDuration = DateTime.Now.AddMinutes(10);
 
-            if (user == null)
-            {
-                throw new Exception("User not found.");
-            }
+        //    var updateResult = await _userManager.UpdateAsync(user);
 
-            var chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+        //    if (!updateResult.Succeeded)
+        //        throw new Exception("Failed");
 
-            var random = new Random();
-            var randomCode = new string(Enumerable.Range(0, 6).Select(_ => chars[random.Next(chars.Length)]).ToArray());
+        //    var emailContent = $"Your two-factor authentication code is {randomCode}. It will expire in 10 minutes.";
 
-            //user.TwoFactorCode = randomCode;
-            //user.TwoFactorCodeDuration = DateTime.Now.AddMinutes(10);
+        //    var emailToSend = new Email
+        //    {
+        //        To = user.Email,
+        //        Subject = "Two-factor authentication code",
+        //        Body = emailContent
+        //    };
 
-            var updateResult = await _userManager.UpdateAsync(user);
+        //    bool emailSent = await _emailService.SendEmail(emailToSend);
 
-            if (!updateResult.Succeeded)
-                throw new Exception("Failed");
-
-            var emailContent = $"Your two-factor authentication code is {randomCode}. It will expire in 10 minutes.";
-
-            var emailToSend = new Email
-            {
-                To = user.Email,
-                Subject = "Two-factor authentication code",
-                Body = emailContent
-            };
-
-            bool emailSent = await _emailService.SendEmail(emailToSend);
-
-            if (!emailSent)
-            {
-                throw new Exception("Email sending failed.");
-            }
-
-        }
+        //    if (!emailSent)
+        //    {
+        //        throw new Exception("Email sending failed.");
+        //    }
+        //}
     }
 }

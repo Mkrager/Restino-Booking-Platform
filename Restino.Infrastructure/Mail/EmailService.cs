@@ -36,6 +36,18 @@ namespace Restino.Infrastructure.Mail
 
             return false;
         }
+
+        public async Task<bool> SendPasswordResetCode(string email, string code)
+        {
+            var emailToSend = new Email
+            {
+                To = email,
+                Subject = "Password Reset Code",
+                Body = $"Your password reset code: {code}"
+            };
+
+            return await SendEmail(emailToSend);
+        }
     }
 }
 
