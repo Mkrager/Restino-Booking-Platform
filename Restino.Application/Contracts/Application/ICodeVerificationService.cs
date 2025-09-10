@@ -4,6 +4,6 @@ namespace Restino.Application.Contracts.Application
 {
     public interface ICodeVerificationService<T> where T : IHasCode
     {
-        bool VerifyCodeAsync(T entity, string code);
+        bool VerifyCode(T entity, string code);
     }
 }

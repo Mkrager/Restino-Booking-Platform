@@ -136,7 +136,7 @@ namespace Restino.Identity.Service
             var updateResult = await _userManager.UpdateAsync(user);
         }
 
-        public async Task AddTwoFactorAsync(string email, string twoFactorCode)
+        public async Task AddTwoFactorAsync(string email)
         {
             var user = await _userManager.FindByEmailAsync(email);
 
@@ -150,7 +150,7 @@ namespace Restino.Identity.Service
             var updateResult = await _userManager.UpdateAsync(user);
         }
 
-        public async Task DeleteTwoFactorAsync(string email, string twoFactorCode)
+        public async Task DeleteTwoFactorAsync(string email)
         {
             var user = await _userManager.FindByEmailAsync(email);
 
@@ -163,6 +163,5 @@ namespace Restino.Identity.Service
 
             var updateResult = await _userManager.UpdateAsync(user);
         }
-
     }
 }
