@@ -7,10 +7,8 @@ namespace Restino.Application.Services
     {
         public bool VerifyCodeAsync(T entity, string code)
         {
-            if (entity.Code == code)
-                return true;
-
-            return false;
+            return entity.Code == code
+                && entity.ExpirationTime > DateTime.UtcNow;
         }
     }
 }

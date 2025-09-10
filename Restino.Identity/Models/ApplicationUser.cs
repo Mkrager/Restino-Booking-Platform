@@ -8,5 +8,6 @@ namespace Restino.Identity.Models
         public string FirstName { get; set; } = string.Empty;
         public string LastName { get; set; } = string.Empty;
         public string? Code { get; set; }
+        public DateTime ExpirationTime { get; set; }
     }
 }
