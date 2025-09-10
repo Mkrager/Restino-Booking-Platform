@@ -1,5 +1,4 @@
-﻿using AutoMapper;
-using MediatR;
+﻿using MediatR;
 using Restino.Application.Contracts.Identity;
 using Restino.Application.Contracts.Infrastructure;
 using Restino.Domain.Entities;

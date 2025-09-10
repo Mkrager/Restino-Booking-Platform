@@ -1,8 +1,6 @@
-﻿using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using Restino.Application.Contracts.Identity;
 using Restino.Domain.Entities;
-using Restino.Identity.Models;
 
 namespace Restino.Identity.Service
 {
