@@ -1,6 +1,7 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Restino.Application.Contracts;
 using Restino.Application.Features.User.Commands.AddTwoFactorAuth;
 using Restino.Application.Features.User.Commands.ChangeUserPassword;
 using Restino.Application.Features.User.Commands.DeleteTwofActorAuth;
@@ -16,7 +17,7 @@ namespace Restino.Api.Controllers
     [Route("api/[controller]")]
     [ApiController]
     [Authorize]
-    public class UserController(IMediator mediator) : ControllerBase
+    public class UserController(IMediator mediator, ICurrentUserService currentUserService) : ControllerBase
     {
         [HttpGet("search")]
         [Authorize(Roles = "Admin")]
@@ -34,7 +35,7 @@ namespace Restino.Api.Controllers
         [Authorize(Roles = "Admin")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public async Task<IActionResult> GetById(string userId)
+        public async Task<IActionResult> GetUserById(string userId)
         {
             var result = await mediator.Send(new GetUserDetailsQuery { UserId = userId });
             return Ok(result);
@@ -93,6 +94,8 @@ namespace Restino.Api.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> AddTwoFactorAuth([FromBody] AddTwoFactorAuthCommand command)
         {
+            command.UserId = currentUserService.UserId;
+
             await mediator.Send(command);
             return NoContent();
         }
@@ -102,6 +105,8 @@ namespace Restino.Api.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> DeleteTwoFactorAuth([FromBody] DeleteTwoFactorAuthCommand command)
         {
+            command.UserId = currentUserService.UserId;
+
             await mediator.Send(command);
             return NoContent();
         }

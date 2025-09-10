@@ -18,6 +18,7 @@ namespace Restino.Application
 
             services.AddScoped<IPermissionService, PermissionService>();
             services.AddScoped<IReservationService, ReservationService>();
+            services.AddScoped(typeof(ICodeVerificationService<>), typeof(CodeVerificationService<>));
 
             services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
             services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBehaviour<,>));
