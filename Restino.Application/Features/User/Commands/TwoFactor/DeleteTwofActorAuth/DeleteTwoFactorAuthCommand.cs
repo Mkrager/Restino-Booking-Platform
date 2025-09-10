@@ -1,6 +1,6 @@
 ﻿using MediatR;
 
-namespace Restino.Application.Features.User.Commands.DeleteTwofActorAuth
+namespace Restino.Application.Features.User.Commands.TwoFactor.DeleteTwofActorAuth
 {
     public class DeleteTwoFactorAuthCommand : IRequest
     {

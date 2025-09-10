@@ -1,6 +1,6 @@
 ﻿using MediatR;
 
-namespace Restino.Application.Features.User.Commands.AddTwoFactorAuth
+namespace Restino.Application.Features.User.Commands.TwoFactor.AddTwoFactorAuth
 {
     public class AddTwoFactorAuthCommand : IRequest
     {

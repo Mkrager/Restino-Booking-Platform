@@ -4,21 +4,22 @@ using Restino.Application.Contracts.Identity;
 using Restino.Application.Exceptions;
 using Restino.Domain.Entities;
 
-namespace Restino.Application.Features.User.Commands.AddTwoFactorAuth
+namespace Restino.Application.Features.User.Commands.TwoFactor.DeleteTwofActorAuth
 {
-    public class AddTwoFactorAuthCommandHandler : IRequestHandler<AddTwoFactorAuthCommand>
+    public class DeleteTwoFactorAuthCommandHandler : IRequestHandler<DeleteTwoFactorAuthCommand>
     {
         private readonly IUserService _userService;
-        private readonly IUserTwoFactorService _userTwoFactorService;
+        private readonly IUserTwoFactorRepository _userTwoFactorService;
         private readonly ICodeVerificationService<UserTwoFactorCode> _codeVerificationService;
-        public AddTwoFactorAuthCommandHandler(IUserService userService, IUserTwoFactorService userTwoFactorService, ICodeVerificationService<UserTwoFactorCode> codeVerificationService)
+
+        public DeleteTwoFactorAuthCommandHandler(IUserService userService, IUserTwoFactorRepository userTwoFactorService, ICodeVerificationService<UserTwoFactorCode> codeVerificationService)
         {
             _userService = userService;
             _userTwoFactorService = userTwoFactorService;
             _codeVerificationService = codeVerificationService;
         }
 
-        public async Task<Unit> Handle(AddTwoFactorAuthCommand request, CancellationToken cancellationToken)
+        public async Task<Unit> Handle(DeleteTwoFactorAuthCommand request, CancellationToken cancellationToken)
         {
             var userTwoFactor = await _userTwoFactorService.GetByUserIdAsync(request.UserId);
 
@@ -30,9 +31,9 @@ namespace Restino.Application.Features.User.Commands.AddTwoFactorAuth
             if (!isValid)
                 throw new InvalidCodeException();
 
-            await _userService.AddTwoFactorToAccountAsync(request.Email);
+            await _userService.DeleteTwoFactorFromAccountAsync(request.Email);
 
-            await _userTwoFactorService.DeleteTwoFactorRequestAsync(userTwoFactor);
+            await _userTwoFactorService.DeleteAsync(userTwoFactor);
 
             return Unit.Value;
         }

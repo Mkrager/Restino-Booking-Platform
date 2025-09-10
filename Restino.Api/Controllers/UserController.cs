@@ -2,10 +2,10 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Restino.Application.Contracts;
-using Restino.Application.Features.User.Commands.AddTwoFactorAuth;
 using Restino.Application.Features.User.Commands.ChangeUserPassword;
-using Restino.Application.Features.User.Commands.DeleteTwofActorAuth;
 using Restino.Application.Features.User.Commands.DeleteUser;
+using Restino.Application.Features.User.Commands.TwoFactor.AddTwoFactorAuth;
+using Restino.Application.Features.User.Commands.TwoFactor.DeleteTwofActorAuth;
 using Restino.Application.Features.User.Queries.GetUserDetails;
 using Restino.Application.Features.User.Queries.GetUserList;
 using Restino.Application.Features.User.Queries.SearchUser;
