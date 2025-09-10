@@ -18,12 +18,18 @@ namespace Restino.Identity
 
         }
 
-        public DbSet<UserTwoFactor> UserTwoFactors { get; set; }
+        public DbSet<UserTwoFactorCode> UserTwoFactorCodes { get; set; }
+        public DbSet<UserResetPasswordCode> UserResetPasswordCodes { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
 
-            modelBuilder.Entity<UserTwoFactor>()
+            modelBuilder.Entity<UserTwoFactorCode>()
+                .HasOne<ApplicationUser>()
+                .WithMany()
+                .HasForeignKey(u => u.CreatedBy);
+
+            modelBuilder.Entity<UserResetPasswordCode>()
                 .HasOne<ApplicationUser>()
                 .WithMany()
                 .HasForeignKey(u => u.CreatedBy);

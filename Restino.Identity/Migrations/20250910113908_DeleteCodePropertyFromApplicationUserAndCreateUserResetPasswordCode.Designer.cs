@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Restino.Identity;
 
@@ -11,9 +12,11 @@ using Restino.Identity;
 namespace Restino.Identity.Migrations
 {
     [DbContext(typeof(RestinoIdentityDbContext))]
-    partial class RestinoIdentityDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250910113908_DeleteCodePropertyFromApplicationUserAndCreateUserResetPasswordCode")]
+    partial class DeleteCodePropertyFromApplicationUserAndCreateUserResetPasswordCode
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

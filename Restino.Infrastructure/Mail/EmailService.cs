@@ -33,7 +33,7 @@ namespace Restino.Infrastructure.Mail
             {
                 To = email,
                 Subject = "Two-factor authentication code",
-                Body = $"Your two-factor authentication code is {code}. It will expire in 10 minutes.""
+                Body = $"Your two-factor authentication code is {code}. It will expire in 10 minutes."
             };
 
             return await SendEmail(emailToSend);

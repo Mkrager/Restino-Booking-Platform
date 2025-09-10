@@ -10,8 +10,8 @@ namespace Restino.Application.Features.User.Commands.AddTwoFactorAuth
     {
         private readonly IUserService _userService;
         private readonly IUserTwoFactorService _userTwoFactorService;
-        private readonly ICodeVerificationService<UserTwoFactor> _codeVerificationService;
-        public AddTwoFactorAuthCommandHandler(IUserService userService, IUserTwoFactorService userTwoFactorService, ICodeVerificationService<UserTwoFactor> codeVerificationService)
+        private readonly ICodeVerificationService<UserTwoFactorCode> _codeVerificationService;
+        public AddTwoFactorAuthCommandHandler(IUserService userService, IUserTwoFactorService userTwoFactorService, ICodeVerificationService<UserTwoFactorCode> codeVerificationService)
         {
             _userService = userService;
             _userTwoFactorService = userTwoFactorService;
@@ -23,14 +23,14 @@ namespace Restino.Application.Features.User.Commands.AddTwoFactorAuth
             var userTwoFactor = await _userTwoFactorService.GetByUserIdAsync(request.UserId);
 
             if (userTwoFactor == null)
-                throw new NotFoundException(nameof(UserTwoFactor), request.UserId);
+                throw new NotFoundException(nameof(UserTwoFactorCode), request.UserId);
 
             var isValid = _codeVerificationService.VerifyCode(userTwoFactor, request.TwoFactorCode);
 
             if (!isValid)
                 throw new InvalidCodeException();
 
-            await _userService.AddTwoFactorAsync(request.Email);
+            await _userService.AddTwoFactorToAccountAsync(request.Email);
 
             await _userTwoFactorService.DeleteTwoFactorRequestAsync(userTwoFactor);
 

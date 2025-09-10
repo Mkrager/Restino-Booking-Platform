@@ -11,18 +11,18 @@ namespace Restino.Identity.Service
         {
             _dbContext = dbContext;
         }
-        public async Task<UserTwoFactor?> GetByUserIdAsync(string userId)
+        public async Task<UserTwoFactorCode?> GetByUserIdAsync(string userId)
         {
-            return await _dbContext.UserTwoFactors.FirstOrDefaultAsync(r => r.CreatedBy == userId);
+            return await _dbContext.UserTwoFactorCodes.FirstOrDefaultAsync(r => r.CreatedBy == userId);
         }
 
-        public async Task<UserTwoFactor> CreateTwoFactorRequestAsync(UserTwoFactor userTwoFactor)
+        public async Task<UserTwoFactorCode> CreateTwoFactorRequestAsync(UserTwoFactorCode userTwoFactor)
         {
             await _dbContext.AddAsync(userTwoFactor);
             await _dbContext.SaveChangesAsync();
             return userTwoFactor;
         }
-        public async Task DeleteTwoFactorRequestAsync(UserTwoFactor userTwoFactor)
+        public async Task DeleteTwoFactorRequestAsync(UserTwoFactorCode userTwoFactor)
         {
             _dbContext.Remove(userTwoFactor);
             await _dbContext.SaveChangesAsync();

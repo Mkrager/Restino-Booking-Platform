@@ -26,10 +26,10 @@ namespace Restino.Application.Features.User.Queries.SendTwoFactoreCode
 
             await _emailService.SendTwoFactorCode(request.Email, code);
 
-            await _userTwoFactorService.CreateTwoFactorRequestAsync(new UserTwoFactor()
+            await _userTwoFactorService.CreateTwoFactorRequestAsync(new UserTwoFactorCode()
             {
                 Code = code,
-                Duration = DateTime.UtcNow.AddMinutes(10)
+                ExpirationTime = DateTime.UtcNow.AddMinutes(10)
             });
 
             return Unit.Value;

@@ -39,7 +39,7 @@ namespace Restino.Identity.Service
             {
                 if (result.RequiresTwoFactor)
                 {
-                    await _userService.SendTwoFactorCodeAsync(user.Email);
+                    //await _userService.(user.Email);
 
                     return new AuthenticationResponse
                     {
@@ -63,7 +63,7 @@ namespace Restino.Identity.Service
                 UserName = user.UserName
             };
 
-            user.Code = null;
+            //user.Code = null;
 
             await _userManager.UpdateAsync(user);
 

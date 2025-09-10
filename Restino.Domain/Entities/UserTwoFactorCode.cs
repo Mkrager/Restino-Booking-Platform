@@ -2,7 +2,7 @@
 
 namespace Restino.Domain.Entities
 {
-    public class UserTwoFactor : AuditableEntity, IHasCode
+    public class UserTwoFactorCode : AuditableEntity, IHasCode
     {
         public string? Code { get; set; }
         public DateTime ExpirationTime { get; set; }

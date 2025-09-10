@@ -10,11 +10,11 @@ namespace Restino.Application.Contracts.Identity
         
         Task DeleteUser(string userId);
 
-        Task SendPasswordResetCodeAsync(string email);
+        //Task SendPasswordResetCodeAsync(string email);
 
-        Task ResetPasswordAsync(string email, string code, string newPassword);
+        //Task ResetPasswordAsync(string email, string code, string newPassword);
 
-        Task AddTwoFactorAsync(string email);
-        Task DeleteTwoFactorAsync(string email);
+        Task AddTwoFactorToAccountAsync(string email);
+        Task DeleteTwoFactorFromAccountAsync(string email);
     }
 }
