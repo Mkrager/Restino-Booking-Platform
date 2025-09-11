@@ -1,8 +1,8 @@
 ﻿using MediatR;
 
-namespace Restino.Application.Features.User.Commands.TwoFactor.DeleteTwofActorAuth
+namespace Restino.Application.Features.TwoFactor.Commands.AddTwoFactorAuth
 {
-    public class DeleteTwoFactorAuthCommand : IRequest
+    public class AddTwoFactorAuthCommand : IRequest
     {
         public string UserId { get; set; } = string.Empty;
         public string Email { get; set; } = string.Empty;

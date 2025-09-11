@@ -4,15 +4,16 @@ using Restino.Application.Contracts.Identity;
 using Restino.Application.Exceptions;
 using Restino.Domain.Entities;
 
-namespace Restino.Application.Features.User.Commands.TwoFactor.AddTwoFactorAuth
+namespace Restino.Application.Features.TwoFactor.Commands.DeleteTwofActorAuth
 {
-    public class AddTwoFactorAuthCommandHandler : IRequestHandler<AddTwoFactorAuthCommand>
+    public class DeleteTwoFactorAuthCommandHandler : IRequestHandler<DeleteTwoFactorAuthCommand>
     {
         private readonly IUserService _userService;
         private readonly IUserTwoFactorCodeRepository _userTwoFactorRepository;
         private readonly ICodeVerificationService<UserTwoFactorCode> _codeVerificationService;
-        public AddTwoFactorAuthCommandHandler(
-            IUserService userService,
+
+        public DeleteTwoFactorAuthCommandHandler(
+            IUserService userService, 
             IUserTwoFactorCodeRepository userTwoFactorRepository, 
             ICodeVerificationService<UserTwoFactorCode> codeVerificationService)
         {
@@ -21,7 +22,7 @@ namespace Restino.Application.Features.User.Commands.TwoFactor.AddTwoFactorAuth
             _codeVerificationService = codeVerificationService;
         }
 
-        public async Task<Unit> Handle(AddTwoFactorAuthCommand request, CancellationToken cancellationToken)
+        public async Task<Unit> Handle(DeleteTwoFactorAuthCommand request, CancellationToken cancellationToken)
         {
             var userTwoFactor = await _userTwoFactorRepository.GetByUserIdAsync(request.UserId);
 
@@ -33,7 +34,7 @@ namespace Restino.Application.Features.User.Commands.TwoFactor.AddTwoFactorAuth
             if (!isValid)
                 throw new InvalidCodeException();
 
-            await _userService.AddTwoFactorToAccountAsync(request.Email);
+            await _userService.DeleteTwoFactorFromAccountAsync(request.Email);
 
             await _userTwoFactorRepository.DeleteAsync(userTwoFactor);
 

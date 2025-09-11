@@ -1,11 +1,10 @@
 ﻿using FluentValidation;
-using System.Text.RegularExpressions;
 
-namespace Restino.Application.Features.User.Commands.ChangeUserPassword
+namespace Restino.Application.Features.PasswordReset.Commands.ResetPassword
 {
-    public class ChangeUserPasswordCommandValidator : AbstractValidator<ChangeUserPasswordCommand>
+    public class ResetPasswordCommandValidator : AbstractValidator<ResetPasswordCommand>
     {
-        public ChangeUserPasswordCommandValidator()
+        public ResetPasswordCommandValidator()
         {
             RuleFor(p => p.NewPassword)
                 .NotEmpty().WithMessage("Password is required.")

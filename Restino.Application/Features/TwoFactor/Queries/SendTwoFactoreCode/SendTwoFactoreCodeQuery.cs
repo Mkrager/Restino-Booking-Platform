@@ -1,6 +1,6 @@
 ﻿using MediatR;
 
-namespace Restino.Application.Features.User.Queries.SendTwoFactoreCode
+namespace Restino.Application.Features.TwoFactor.Queries.SendTwoFactoreCode
 {
     public class SendTwoFactoreCodeQuery : IRequest
     {

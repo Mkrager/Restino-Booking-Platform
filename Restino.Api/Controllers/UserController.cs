@@ -2,15 +2,15 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Restino.Application.Contracts;
-using Restino.Application.Features.User.Commands.ChangeUserPassword;
+using Restino.Application.Features.PasswordReset.Commands.ResetPassword;
+using Restino.Application.Features.PasswordReset.Queries.SendPasswoedResetCode;
+using Restino.Application.Features.TwoFactor.Commands.AddTwoFactorAuth;
+using Restino.Application.Features.TwoFactor.Commands.DeleteTwofActorAuth;
+using Restino.Application.Features.TwoFactor.Queries.SendTwoFactoreCode;
 using Restino.Application.Features.User.Commands.DeleteUser;
-using Restino.Application.Features.User.Commands.TwoFactor.AddTwoFactorAuth;
-using Restino.Application.Features.User.Commands.TwoFactor.DeleteTwofActorAuth;
 using Restino.Application.Features.User.Queries.GetUserDetails;
 using Restino.Application.Features.User.Queries.GetUserList;
 using Restino.Application.Features.User.Queries.SearchUser;
-using Restino.Application.Features.User.Queries.SendPasswoedResetCode;
-using Restino.Application.Features.User.Queries.SendTwoFactoreCode;
 
 namespace Restino.Api.Controllers
 {
@@ -74,7 +74,7 @@ namespace Restino.Api.Controllers
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public async Task<IActionResult> ChangePassword([FromBody] ChangeUserPasswordCommand command)
+        public async Task<IActionResult> ChangePassword([FromBody] ResetPasswordCommand command)
         {
             await mediator.Send(command);
             return NoContent();

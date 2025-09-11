@@ -3,7 +3,7 @@ using Restino.Application.Contracts.Identity;
 using Restino.Application.Contracts.Infrastructure;
 using Restino.Domain.Entities;
 
-namespace Restino.Application.Features.User.Queries.SendTwoFactoreCode
+namespace Restino.Application.Features.TwoFactor.Queries.SendTwoFactoreCode
 {
     public class SendTwoFactoreCodeQueryHandler : IRequestHandler<SendTwoFactoreCodeQuery>
     {

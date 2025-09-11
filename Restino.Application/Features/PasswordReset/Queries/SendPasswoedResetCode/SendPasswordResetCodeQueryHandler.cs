@@ -3,7 +3,7 @@ using Restino.Application.Contracts.Identity;
 using Restino.Application.Contracts.Infrastructure;
 using Restino.Domain.Entities;
 
-namespace Restino.Application.Features.User.Queries.SendPasswoedResetCode
+namespace Restino.Application.Features.PasswordReset.Queries.SendPasswoedResetCode
 {
     internal class SendPasswordResetCodeQueryHandler : IRequestHandler<SendPasswordResetCodeQuery, Unit>
     {

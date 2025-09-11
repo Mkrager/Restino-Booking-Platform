@@ -4,14 +4,14 @@ using Restino.Application.Contracts.Identity;
 using Restino.Application.Exceptions;
 using Restino.Domain.Entities;
 
-namespace Restino.Application.Features.User.Commands.ChangeUserPassword
+namespace Restino.Application.Features.PasswordReset.Commands.ResetPassword
 {
-    public class ChangeUserPasswordCommandHandler : IRequestHandler<ChangeUserPasswordCommand>
+    public class ResetPasswordCommandHandler : IRequestHandler<ResetPasswordCommand>
     {
         private readonly IUserResetPasswordCodeRepository _userResetPasswordRepository;
         private readonly ICodeVerificationService<UserResetPasswordCode> _codeVerificationService;
         private readonly IUserService _userService;
-        public ChangeUserPasswordCommandHandler(
+        public ResetPasswordCommandHandler(
             IUserResetPasswordCodeRepository userResetPasswordRepository, 
             IUserService userService, 
             ICodeVerificationService<UserResetPasswordCode> codeVerificationService)
@@ -21,7 +21,7 @@ namespace Restino.Application.Features.User.Commands.ChangeUserPassword
             _codeVerificationService = codeVerificationService;
         }
 
-        public async Task<Unit> Handle(ChangeUserPasswordCommand request, CancellationToken cancellationToken)
+        public async Task<Unit> Handle(ResetPasswordCommand request, CancellationToken cancellationToken)
         {
             var userResetPassword = await _userResetPasswordRepository.GetByEmailAsync(request.Email);
 

@@ -1,6 +1,6 @@
 ﻿using MediatR;
 
-namespace Restino.Application.Features.User.Queries.SendPasswoedResetCode
+namespace Restino.Application.Features.PasswordReset.Queries.SendPasswoedResetCode
 {
     public class SendPasswordResetCodeQuery : IRequest
     {
