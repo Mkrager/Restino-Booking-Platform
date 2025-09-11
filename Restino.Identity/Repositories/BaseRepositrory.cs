@@ -16,11 +16,6 @@ namespace Restino.Identity.Repositories
             T? t = await _dbContext.Set<T>().FindAsync(id);
             return t;
         }
-        public async Task<T?> GetByUserIdAsync(string userId)
-        {
-            T? t = await _dbContext.Set<T>().FirstOrDefaultAsync(r => r.CreatedBy == userId);
-            return t;
-        }
 
         public async Task<IReadOnlyList<T>> ListAllAsync()
         {

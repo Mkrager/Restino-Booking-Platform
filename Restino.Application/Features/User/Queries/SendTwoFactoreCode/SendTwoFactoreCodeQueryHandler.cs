@@ -9,15 +9,15 @@ namespace Restino.Application.Features.User.Queries.SendTwoFactoreCode
     {
         private readonly ICodeGeneratorService _codeGeneratorService;
         private readonly IEmailService _emailService;
-        private readonly IUserTwoFactorRepository _userTwoFactorService;
+        private readonly IAsyncIdentityRepository<UserTwoFactorCode> _userTwoFactorRepository;
         public SendTwoFactoreCodeQueryHandler(
             ICodeGeneratorService codeGeneratorService,
             IEmailService emailService,
-            IUserTwoFactorRepository userTwoFactorService)
+            IAsyncIdentityRepository<UserTwoFactorCode> userTwoFactorRepository)
         {
             _codeGeneratorService = codeGeneratorService;
             _emailService = emailService;
-            _userTwoFactorService = userTwoFactorService;
+            _userTwoFactorRepository = userTwoFactorRepository;
         }
 
         public async Task<Unit> Handle(SendTwoFactoreCodeQuery request, CancellationToken cancellationToken)
@@ -26,7 +26,7 @@ namespace Restino.Application.Features.User.Queries.SendTwoFactoreCode
 
             await _emailService.SendTwoFactorCode(request.Email, code);
 
-            await _userTwoFactorService.AddAsync(new UserTwoFactorCode()
+            await _userTwoFactorRepository.AddAsync(new UserTwoFactorCode()
             {
                 Code = code,
                 ExpirationTime = DateTime.UtcNow.AddMinutes(10)

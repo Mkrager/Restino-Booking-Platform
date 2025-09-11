@@ -2,7 +2,7 @@
 
 namespace Restino.Application.Contracts.Identity
 {
-    public interface IUserTwoFactorRepository : IAsyncIdentityRepository<UserTwoFactorCode>
+    public interface IUserTwoFactorCodeRepository : IAsyncIdentityRepository<UserTwoFactorCode>
     {
         Task<UserTwoFactorCode?> GetByUserIdAsync(string userId);
     }

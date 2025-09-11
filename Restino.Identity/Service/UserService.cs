@@ -82,54 +82,23 @@ namespace Restino.Identity.Service
             var result = await _userManager.DeleteAsync(user);
         }
 
-        //public async Task SendPasswordResetCodeAsync(string email)
-        //{
-        //    var user = await _userManager.FindByEmailAsync(email);
-        //    if (user == null) 
-        //        throw new Exception("User not found.");
+        public async Task ResetPasswordAsync(string email, string newPassword)
+        {
+            var user = await _userManager.FindByEmailAsync(email);
 
-        //    var code = _codeGeneratorService.GenerateCode(6);
-        //    user.Code = code;
+            if (user == null)
+                throw new Exception("User not found.");
 
-        //    var updateResult = await _userManager.UpdateAsync(user);
-        //    if (!updateResult.Succeeded) 
-        //        throw new Exception("Failed to update user code.");
+            var resetToken = await _userManager.GeneratePasswordResetTokenAsync(user);
 
-        //    var emailSent = await _emailService.SendPasswordResetCode(email, code);
-        //    if (!emailSent) 
-        //        throw new Exception("Email sending failed.");
-        //}
+            var resetResult = await _userManager.ResetPasswordAsync(user, resetToken, newPassword);
 
-        //public async Task ResetPasswordAsync(string email, string code, string newPassword)
-        //{
-        //    var user = await _userManager.FindByEmailAsync(email);
-
-        //    if (user == null)
-        //    {
-        //        throw new Exception("User not found.");
-        //    }
-
-        //    if (code != user.Code)
-        //        throw new Exception("Incorrect code");
-
-        //    var removePasswordResult = await _userManager.RemovePasswordAsync(user);
-        //    if (!removePasswordResult.Succeeded)
-        //    {
-        //        var errors = string.Join(", ", removePasswordResult.Errors.Select(e => e.Description));
-        //        throw new Exception($"Failed to remove old password: {errors}");
-        //    }
-
-        //    var addPasswordResult = await _userManager.AddPasswordAsync(user, newPassword);
-        //    if (!addPasswordResult.Succeeded)
-        //    {
-        //        var errors = string.Join(", ", addPasswordResult.Errors.Select(e => e.Description));
-        //        throw new Exception($"Password reset failed: {errors}");
-        //    }
-
-        //    user.Code = null;
-
-        //    var updateResult = await _userManager.UpdateAsync(user);
-        //}
+            if (!resetResult.Succeeded)
+            {
+                throw new Exception("Password reset failed: " +
+                    string.Join(", ", resetResult.Errors.Select(e => e.Description)));
+            }
+        }
 
         public async Task AddTwoFactorToAccountAsync(string email)
         {

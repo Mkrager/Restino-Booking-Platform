@@ -9,9 +9,12 @@ namespace Restino.Application.Features.User.Commands.TwoFactor.AddTwoFactorAuth
     public class AddTwoFactorAuthCommandHandler : IRequestHandler<AddTwoFactorAuthCommand>
     {
         private readonly IUserService _userService;
-        private readonly IUserTwoFactorRepository _userTwoFactorRepository;
+        private readonly IUserTwoFactorCodeRepository _userTwoFactorRepository;
         private readonly ICodeVerificationService<UserTwoFactorCode> _codeVerificationService;
-        public AddTwoFactorAuthCommandHandler(IUserService userService, IUserTwoFactorRepository userTwoFactorRepository, ICodeVerificationService<UserTwoFactorCode> codeVerificationService)
+        public AddTwoFactorAuthCommandHandler(
+            IUserService userService,
+            IUserTwoFactorCodeRepository userTwoFactorRepository, 
+            ICodeVerificationService<UserTwoFactorCode> codeVerificationService)
         {
             _userService = userService;
             _userTwoFactorRepository = userTwoFactorRepository;

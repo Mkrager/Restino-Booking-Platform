@@ -6,8 +6,10 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 using Restino.Application.Contracts.Identity;
+using Restino.Application.Contracts.Persistance;
 using Restino.Application.DTOs.Authentication;
 using Restino.Identity.Models;
+using Restino.Identity.Repositories;
 using Restino.Identity.Service;
 using System.Text;
 using System.Text.Json;
@@ -27,6 +29,11 @@ namespace Restino.Identity
 
             services.AddTransient<IAuthenticationService, AuthenticationService>();
             services.AddTransient<IUserService, UserService>();
+
+            services.AddScoped(typeof(IAsyncIdentityRepository<>), typeof(BaseRepositrory<>));
+
+            services.AddScoped<IUserTwoFactorCodeRepository, UserTwoFactorCodeRepository>();
+            services.AddScoped<IUserResetPasswordCodeRepository, UserResetPasswordCodeRepository>();
 
             services.AddAuthentication(options =>
             {

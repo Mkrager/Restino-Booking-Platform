@@ -1,23 +1,43 @@
-﻿//using AutoMapper;
-//using MediatR;
-//using Restino.Application.Contracts.Identity;
+﻿using MediatR;
+using Restino.Application.Contracts.Application;
+using Restino.Application.Contracts.Identity;
+using Restino.Application.Exceptions;
+using Restino.Domain.Entities;
 
-//namespace Restino.Application.Features.User.Commands.ChangeUserPassword
-//{
-//    public class ChangeUserPasswordCommandHandler : IRequestHandler<ChangeUserPasswordCommand>
-//    {
-//        private readonly IMapper _mapper;
-//        private readonly IUserService _userService;
-//        public ChangeUserPasswordCommandHandler(IMapper mapper, IUserService userService)
-//        {
-//            _mapper = mapper;
-//            _userService = userService;
-//        }
+namespace Restino.Application.Features.User.Commands.ChangeUserPassword
+{
+    public class ChangeUserPasswordCommandHandler : IRequestHandler<ChangeUserPasswordCommand>
+    {
+        private readonly IUserResetPasswordCodeRepository _userResetPasswordRepository;
+        private readonly ICodeVerificationService<UserResetPasswordCode> _codeVerificationService;
+        private readonly IUserService _userService;
+        public ChangeUserPasswordCommandHandler(
+            IUserResetPasswordCodeRepository userResetPasswordRepository, 
+            IUserService userService, 
+            ICodeVerificationService<UserResetPasswordCode> codeVerificationService)
+        {
+            _userResetPasswordRepository = userResetPasswordRepository;
+            _userService = userService;
+            _codeVerificationService = codeVerificationService;
+        }
 
-//        public async Task<Unit> Handle(ChangeUserPasswordCommand request, CancellationToken cancellationToken)
-//        {
-//            await _userService.ResetPasswordAsync(request.Email, request.Token, request.NewPassword);
-//            return Unit.Value;
-//        }
-//    }
-//}
+        public async Task<Unit> Handle(ChangeUserPasswordCommand request, CancellationToken cancellationToken)
+        {
+            var userResetPassword = await _userResetPasswordRepository.GetByEmailAsync(request.Email);
+
+            if (userResetPassword == null)
+                throw new NotFoundException(nameof(UserResetPasswordCode), request.Email);
+
+            var isValid = _codeVerificationService.VerifyCode(userResetPassword, request.ResetPasswordCode);
+
+            if (!isValid)
+                throw new InvalidCodeException();
+
+            await _userService.ResetPasswordAsync(request.Email, request.NewPassword);
+
+            await _userResetPasswordRepository.DeleteAsync(userResetPassword);
+
+            return Unit.Value;
+        }
+    }
+}

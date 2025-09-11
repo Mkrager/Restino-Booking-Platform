@@ -9,19 +9,22 @@ namespace Restino.Application.Features.User.Commands.TwoFactor.DeleteTwofActorAu
     public class DeleteTwoFactorAuthCommandHandler : IRequestHandler<DeleteTwoFactorAuthCommand>
     {
         private readonly IUserService _userService;
-        private readonly IUserTwoFactorRepository _userTwoFactorService;
+        private readonly IUserTwoFactorCodeRepository _userTwoFactorRepository;
         private readonly ICodeVerificationService<UserTwoFactorCode> _codeVerificationService;
 
-        public DeleteTwoFactorAuthCommandHandler(IUserService userService, IUserTwoFactorRepository userTwoFactorService, ICodeVerificationService<UserTwoFactorCode> codeVerificationService)
+        public DeleteTwoFactorAuthCommandHandler(
+            IUserService userService, 
+            IUserTwoFactorCodeRepository userTwoFactorRepository, 
+            ICodeVerificationService<UserTwoFactorCode> codeVerificationService)
         {
             _userService = userService;
-            _userTwoFactorService = userTwoFactorService;
+            _userTwoFactorRepository = userTwoFactorRepository;
             _codeVerificationService = codeVerificationService;
         }
 
         public async Task<Unit> Handle(DeleteTwoFactorAuthCommand request, CancellationToken cancellationToken)
         {
-            var userTwoFactor = await _userTwoFactorService.GetByUserIdAsync(request.UserId);
+            var userTwoFactor = await _userTwoFactorRepository.GetByUserIdAsync(request.UserId);
 
             if (userTwoFactor == null)
                 throw new NotFoundException(nameof(UserTwoFactorCode), request.UserId);
@@ -33,7 +36,7 @@ namespace Restino.Application.Features.User.Commands.TwoFactor.DeleteTwofActorAu
 
             await _userService.DeleteTwoFactorFromAccountAsync(request.Email);
 
-            await _userTwoFactorService.DeleteAsync(userTwoFactor);
+            await _userTwoFactorRepository.DeleteAsync(userTwoFactor);
 
             return Unit.Value;
         }
