@@ -1,9 +1,10 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Restino.Application.Contracts.Identity;
+using Restino.Domain.Common;
 
 namespace Restino.Identity.Repositories
 {
-    public class BaseRepositrory<T> : IAsyncIdentityRepository<T> where T : class
+    public class BaseRepositrory<T> : IAsyncIdentityRepository<T> where T : AuditableEntity
     {
         protected readonly RestinoIdentityDbContext _dbContext;
         public BaseRepositrory(RestinoIdentityDbContext dbContext)
@@ -13,6 +14,11 @@ namespace Restino.Identity.Repositories
         public virtual async Task<T?> GetByIdAsync(Guid id)
         {
             T? t = await _dbContext.Set<T>().FindAsync(id);
+            return t;
+        }
+        public async Task<T?> GetByUserIdAsync(string userId)
+        {
+            T? t = await _dbContext.Set<T>().FirstOrDefaultAsync(r => r.CreatedBy == userId);
             return t;
         }
 

@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Restino.Application.Contracts.Identity;
-using Restino.Application.Contracts.Infrastructure;
 using Restino.Application.DTOs.Authentication;
 using Restino.Identity.Models;
 
@@ -10,13 +9,9 @@ namespace Restino.Identity.Service
     public class UserService : IUserService
     {
         private readonly UserManager<ApplicationUser> _userManager;
-        private readonly IEmailService _emailService;
-        private readonly ICodeGeneratorService _codeGeneratorService;
-        public UserService(UserManager<ApplicationUser> userManager, IEmailService emailService, ICodeGeneratorService codeGeneratorService)
+        public UserService(UserManager<ApplicationUser> userManager)
         {
             _userManager = userManager;
-            _emailService = emailService;
-            _codeGeneratorService = codeGeneratorService;
         }
         public async Task<GetUserDetailsResponse> GetUserDetailsAsync(string userId)
         {

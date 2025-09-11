@@ -8,7 +8,6 @@ using Microsoft.IdentityModel.Tokens;
 using Restino.Application.Contracts.Identity;
 using Restino.Application.DTOs.Authentication;
 using Restino.Identity.Models;
-using Restino.Identity.Repositories;
 using Restino.Identity.Service;
 using System.Text;
 using System.Text.Json;
@@ -28,7 +27,6 @@ namespace Restino.Identity
 
             services.AddTransient<IAuthenticationService, AuthenticationService>();
             services.AddTransient<IUserService, UserService>();
-            services.AddTransient<IUserTwoFactorRepository, UserTwoFactorRepository>();
 
             services.AddAuthentication(options =>
             {
