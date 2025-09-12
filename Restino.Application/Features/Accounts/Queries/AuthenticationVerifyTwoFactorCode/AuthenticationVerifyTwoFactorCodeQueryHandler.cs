@@ -3,6 +3,7 @@ using MediatR;
 using Restino.Application.Contracts.Application;
 using Restino.Application.Contracts.Identity;
 using Restino.Application.DTOs.Authentication;
+using Restino.Application.Exceptions;
 using Restino.Domain.Entities;
 
 namespace Restino.Application.Features.Accounts.Queries.AuthenticationVerifyTwoFactorCode
@@ -12,12 +13,12 @@ namespace Restino.Application.Features.Accounts.Queries.AuthenticationVerifyTwoF
         private readonly IMapper _mapper;
         private readonly IAuthenticationService _authenticationService;
         private readonly ICodeVerificationService<UserTwoFactorCode> _codeVerificationService;
-        private readonly IAsyncIdentityRepository<UserTwoFactorCode> _userTwoFactorCodeRepository;
+        private readonly IUserTwoFactorCodeRepository _userTwoFactorCodeRepository;
         public AuthenticationVerifyTwoFactorCodeQueryHandler(
             IMapper mapper, 
             IAuthenticationService authenticationService, 
             ICodeVerificationService<UserTwoFactorCode> codeVerificationService,
-            IAsyncIdentityRepository<UserTwoFactorCode> userTwoFactorCodeRepository)
+            IUserTwoFactorCodeRepository userTwoFactorCodeRepository)
         {
             _authenticationService = authenticationService;
             _mapper = mapper;
@@ -27,10 +28,17 @@ namespace Restino.Application.Features.Accounts.Queries.AuthenticationVerifyTwoF
 
         public async Task<AuthenticationResponse> Handle(AuthenticationVerifyTwoFactorCodeQuery request, CancellationToken cancellationToken)
         {
-            var userTwoFactorCode = await _userTwoFactorCodeRepository
+            var userTwoFactorCode = await _userTwoFactorCodeRepository.GetByUserEmailAsync(request.Email);
 
+            if (userTwoFactorCode == null)
+                throw new NotFoundException(nameof(UserTwoFactorCode), request.Email);
 
-            var authentication = await _authenticationService.AuthenticateAsync(authenticationVerifyCodeRequest);
+            var isValid = _codeVerificationService.VerifyCode(userTwoFactorCode, request.TwoFactorCode);
+
+            if (!isValid)
+                throw new InvalidCodeException();
+
+            var authentication = await _authenticationService.AuthenticateAsync(_mapper.Map<AuthenticationRequest>(request));
 
             return authentication;
 
