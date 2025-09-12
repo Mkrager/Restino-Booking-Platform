@@ -10,6 +10,12 @@ namespace Restino.Identity.Repositories
         {
         }
 
+        public async Task<UserTwoFactorCode?> GetByUserEmailAsync(string email)
+        {
+            return await _dbContext.UserTwoFactorCodes
+                .FirstOrDefaultAsync(r => r.Email == email);
+        }
+
         public async Task<UserTwoFactorCode?> GetByUserIdAsync(string userId)
         {
             return await _dbContext.UserTwoFactorCodes

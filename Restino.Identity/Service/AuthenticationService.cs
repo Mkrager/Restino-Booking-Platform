@@ -15,14 +15,12 @@ namespace Restino.Identity.Service
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly JwtSettings _jwtSettings;
-        private readonly IUserService _userService;
 
-        public AuthenticationService(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager, IOptions<JwtSettings> jwtSettings, IUserService userService)
+        public AuthenticationService(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager, IOptions<JwtSettings> jwtSettings)
         {
             _jwtSettings = jwtSettings.Value;
             _userManager = userManager;
             _signInManager = signInManager;
-            _userService = userService;
         }
         public async Task<AuthenticationResponse> AuthenticateAsync(AuthenticationRequest request)
         {
@@ -39,8 +37,6 @@ namespace Restino.Identity.Service
             {
                 if (result.RequiresTwoFactor)
                 {
-                    //await _userService.(user.Email);
-
                     return new AuthenticationResponse
                     {
                         Id = user.Id,
@@ -55,34 +51,21 @@ namespace Restino.Identity.Service
 
             JwtSecurityToken jwtSecurityToken = await GenerateToken(user);
 
-            AuthenticationResponse response = new AuthenticationResponse
+            return new AuthenticationResponse
             {
                 Id = user.Id,
                 Token = new JwtSecurityTokenHandler().WriteToken(jwtSecurityToken),
                 Email = user.Email,
                 UserName = user.UserName
             };
-
-            //user.Code = null;
-
-            await _userManager.UpdateAsync(user);
-
-            return response;
         }
 
         public async Task<AuthenticationResponse> VerifyTwoFactorCodeAsync(VerifyCodeRequest request)
         {
             var user = await _userManager.FindByEmailAsync(request.Email);
 
-            //if (user == null || request.TwoFactorCode != user.TwoFactorCode)
-            //{
-            //    throw new Exception("Invalid email or code.");
-            //}
-
-            //if (user.TwoFactorCodeDuration < DateTime.Now)
-            //{
-            //    throw new Exception("Code duration end.");
-            //}
+            if (user == null)
+                throw new Exception($"There is no account with this email address.");
 
             JwtSecurityToken jwtSecurityToken = await GenerateToken(user);
 
@@ -96,7 +79,6 @@ namespace Restino.Identity.Service
 
             return response;
         }
-
 
         public async Task<string> RegisterAsync(RegistrationRequest request)
         {
@@ -129,7 +111,7 @@ namespace Restino.Identity.Service
 
                 if (result.Succeeded)
                 {
-                    return user.Id ;
+                    return user.Id;
                 }
                 else
                 {

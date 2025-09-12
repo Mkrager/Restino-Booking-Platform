@@ -5,6 +5,7 @@ namespace Restino.Domain.Entities
     public class UserTwoFactorCode : AuditableEntity, IHasCode
     {
         public string? Code { get; set; }
+        public string? Email { get; set; }
         public DateTime ExpirationTime { get; set; }
     }
 }
