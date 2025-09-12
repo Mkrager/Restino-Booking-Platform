@@ -1,9 +1,12 @@
 ﻿using AutoMapper;
+using Restino.Application.DTOs.Authentication;
 using Restino.Application.Features.Accommodations.Commands.CreateAccommodation;
 using Restino.Application.Features.Accommodations.Commands.DeleteAccommodation;
 using Restino.Application.Features.Accommodations.Commands.UpdateAccommodation;
 using Restino.Application.Features.Accommodations.Queries.GetAccommodationDetails;
 using Restino.Application.Features.Accommodations.Queries.GetAccommodationList;
+using Restino.Application.Features.Accounts.Commands.Registration;
+using Restino.Application.Features.Accounts.Queries.Authentication;
 using Restino.Application.Features.Categories.Commands.CreateCategoryCommand;
 using Restino.Application.Features.Categories.Queries.GetCategoriesList;
 using Restino.Application.Features.Categories.Queries.GetCategoriesListWithAccommodation;
@@ -43,6 +46,10 @@ namespace Restino.Application.Profiles
             CreateMap<Reservation, ReservationDetailsVm>().ReverseMap();
             CreateMap<Reservation, DeleteReservationCommand>().ReverseMap();
             CreateMap<Reservation, GetUserReservationListVm>().ReverseMap();
+
+            CreateMap<RegistrationRequest, RegistrationCommand>().ReverseMap();
+            CreateMap<AuthenticationRequest, AuthenticationQuery>().ReverseMap();
+            CreateMap<AuthenticationResponse, AuthenticationVm>().ReverseMap();
         }
     }
 }

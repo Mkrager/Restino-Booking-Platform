@@ -10,18 +10,15 @@ namespace Restino.Application.Features.Accounts.Queries.AuthenticationVerifyTwoF
 {
     public class AuthenticationVerifyTwoFactorCodeQueryHandler : IRequestHandler<AuthenticationVerifyTwoFactorCodeQuery, AuthenticationResponse>
     {
-        private readonly IMapper _mapper;
         private readonly IAuthenticationService _authenticationService;
         private readonly ICodeVerificationService<UserTwoFactorCode> _codeVerificationService;
         private readonly IUserTwoFactorCodeRepository _userTwoFactorCodeRepository;
         public AuthenticationVerifyTwoFactorCodeQueryHandler(
-            IMapper mapper, 
             IAuthenticationService authenticationService, 
             ICodeVerificationService<UserTwoFactorCode> codeVerificationService,
             IUserTwoFactorCodeRepository userTwoFactorCodeRepository)
         {
             _authenticationService = authenticationService;
-            _mapper = mapper;
             _codeVerificationService = codeVerificationService;
             _userTwoFactorCodeRepository = userTwoFactorCodeRepository;
         }

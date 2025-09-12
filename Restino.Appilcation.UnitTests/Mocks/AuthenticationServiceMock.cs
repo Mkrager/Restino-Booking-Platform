@@ -16,7 +16,6 @@ namespace Restino.Appilcation.UnitTests.Mocks
                     Token = "fake-token",
                     Email = "fake-email",
                     Id = "fake-id",
-                    UserName = "fake-userName"
                 });
 
 

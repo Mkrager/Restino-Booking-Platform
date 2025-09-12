@@ -35,7 +35,6 @@ namespace Restino.Identity.Service
             {
                 Id = user.Id,
                 Email = user.Email,
-                UserName = user.UserName,
                 TwoFactorRequired = user.TwoFactorEnabled
             };
         }

@@ -54,6 +54,8 @@ namespace Restino.Infrastructure.Mail
 
             var sendGridMessage = MailHelper.CreateSingleEmail(from, to, subject, emailBody, emailBody);
             var response = await client.SendEmailAsync(sendGridMessage);
+            
+            var responseBody = await response.Body.ReadAsStringAsync();
 
             if (response.StatusCode == System.Net.HttpStatusCode.Accepted || response.StatusCode == System.Net.HttpStatusCode.OK)
                 return true;

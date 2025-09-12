@@ -24,9 +24,16 @@ namespace Restino.Identity.Repositories
 
         public virtual async Task<T> AddAsync(T entity)
         {
-            await _dbContext.Set<T>().AddAsync(entity);
-            await _dbContext.SaveChangesAsync();
-            return entity;
+            try
+            {
+                await _dbContext.Set<T>().AddAsync(entity);
+                await _dbContext.SaveChangesAsync();
+                return entity;
+            }
+            catch(Exception ex) 
+            {
+                return entity;
+            }
         }
         public async Task UpdateAsync(T entity)
         {
