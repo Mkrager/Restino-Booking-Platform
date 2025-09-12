@@ -13,71 +13,42 @@ namespace Restino.Identity.Service
     public class AuthenticationService : IAuthenticationService
     {
         private readonly UserManager<ApplicationUser> _userManager;
-        private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly JwtSettings _jwtSettings;
 
-        public AuthenticationService(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager, IOptions<JwtSettings> jwtSettings)
+        public AuthenticationService(UserManager<ApplicationUser> userManager, IOptions<JwtSettings> jwtSettings)
         {
             _jwtSettings = jwtSettings.Value;
             _userManager = userManager;
-            _signInManager = signInManager;
         }
         public async Task<AuthenticationResponse> AuthenticateAsync(AuthenticationRequest request)
         {
             var user = await _userManager.FindByEmailAsync(request.Email);
 
             if (user == null)
-            {
-                throw new Exception($"Password or email invalid.");
-            }
+                throw new Exception("Password or email invalid.");
 
-            var result = await _signInManager.PasswordSignInAsync(user.UserName, request.Password, false, lockoutOnFailure: false);
-
-            if (!result.Succeeded)
-            {
-                if (result.RequiresTwoFactor)
-                {
-                    return new AuthenticationResponse
-                    {
-                        Id = user.Id,
-                        Email = user.Email,
-                        UserName = user.UserName,
-                        TwoFactorRequired = true
-                    };
-                }
-
-                throw new Exception($"Password or email invalid.");
-            }
-
-            JwtSecurityToken jwtSecurityToken = await GenerateToken(user);
+            var passwordValid = await _userManager.CheckPasswordAsync(user, request.Password);
+            if (!passwordValid)
+                throw new Exception("Password or email invalid.");
 
             return new AuthenticationResponse
             {
                 Id = user.Id,
-                Token = new JwtSecurityTokenHandler().WriteToken(jwtSecurityToken),
                 Email = user.Email,
-                UserName = user.UserName
+                UserName = user.UserName,
+                TwoFactorRequired = user.TwoFactorEnabled
             };
         }
 
-        public async Task<AuthenticationResponse> VerifyTwoFactorCodeAsync(VerifyCodeRequest request)
+        public async Task<string> GenerateJwtForUserAsync(string email)
         {
-            var user = await _userManager.FindByEmailAsync(request.Email);
+            var user = await _userManager.FindByEmailAsync(email);
 
             if (user == null)
-                throw new Exception($"There is no account with this email address.");
+                throw new Exception("User with this email does not exist");
 
-            JwtSecurityToken jwtSecurityToken = await GenerateToken(user);
-
-            AuthenticationResponse response = new AuthenticationResponse
-            {
-                Id = user.Id,
-                Token = new JwtSecurityTokenHandler().WriteToken(jwtSecurityToken),
-                Email = user.Email,
-                UserName = user.UserName
-            };
-
-            return response;
+            var token = await GenerateToken(user);
+            return new JwtSecurityTokenHandler().WriteToken(token);
         }
 
         public async Task<string> RegisterAsync(RegistrationRequest request)

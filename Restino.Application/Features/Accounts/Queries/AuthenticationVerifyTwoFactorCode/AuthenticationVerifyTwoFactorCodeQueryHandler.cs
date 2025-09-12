@@ -38,10 +38,16 @@ namespace Restino.Application.Features.Accounts.Queries.AuthenticationVerifyTwoF
             if (!isValid)
                 throw new InvalidCodeException();
 
-            var authentication = await _authenticationService.AuthenticateAsync(_mapper.Map<AuthenticationRequest>(request));
+            var token = await _authenticationService.GenerateJwtForUserAsync(request.Email);
 
-            return authentication;
 
+            return new AuthenticationResponse
+            {
+                Id = userTwoFactorCode.CreatedBy,
+                Email = userTwoFactorCode.Email,
+                Token = token,
+                TwoFactorRequired = false
+            };
         }
     }
 }

@@ -22,18 +22,28 @@ namespace Restino.Application.Features.Accounts.Queries.Authentication
         }
         public async Task<AuthenticationVm> Handle(AuthenticationQuery request, CancellationToken cancellationToken)
         {
-            var authentication = await _authenticationService
-                .AuthenticateAsync(_mapper.Map<AuthenticationRequest>(request));
 
-            if (authentication.TwoFactorRequired)
+            var authResult = await _authenticationService.AuthenticateAsync(
+                _mapper.Map<AuthenticationRequest>(request)
+            );
+
+            var authenticationVm = _mapper.Map<AuthenticationVm>(authResult);
+
+            if (authResult.TwoFactorRequired)
             {
-                await _mediator.Send(new SendTwoFactoreCodeQuery()
-                {
-                    Email = request.Email
-                });
+                await _mediator.Send(new SendTwoFactoreCodeQuery { Email = request.Email });
+
+                authenticationVm.TwoFactorRequired = true;
+
+                return authenticationVm;
             }
 
-            return _mapper.Map<AuthenticationVm>(authentication);
+            var token = await _authenticationService.GenerateJwtForUserAsync(request.Email);
+
+            authenticationVm.Token = token;
+            authenticationVm.TwoFactorRequired = false;
+
+            return authenticationVm;
         }
     }
 }
