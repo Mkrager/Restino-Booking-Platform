@@ -1,4 +1,6 @@
 ﻿using Restino.App.Contracts;
+using Restino.App.Infrastructure.Api;
+using Restino.App.Infrastructure.BaseServices;
 using Restino.App.ViewModels;
 using System.Net.Http.Headers;
 using System.Text;
@@ -6,42 +8,30 @@ using System.Text.Json;
 
 namespace Restino.App.Services
 {
-    public class ReservationDataService : IReservationDataService
+    public class ReservationDataService : BaseDataService, IReservationDataService
     {
-        private readonly HttpClient _httpClient;
-        private readonly IAuthenticationService _authenticationService;
-        public ReservationDataService(HttpClient httpClient, IAuthenticationService authenticationService)
+        public ReservationDataService(IHttpClientFactory httpClientFactory) : base(httpClientFactory)
         {
-            _httpClient = httpClient;
-            _authenticationService = authenticationService;
         }
 
         public async Task<ApiResponse<Guid>> CreateReservation(ReservationDetailViewModel reservationDetailViewModel)
         {
             try
             {
-                var request = new HttpRequestMessage(HttpMethod.Post, $"https://localhost:7288/api/Reservation")
-                {
-                    Content = new StringContent(JsonSerializer.Serialize(reservationDetailViewModel), Encoding.UTF8, "application/json")
-                };
+                var content = new StringContent(
+                    JsonSerializer.Serialize(reservationDetailViewModel),
+                    Encoding.UTF8,
+                    "application/json");
 
-                string accessToken = _authenticationService.GetAccessToken();
-
-                request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
-
-                var response = await _httpClient.SendAsync(request);
+                var response = await _httpClient.PostAsync("reservation", content);
 
                 if (response.IsSuccessStatusCode)
                 {
-                    var responseContent = await response.Content.ReadAsStringAsync();
-
-                    var reservationDetails = JsonSerializer.Deserialize<Guid>(responseContent);
-
-                    return new ApiResponse<Guid>(System.Net.HttpStatusCode.OK, reservationDetails);
+                    var reservation = await DeserializeResponse<Guid>(response);
+                    return new ApiResponse<Guid>(System.Net.HttpStatusCode.OK, reservation);
                 }
 
-                var errorContent = await response.Content.ReadAsStringAsync();
-                var errorMessages = JsonSerializer.Deserialize<List<string>>(errorContent);
+                var errorMessages = await DeserializeResponse<List<string>>(response);
                 return new ApiResponse<Guid>(System.Net.HttpStatusCode.BadRequest, Guid.Empty, errorMessages.FirstOrDefault());
             }
             catch (Exception ex)
@@ -52,20 +42,11 @@ namespace Restino.App.Services
 
         public async Task<List<ReservationListViewModel>> GetAllReservation()
         {
-            var request = new HttpRequestMessage(HttpMethod.Get, $"https://localhost:7288/api/Reservation");
-
-            string accessToken = _authenticationService.GetAccessToken();
-
-            request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
-
-            var response = await _httpClient.SendAsync(request);
+            var response = await _httpClient.GetAsync("reservation");
 
             if (response.IsSuccessStatusCode)
             {
-                var responseContent = await response.Content.ReadAsStringAsync();
-
-                var reservations = JsonSerializer.Deserialize<List<ReservationListViewModel>>(responseContent);
-
+                var reservations = await DeserializeResponse<List<ReservationListViewModel>>(response);
                 return reservations;    
             }
 
@@ -74,71 +55,44 @@ namespace Restino.App.Services
 
         public async Task<ReservationDetailViewModel> GetReservationById(Guid id)
         {
-            var request = new HttpRequestMessage(HttpMethod.Get, $"https://localhost:7288/api/Reservation/{id}");
-
-            string accessToken = _authenticationService.GetAccessToken();
-
-            request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
-
-            var response = await _httpClient.SendAsync(request);
+            var response = await _httpClient.GetAsync($"reservation/{id}");
 
             if (response.IsSuccessStatusCode)
             {
-                var responseContent = await response.Content.ReadAsStringAsync();
-
-                var reservationDetails = JsonSerializer.Deserialize<ReservationDetailViewModel>(responseContent);
-
+                var reservationDetails = await DeserializeResponse<ReservationDetailViewModel>(response);
                 return reservationDetails;
             }
 
             return new ReservationDetailViewModel();
         }
 
-        public async Task<ApiResponse<Guid>> DeleteReservation(Guid id)
+        public async Task<ApiResponse> DeleteReservation(Guid id)
         {
             try
             {
-                var request = new HttpRequestMessage(HttpMethod.Delete, $"https://localhost:7288/api/reservation/{id}");
-
-                string accessToken = _authenticationService.GetAccessToken();
-
-                request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
-
-                var response = await _httpClient.SendAsync(request);
+                var response = await _httpClient.DeleteAsync($"reservation/{id}");
 
                 if (response.IsSuccessStatusCode)
                 {
-                    var responseContent = await response.Content.ReadAsStringAsync();
-
-                    return new ApiResponse<Guid>(System.Net.HttpStatusCode.NoContent, Guid.Empty);
+                    return new ApiResponse(System.Net.HttpStatusCode.NoContent);
                 }
 
-                var errorContent = await response.Content.ReadAsStringAsync();
-                var errorMessages = JsonSerializer.Deserialize<List<string>>(errorContent);
-                return new ApiResponse<Guid>(System.Net.HttpStatusCode.BadRequest, Guid.Empty, errorMessages.FirstOrDefault());
+                var errorMessages = await DeserializeResponse<List<string>>(response);
+                return new ApiResponse(System.Net.HttpStatusCode.BadRequest, errorMessages.FirstOrDefault());
             }
             catch (Exception ex)
             {
-                return new ApiResponse<Guid>(System.Net.HttpStatusCode.BadRequest, Guid.Empty, ex.Message);
+                return new ApiResponse(System.Net.HttpStatusCode.BadRequest, ex.Message);
             }
         }
 
-        public async Task<List<ReservationListViewModel>> GetUserReservation(string userId)
+        public async Task<List<ReservationListViewModel>> GetUserReservation()
         {
-            var request = new HttpRequestMessage(HttpMethod.Get, $"https://localhost:7288/api/Reservation/GetUserReservations/{userId}");
-
-            string accessToken = _authenticationService.GetAccessToken();
-
-            request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
-
-            var response = await _httpClient.SendAsync(request);
+            var response = await _httpClient.GetAsync("reservation/user");
 
             if (response.IsSuccessStatusCode)
             {
-                var responseContent = await response.Content.ReadAsStringAsync();
-
-                var reservations = JsonSerializer.Deserialize<List<ReservationListViewModel>>(responseContent);
-
+                var reservations = await DeserializeResponse<List<ReservationListViewModel>>(response);
                 return reservations;    
             }
 

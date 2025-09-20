@@ -64,9 +64,12 @@ namespace Restino.Api.Controllers
         [HttpGet("user/{userId}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public async Task<ActionResult<List<GetUserReservationListVm>>> GetUserReservations(string userId)
+        public async Task<ActionResult<List<GetUserReservationListVm>>> GetUserReservations()
         {
-            var dtos = await mediator.Send(new GetUserReservationListQuery { UserId = userId });
+            var dtos = await mediator.Send(new GetUserReservationListQuery 
+            {
+                UserId = currentUserService.UserId
+            });
             return Ok(dtos);
         }
     }

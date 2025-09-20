@@ -9,6 +9,6 @@ namespace Restino.App.Contracts
         Task<List<ReservationListViewModel>> GetAllReservation();
         Task<List<ReservationListViewModel>> GetUserReservation(string userId);
         Task<ReservationDetailViewModel> GetReservationById(Guid id);
-        Task<ApiResponse<Guid>> DeleteReservation(Guid id);
+        Task<ApiResponse> DeleteReservation(Guid id);
     }
 }
