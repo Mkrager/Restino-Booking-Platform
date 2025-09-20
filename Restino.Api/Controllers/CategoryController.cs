@@ -25,12 +25,12 @@ namespace Restino.Api.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<ActionResult<List<CategoryAccommodationListVm>>> GetAllCategoriesWithAccommodations(
             [FromQuery] bool onlyOneCategoryResult,
-            [FromQuery] Guid? CategoryId)
+            [FromQuery] Guid? сategoryId)
         {
             var query = new GetCategoryListWithAccommodationQuery
             {
                 OnlyOneCategoryResult = onlyOneCategoryResult,
-                Id = CategoryId
+                Id = сategoryId
             };
 
             var dtos = await mediator.Send(query);

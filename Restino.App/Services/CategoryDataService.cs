@@ -1,48 +1,36 @@
 ﻿using Restino.App.Contracts;
+using Restino.App.Infrastructure.Api;
+using Restino.App.Infrastructure.BaseServices;
 using Restino.App.ViewModels;
-using System.Net.Http.Headers;
 using System.Text;
 using System.Text.Json;
 
 namespace Restino.App.Services
 {
-    public class CategoryDataService : ICategoryDataService
+    public class CategoryDataService : BaseDataService, ICategoryDataService
     {
-        private readonly HttpClient _httpClient;
-        private readonly IAuthenticationService _authenticationService;
-
-        public CategoryDataService(HttpClient httpClient, IAuthenticationService authenticationService)
+        public CategoryDataService(IHttpClientFactory httpClientFactory) : base(httpClientFactory)
         {
-            _httpClient = httpClient;
-            _authenticationService = authenticationService;
         }
 
         public async Task<ApiResponse<Guid>> CreateCategory(CategoryViewModel categoryViewModel)
         {
             try
             {
-                var request = new HttpRequestMessage(HttpMethod.Post, $"https://localhost:7288/api/Category")
-                {
-                    Content = new StringContent(JsonSerializer.Serialize(categoryViewModel), Encoding.UTF8, "application/json")
-                };
+                var content = new StringContent(
+                    JsonSerializer.Serialize(categoryViewModel),
+                    Encoding.UTF8,
+                    "application/json");
 
-                string accessToken = _authenticationService.GetAccessToken();
-
-                request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
-
-                var response = await _httpClient.SendAsync(request);
+                var response = await _httpClient.PostAsync("category", content);
 
                 if (response.IsSuccessStatusCode)
                 {
-                    var responseContent = await response.Content.ReadAsStringAsync();
-
-                    var categoryId = JsonSerializer.Deserialize<Guid>(responseContent);
-
+                    var categoryId = await DeserializeResponse<Guid>(response);
                     return new ApiResponse<Guid>(System.Net.HttpStatusCode.OK, categoryId);
                 }
 
-                var errorContent = await response.Content.ReadAsStringAsync();
-                var errorMessages = JsonSerializer.Deserialize<List<string>>(errorContent);
+                var errorMessages = await DeserializeResponse<List<string>>(response); 
                 return new ApiResponse<Guid>(System.Net.HttpStatusCode.BadRequest, Guid.Empty, errorMessages.FirstOrDefault());
             }
             catch (Exception ex)
@@ -51,95 +39,62 @@ namespace Restino.App.Services
             }
         }
 
-        public async Task<ApiResponse<Guid>> DeleteCategory(Guid id)
+        public async Task<ApiResponse> DeleteCategory(Guid id)
         {
             try
             {
-                var request = new HttpRequestMessage(HttpMethod.Delete, $"https://localhost:7288/api/Category/{id}");
-
-                string accessToken = _authenticationService.GetAccessToken();
-
-                request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
-
-                var response = await _httpClient.SendAsync(request);
+                var response = await _httpClient.DeleteAsync($"category/{id}");
 
                 if (response.IsSuccessStatusCode)
                 {
-                    var responseContent = await response.Content.ReadAsStringAsync();
-
-                    var categoriesDetails = JsonSerializer.Deserialize<CategoryDetailsViewModel>(responseContent);
-
-                    return new ApiResponse<Guid>(System.Net.HttpStatusCode.NoContent, Guid.Empty);
+                    return new ApiResponse(System.Net.HttpStatusCode.OK);
                 }
 
                 var errorContent = await response.Content.ReadAsStringAsync();
                 var errorMessages = JsonSerializer.Deserialize<List<string>>(errorContent);
-                return new ApiResponse<Guid>(System.Net.HttpStatusCode.BadRequest, Guid.Empty, errorMessages.FirstOrDefault());
+                return new ApiResponse(System.Net.HttpStatusCode.BadRequest, errorMessages.FirstOrDefault());
             }
             catch (Exception ex)
             {
-                return new ApiResponse<Guid>(System.Net.HttpStatusCode.BadRequest, Guid.Empty, ex.Message);
+                return new ApiResponse(System.Net.HttpStatusCode.BadRequest, ex.Message);
             }
         }
 
         public async Task<List<CategoryViewModel>> GetAllCategories()
         {
-            var request = new HttpRequestMessage(HttpMethod.Get, "https://localhost:7288/api/Category/all");
-
-            var response = await _httpClient.SendAsync(request);
+            var response = await _httpClient.GetAsync($"category");
 
             if (response.IsSuccessStatusCode)
             {
-                var responseContent = await response.Content.ReadAsStringAsync();
-
-                var categories = JsonSerializer.Deserialize<List<CategoryViewModel>>(responseContent);
-
-                return categories;
+                var categoriesList = await DeserializeResponse<List<CategoryViewModel>>(response);
+                return categoriesList;
             }
             return new List<CategoryViewModel>();
         }
 
         public async Task<List<CategoryViewModel>> GetAllCategoriesWithAccommodations(bool onlyOneCategoryResult, Guid? categoryId)
         {
-            var queryParams = new List<string>();
+            var queryString = $"?onlyOneCategoryResult={onlyOneCategoryResult.ToString().ToLower()}"
+                            + (categoryId.HasValue ? $"&categoryId={categoryId.Value}" : "");
 
-            queryParams.Add($"onlyOneCategoryResult={onlyOneCategoryResult.ToString().ToLower()}");
-
-            if (categoryId.HasValue)
-            {
-                queryParams.Add($"categoryId={categoryId.Value}");
-            }
-
-            var queryString = queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "";
-            var request = new HttpRequestMessage(HttpMethod.Get, $"https://localhost:7288/api/Category/allwithcategories{queryString}");
-
-            var response = await _httpClient.SendAsync(request);
+            var response = await _httpClient.GetAsync($"category/accommodations{queryString}");
 
             if (response.IsSuccessStatusCode)
             {
-                var responseContent = await response.Content.ReadAsStringAsync();
-
-                var categoriesWithAccommodations = JsonSerializer.Deserialize<List<CategoryViewModel>>(responseContent);
-
+                var categoriesWithAccommodations = await DeserializeResponse<List<CategoryViewModel>>(response);
                 return categoriesWithAccommodations;
             }
 
             return new List<CategoryViewModel>();
         }
 
-
         public async Task<CategoryDetailsViewModel> GetCategoryById(Guid id)
         {
-            var request = new HttpRequestMessage(HttpMethod.Get, $"https://localhost:7288/api/Category/{id}");
-
-            var response = await _httpClient.SendAsync(request);
+            var response = await _httpClient.GetAsync($"category/{id}");
 
             if (response.IsSuccessStatusCode)
             {
-                var responseContent = await response.Content.ReadAsStringAsync();
-
-                var categoryDetails = JsonSerializer.Deserialize<CategoryDetailsViewModel>(responseContent);
-
+                var categoryDetails = await DeserializeResponse<CategoryDetailsViewModel>(response);
                 return categoryDetails;
             }
 
