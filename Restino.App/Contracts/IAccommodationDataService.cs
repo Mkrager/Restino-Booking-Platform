@@ -1,4 +1,4 @@
-﻿using Restino.App.Services;
+﻿using Restino.App.Infrastructure.Api;
 using Restino.App.ViewModels;
 
 namespace Restino.App.Contracts
@@ -10,7 +10,7 @@ namespace Restino.App.Contracts
         Task<ApiResponse<List<AccommodationListViewModel>>> SearchAccommodation(string searchString);
         Task<AccommodationDetailViewModel> GetAccommodationById(Guid id);
         Task<ApiResponse<Guid>> CreateAccommodation(AccommodationDetailViewModel accommodationDetailViewModel);
-        Task<ApiResponse<Guid>> UpdateAccommodation(AccommodationDetailViewModel accommodationDetailViewModel);
-        Task<ApiResponse<Guid>> DeleteAccommodation(Guid id);
+        Task<ApiResponse> UpdateAccommodation(AccommodationDetailViewModel accommodationDetailViewModel);
+        Task<ApiResponse> DeleteAccommodation(Guid id);
     }
 }

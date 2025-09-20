@@ -1,4 +1,4 @@
-﻿using Restino.App.Services;
+﻿using Restino.App.Infrastructure.Api;
 using Restino.App.ViewModels;
 
 namespace Restino.App.Contracts

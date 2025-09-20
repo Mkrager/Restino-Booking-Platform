@@ -1,48 +1,38 @@
 ﻿using Restino.App.Contracts;
+using Restino.App.Infrastructure.Api;
+using Restino.App.Infrastructure.BaseServices;
 using Restino.App.ViewModels;
-using System.Net.Http.Headers;
 using System.Text;
 using System.Text.Json;
 
 namespace Restino.App.Services
 {
-    public class AccommodationDataService : IAccommodationDataService
+    public class AccommodationDataService : BaseDataService, IAccommodationDataService
     {
-        private readonly IAuthenticationService _authenticationService;
-        private readonly HttpClient _httpClient;
-
-        public AccommodationDataService(HttpClient httpClient, IAuthenticationService authenticationService)
+        public AccommodationDataService(IHttpClientFactory httpClientFactory) : base(httpClientFactory)
         {
-            _httpClient = httpClient;
-            _authenticationService = authenticationService;
         }
 
         public async Task<ApiResponse<Guid>> CreateAccommodation(AccommodationDetailViewModel accommodationDetailViewModel)
         {
             try
             {
-                var request = new HttpRequestMessage(HttpMethod.Post, $"https://localhost:7288/api/Accommodation")
-                {
-                    Content = new StringContent(JsonSerializer.Serialize(accommodationDetailViewModel), Encoding.UTF8, "application/json")
-                };
+                var content = new StringContent(
+                    JsonSerializer.Serialize(accommodationDetailViewModel),
+                    Encoding.UTF8,
+                    "application/json");
 
-                string accessToken = _authenticationService.GetAccessToken();
-
-                request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
-
-                var response = await _httpClient.SendAsync(request);
+                var response = await _httpClient.PostAsync("accommodation", content);
 
                 if (response.IsSuccessStatusCode)
                 {
-                    var responseContent = await response.Content.ReadAsStringAsync();
+                    var accommodation = await DeserializeResponse<Guid>(response);
 
-                    var accommodationDetails = JsonSerializer.Deserialize<Guid>(responseContent);
-
-                    return new ApiResponse<Guid>(System.Net.HttpStatusCode.OK, accommodationDetails);
+                    return new ApiResponse<Guid>(System.Net.HttpStatusCode.OK, accommodation);
                 }
 
-                var errorContent = await response.Content.ReadAsStringAsync();
-                var errorMessages = JsonSerializer.Deserialize<List<string>>(errorContent);
+                var errorMessages = await DeserializeResponse<List<string>>(response);
+
                 return new ApiResponse<Guid>(System.Net.HttpStatusCode.BadRequest, Guid.Empty, errorMessages.FirstOrDefault());
             }
             catch (Exception ex)
@@ -51,49 +41,33 @@ namespace Restino.App.Services
             }
         }
 
-        public async Task<ApiResponse<Guid>> DeleteAccommodation(Guid id)
+        public async Task<ApiResponse> DeleteAccommodation(Guid id)
         {
             try
             {
-                var request = new HttpRequestMessage(HttpMethod.Delete, $"https://localhost:7288/api/Accommodation/{id}");
-
-                string accessToken = _authenticationService.GetAccessToken();
-
-                request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
-
-                var response = await _httpClient.SendAsync(request);
+                var response = await _httpClient.DeleteAsync($"accommodation/{id}");
 
                 if (response.IsSuccessStatusCode)
                 {
-                    var responseContent = await response.Content.ReadAsStringAsync();
-
-                    var accommodationDetails = JsonSerializer.Deserialize<AccommodationDetailViewModel>(responseContent);
-
-                    return new ApiResponse<Guid>(System.Net.HttpStatusCode.NoContent, Guid.Empty);
+                    return new ApiResponse(System.Net.HttpStatusCode.OK);
                 }
 
-                var errorContent = await response.Content.ReadAsStringAsync();
-                var errorMessages = JsonSerializer.Deserialize<List<string>>(errorContent);
-                return new ApiResponse<Guid>(System.Net.HttpStatusCode.BadRequest, Guid.Empty, errorMessages.FirstOrDefault());
+                var errorMessages = await DeserializeResponse<List<string>>(response);
+                return new ApiResponse(System.Net.HttpStatusCode.BadRequest, errorMessages.FirstOrDefault());
             }
             catch (Exception ex)
             {
-                return new ApiResponse<Guid>(System.Net.HttpStatusCode.BadRequest, Guid.Empty, ex.Message);
+                return new ApiResponse(System.Net.HttpStatusCode.BadRequest, ex.Message);
             }
         }
 
         public async Task<AccommodationDetailViewModel> GetAccommodationById(Guid id)
         {
-            var request = new HttpRequestMessage(HttpMethod.Get, $"https://localhost:7288/api/Accommodation/{id}");
-
-            var response = await _httpClient.SendAsync(request);
+            var response = await _httpClient.GetAsync($"accommodation/{id}");
 
             if (response.IsSuccessStatusCode)
             {
-                var responseContent = await response.Content.ReadAsStringAsync();
-
-                var accommodationDetails = JsonSerializer.Deserialize<AccommodationDetailViewModel>(responseContent);
-
+                var accommodationDetails = await DeserializeResponse<AccommodationDetailViewModel>(response);
                 return accommodationDetails;
             }
 
@@ -102,15 +76,11 @@ namespace Restino.App.Services
 
         public async Task<List<AccommodationListViewModel>> GetAllAccommodations(bool isAccommodationHot = false)
         {
-            var request = new HttpRequestMessage(HttpMethod.Get, $"https://localhost:7288/api/Accommodation?isHot={isAccommodationHot}");
-            var response = await _httpClient.SendAsync(request);
+            var response = await _httpClient.GetAsync($"accommodation?isHot={isAccommodationHot}");
 
             if (response.IsSuccessStatusCode)
             {
-                var responseContent = await response.Content.ReadAsStringAsync();
-
-                var accommodations = JsonSerializer.Deserialize<List<AccommodationListViewModel>>(responseContent);
-
+                var accommodations = await DeserializeResponse<List<AccommodationListViewModel>>(response);
                 return accommodations;
             }
 
@@ -119,19 +89,12 @@ namespace Restino.App.Services
 
         public async Task<List<AccommodationListViewModel>> GetAllUserAccommodations()
         {
-            var request = new HttpRequestMessage(HttpMethod.Get, $"https://localhost:7288/api/Accommodation/user");
-
-            string accessToken = _authenticationService.GetAccessToken();
-
-            request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
-
-            var response = await _httpClient.SendAsync(request);
+            var response = await _httpClient.GetAsync("accommodation/user");
 
             if (response.IsSuccessStatusCode)
             {
-                var responseContent = await response.Content.ReadAsStringAsync();
-
-                return JsonSerializer.Deserialize<List<AccommodationListViewModel>>(responseContent);
+                var userAccommodation = await DeserializeResponse<List<AccommodationListViewModel>>(response);
+                return userAccommodation;
             }
 
             return new List<AccommodationListViewModel>();
@@ -141,21 +104,15 @@ namespace Restino.App.Services
         {
             try
             {
-                var request = new HttpRequestMessage(HttpMethod.Get, $"https://localhost:7288/api/Accommodation?search={searchString}");
-
-                var response = await _httpClient.SendAsync(request);
+                var response = await _httpClient.GetAsync($"accommodation/search?searchString={searchString}");
 
                 if (response.IsSuccessStatusCode)
                 {
-                    var responseContent = await response.Content.ReadAsStringAsync();
-
-                    var accommodationDetails = JsonSerializer.Deserialize<List<AccommodationListViewModel>>(responseContent);
-
-                    return new ApiResponse<List<AccommodationListViewModel>>(System.Net.HttpStatusCode.OK, accommodationDetails);
+                    var accommodations = await DeserializeResponse<List<AccommodationListViewModel>>(response);
+                    return new ApiResponse<List<AccommodationListViewModel>>(System.Net.HttpStatusCode.OK, accommodations);
                 }
 
-                var errorContent = await response.Content.ReadAsStringAsync();
-                var errorMessages = JsonSerializer.Deserialize<List<string>>(errorContent);
+                var errorMessages = await DeserializeResponse<List<string>>(response);
                 return new ApiResponse<List<AccommodationListViewModel>>(System.Net.HttpStatusCode.BadRequest, new List<AccommodationListViewModel>(), errorMessages.FirstOrDefault());
             }
             catch (Exception ex)
@@ -164,39 +121,28 @@ namespace Restino.App.Services
             }
         }
 
-
-
-        public async Task<ApiResponse<Guid>> UpdateAccommodation(AccommodationDetailViewModel accommodationDetailViewModel)
+        public async Task<ApiResponse> UpdateAccommodation(AccommodationDetailViewModel accommodationDetailViewModel)
         {
             try
             {
-                var request = new HttpRequestMessage(HttpMethod.Put, $"https://localhost:7288/api/Accommodation")
-                {
-                    Content = new StringContent(JsonSerializer.Serialize(accommodationDetailViewModel), Encoding.UTF8, "application/json")
-                };
+                var content = new StringContent(
+                    JsonSerializer.Serialize(accommodationDetailViewModel),
+                    Encoding.UTF8,
+                    "application/json");
 
-                string accessToken = _authenticationService.GetAccessToken();
-
-                request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
-
-                var response = await _httpClient.SendAsync(request);
+                var response = await _httpClient.PutAsync($"accommodation", content);
 
                 if (response.IsSuccessStatusCode)
                 {
-                    var responseContent = await response.Content.ReadAsStringAsync();
-
-                    var accommodationDetails = JsonSerializer.Deserialize<AccommodationDetailViewModel>(responseContent);
-
-                    return new ApiResponse<Guid>(System.Net.HttpStatusCode.OK, accommodationDetails.Id);
+                    return new ApiResponse(System.Net.HttpStatusCode.OK);
                 }
 
-                var errorContent = await response.Content.ReadAsStringAsync();
-                var errorMessages = JsonSerializer.Deserialize<List<string>>(errorContent);
-                return new ApiResponse<Guid>(System.Net.HttpStatusCode.BadRequest, Guid.Empty, errorMessages.FirstOrDefault());
+                var errorMessages = await DeserializeResponse<List<string>>(response);
+                return new ApiResponse(System.Net.HttpStatusCode.BadRequest, errorMessages.FirstOrDefault());
             }
             catch (Exception ex)
             {
-                return new ApiResponse<Guid>(System.Net.HttpStatusCode.BadRequest, Guid.Empty, ex.Message);
+                return new ApiResponse(System.Net.HttpStatusCode.BadRequest, ex.Message);
             }
         }
     }
