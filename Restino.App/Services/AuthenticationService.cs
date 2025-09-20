@@ -1,4 +1,5 @@
 ﻿using Restino.App.Contracts;
+using Restino.App.Infrastructure.Api;
 using Restino.App.ViewModels;
 using System.Text;
 using System.Text.Json;
@@ -113,11 +114,6 @@ namespace Restino.App.Services
             {
                 return new ApiResponse<bool>(System.Net.HttpStatusCode.BadRequest, false, ex.Message);
             }
-        }
-
-        public string GetAccessToken()
-        {
-            return _httpContextAccessor.HttpContext.Request.Cookies["access_token"];
         }
 
         public async Task<ApiResponse<LoginRequest>> AuthenticateTwoFactor(string email, string twoFactorCode)

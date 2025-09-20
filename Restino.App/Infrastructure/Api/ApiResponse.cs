@@ -1,6 +1,6 @@
 ﻿using System.Net;
 
-namespace Restino.App.Services
+namespace Restino.App.Infrastructure.Api
 {
     public class ApiResponse<T>
     {
@@ -13,6 +13,19 @@ namespace Restino.App.Services
         {
             StatusCode = statusCode;
             Data = data;
+            ErrorText = errorText;
+        }
+    }
+
+    public class ApiResponse
+    {
+        public HttpStatusCode StatusCode { get; set; }
+        public string? ErrorText { get; set; }
+        public bool IsSuccess => StatusCode == HttpStatusCode.OK;
+
+        public ApiResponse(HttpStatusCode statusCode, string? errorText = null)
+        {
+            StatusCode = statusCode;
             ErrorText = errorText;
         }
     }

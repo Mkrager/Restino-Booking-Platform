@@ -1,38 +1,31 @@
 using Restino.App.Contracts;
+using Restino.App.Infrastructure.HttpHandlers;
 using Restino.App.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
-var connectionString = builder.Configuration.GetConnectionString
-    ("RestinoConnectionString") ?? throw new InvalidOperationException("Connection string 'RestinoDb' not found.");
-
-builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
-
-builder.Services.AddSingleton(new HttpClient
-{
-    BaseAddress = new Uri("https://localhost:7288/")
-});
-builder.Services.AddSingleton<JwtHelper>();
-
-builder.Services.AddHttpContextAccessor();
-
-
-builder.Services.AddDistributedMemoryCache();
-builder.Services.AddSession(options =>
-{
-    options.Cookie.HttpOnly = true;
-    options.Cookie.IsEssential = true;
-});
-
 
 builder.Services.AddRazorPages();
+
+builder.Services.AddHttpContextAccessor();
 
 builder.Services.AddScoped<IAccommodationDataService, AccommodationDataService>();
 builder.Services.AddScoped<ICategoryDataService, CategoryDataService>();
 builder.Services.AddScoped<IReservationDataService, ReservationDataService>();
 builder.Services.AddScoped<IAuthenticationService, AuthenticationService>();
 builder.Services.AddScoped<IUserDataService, UserDataService>();
+builder.Services.AddScoped<ITokenProvider, TokenProvider>();
 
+builder.Services.AddSingleton<JwtHelper>();
+
+builder.Services.AddTransient<AuthHeaderHandler>();
+
+var baseUrl = builder.Configuration["App:BaseUrl"];
+builder.Services.AddHttpClient("ApiClient", client =>
+{
+    client.BaseAddress = new Uri(baseUrl);
+})
+.AddHttpMessageHandler<AuthHeaderHandler>();
 
 builder.Services.AddControllersWithViews();
 
