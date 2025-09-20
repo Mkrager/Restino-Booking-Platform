@@ -1,59 +1,63 @@
-﻿using Restino.App.Contracts;
+﻿using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authentication;
 using Restino.App.Infrastructure.Api;
+using Restino.App.Infrastructure.BaseServices;
 using Restino.App.ViewModels;
+using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
 using System.Text;
 using System.Text.Json;
 
 namespace Restino.App.Services
 {
-    public class AuthenticationService : IAuthenticationService
+    public class AuthenticationService : BaseDataService, Contracts.IAuthenticationService
     {
         private readonly IHttpContextAccessor _httpContextAccessor;
-        private readonly HttpClient _httpClient;
 
-        public AuthenticationService(IHttpContextAccessor httpContextAccessor, HttpClient httpClient)
+        public AuthenticationService(IHttpClientFactory httpClientFactory, IHttpContextAccessor httpContextAccessor) : base(httpClientFactory)
         {
             _httpContextAccessor = httpContextAccessor;
-            _httpClient = httpClient;
         }
 
-        public async Task<ApiResponse<LoginRequest>> Authenticate(string email, string password)
+        public async Task<ApiResponse<bool>> Authenticate(AuthenticateRequest request)
         {
             try
             {
-                var authenticationRequest = new LoginResponse() { Email = email, Password = password };
+                var content = new StringContent(
+                    JsonSerializer.Serialize(request),
+                    Encoding.UTF8,
+                    "application/json");
 
-                var request = new HttpRequestMessage(HttpMethod.Post, "https://localhost:7288/api/Account/authenticate")
-                {
-                    Content = new StringContent(JsonSerializer.Serialize(authenticationRequest), Encoding.UTF8, "application/json")
-                };
-
-                var response = await _httpClient.SendAsync(request);
+                var response = await _httpClient.PostAsync("account/authenticate", content);
 
                 if (response.IsSuccessStatusCode)
                 {
                     var responseContent = await response.Content.ReadAsStringAsync();
 
-                    var authenticationResponse = JsonSerializer.Deserialize<LoginRequest>(responseContent);
+                    var authenticationResponse = JsonSerializer.Deserialize<LoginResponse>(responseContent, _jsonOptions);
 
-                    var loginResponse = new LoginRequest()
-                    {
-                        Email = authenticationResponse.Email,
-                        Id = authenticationResponse.Id,
-                        Token = authenticationResponse.Token,
-                        TwoFactorRequired = authenticationResponse.TwoFactorRequired,
-                        UserName = authenticationResponse.UserName
-                    };
-
-                    if (authenticationResponse.TwoFactorRequired)
-                    {
-                        return new ApiResponse<LoginRequest>(System.Net.HttpStatusCode.OK, loginResponse);
-                    }
 
                     var jwtToken = authenticationResponse?.Token;
 
                     if (!string.IsNullOrEmpty(jwtToken))
                     {
+                        var handler = new JwtSecurityTokenHandler();
+                        var token = handler.ReadJwtToken(jwtToken);
+
+                        var claims = token.Claims.ToList();
+
+                        var identity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
+                        var principal = new ClaimsPrincipal(identity);
+
+                        await _httpContextAccessor.HttpContext.SignInAsync(
+                            CookieAuthenticationDefaults.AuthenticationScheme,
+                            principal,
+                            new AuthenticationProperties
+                            {
+                                IsPersistent = true,
+                                ExpiresUtc = DateTime.UtcNow.AddDays(30)
+                            });
+
                         _httpContextAccessor.HttpContext.Response.Cookies.Append("access_token", jwtToken, new CookieOptions
                         {
                             HttpOnly = true,
@@ -62,7 +66,7 @@ namespace Restino.App.Services
                             Expires = DateTime.UtcNow.AddDays(30)
                         });
 
-                        return new ApiResponse<LoginRequest>(System.Net.HttpStatusCode.OK, loginResponse);
+                        return new ApiResponse<bool>(System.Net.HttpStatusCode.OK, true);
                     }
                 }
 
@@ -71,13 +75,14 @@ namespace Restino.App.Services
                 var errorMessages = JsonSerializer.Deserialize<Dictionary<string, string>>(errorContent) ??
                                     new Dictionary<string, string> { { "error", errorContent } };
 
-                return new ApiResponse<LoginRequest>(System.Net.HttpStatusCode.BadRequest, null, errorMessages.GetValueOrDefault("error"));
+                return new ApiResponse<bool>(System.Net.HttpStatusCode.BadRequest, false, errorMessages.GetValueOrDefault("error"));
             }
             catch (Exception ex)
             {
-                return new ApiResponse<LoginRequest>(System.Net.HttpStatusCode.BadRequest, null, ex.Message);
+                return new ApiResponse<bool>(System.Net.HttpStatusCode.BadRequest, false, ex.Message);
             }
         }
+
 
         public Task Logout()
         {
@@ -85,18 +90,16 @@ namespace Restino.App.Services
             return Task.CompletedTask;
         }
 
-        public async Task<ApiResponse<bool>> Register(string firstName, string lastName, string userName, string email, string password)
+        public async Task<ApiResponse<bool>> Register(RegistrationRequest request)
         {
             try
             {
-                var registrationRequest = new RegistrationRequest() { Password = password, Email = email, FirstName = firstName, LastName = lastName, UserName = userName };
+                var content = new StringContent(
+                    JsonSerializer.Serialize(request),
+                    Encoding.UTF8,
+                    "application/json");
 
-                var request = new HttpRequestMessage(HttpMethod.Post, "https://localhost:7288/api/account/register")
-                {
-                    Content = new StringContent(JsonSerializer.Serialize(registrationRequest), Encoding.UTF8, "application/json")
-                };
-
-                var response = await _httpClient.SendAsync(request);
+                var response = await _httpClient.PostAsync("account/register", content);
 
                 if (response.IsSuccessStatusCode)
                 {
@@ -113,68 +116,6 @@ namespace Restino.App.Services
             catch (Exception ex)
             {
                 return new ApiResponse<bool>(System.Net.HttpStatusCode.BadRequest, false, ex.Message);
-            }
-        }
-
-        public async Task<ApiResponse<LoginRequest>> AuthenticateTwoFactor(string email, string twoFactorCode)
-        {
-            try
-            {
-                var authenticationRequest = new VerifyTwoFactorCodeResponse() { Email = email, TwoFactorCode = twoFactorCode };
-
-                var request = new HttpRequestMessage(HttpMethod.Post, "https://localhost:7288/api/Account/authenticateTwoFactor")
-                {
-                    Content = new StringContent(JsonSerializer.Serialize(authenticationRequest), Encoding.UTF8, "application/json")
-                };
-
-                var response = await _httpClient.SendAsync(request);
-
-                if (response.IsSuccessStatusCode)
-                {
-                    var responseContent = await response.Content.ReadAsStringAsync();
-
-                    var authenticationResponse = JsonSerializer.Deserialize<LoginRequest>(responseContent);
-
-                    var loginResponse = new LoginRequest()
-                    {
-                        Email = authenticationResponse.Email,
-                        Id = authenticationResponse.Id,
-                        Token = authenticationResponse.Token,
-                        TwoFactorRequired = authenticationResponse.TwoFactorRequired,
-                        UserName = authenticationResponse.UserName
-                    };
-
-                    if (authenticationResponse.TwoFactorRequired)
-                    {
-                        return new ApiResponse<LoginRequest>(System.Net.HttpStatusCode.OK, loginResponse);
-                    }
-
-                    var jwtToken = authenticationResponse?.Token;
-
-                    if (!string.IsNullOrEmpty(jwtToken))
-                    {
-                        _httpContextAccessor.HttpContext.Response.Cookies.Append("access_token", jwtToken, new CookieOptions
-                        {
-                            HttpOnly = true,
-                            Secure = true,
-                            SameSite = SameSiteMode.Strict,
-                            Expires = DateTime.UtcNow.AddDays(30)
-                        });
-
-                        return new ApiResponse<LoginRequest>(System.Net.HttpStatusCode.OK, loginResponse);
-                    }
-                }
-
-                var errorContent = await response.Content.ReadAsStringAsync();
-
-                var errorMessages = JsonSerializer.Deserialize<Dictionary<string, string>>(errorContent) ??
-                                    new Dictionary<string, string> { { "error", errorContent } };
-
-                return new ApiResponse<LoginRequest>(System.Net.HttpStatusCode.BadRequest, null, errorMessages.GetValueOrDefault("error"));
-            }
-            catch (Exception ex)
-            {
-                return new ApiResponse<LoginRequest>(System.Net.HttpStatusCode.BadRequest, null, ex.Message);
             }
         }
     }
