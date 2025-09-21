@@ -1,4 +1,4 @@
-﻿namespace Restino.App.ViewModels
+﻿namespace Restino.App.ViewModels.User
 {
     public class SearchUserResponse
     {

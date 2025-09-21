@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace Restino.App.ViewModels
+namespace Restino.App.ViewModels.Reservation
 {
     public class ReservationDetailViewModel
     {

@@ -1,5 +1,5 @@
 ﻿using Restino.App.Infrastructure.Api;
-using Restino.App.ViewModels;
+using Restino.App.ViewModels.Accommodation;
 
 namespace Restino.App.Contracts
 {

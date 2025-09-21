@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Restino.App.Contracts;
 using Restino.App.Services;
-using Restino.App.ViewModels;
+using Restino.App.ViewModels.Accommodation;
 
 namespace Restino.App.Controllers
 {

@@ -26,16 +26,16 @@ namespace Restino.App.Controllers
         }
 
         //TODO: refactor
-        //[HttpGet]
-        //public async Task<IActionResult> Details()
-        //{
-        //    var result = await _userDataService.GetUserDetails();
-        //    var accommodations = await _accommodationDataService.GetAllUserAccommodations();
-        //    var reservations = await _reservationDataService.GetUserReservation();
-        //    TempData["Accommodations"] = accommodations;
-        //    TempData["Reservations"] = reservations;
-        //    return View(result);
-        //}
+        [HttpGet]
+        public async Task<IActionResult> Details()
+        {
+            var result = await _userDataService.GetUserDetails();
+            var accommodations = await _accommodationDataService.GetAllUserAccommodations();
+            var reservations = await _reservationDataService.GetUserReservation();
+            TempData["Accommodations"] = accommodations;
+            TempData["Reservations"] = reservations;
+            return View(result);
+        }
 
         [HttpDelete]
         public async Task<IActionResult> Delete(string userId)

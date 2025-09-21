@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Restino.App.Contracts;
 using Restino.App.Services;
-using Restino.App.ViewModels;
+using Restino.App.ViewModels.Category;
 
 namespace Restino.App.Controllers
 {

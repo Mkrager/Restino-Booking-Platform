@@ -1,6 +1,7 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Restino.App.ViewModels.Category;
+using System.ComponentModel.DataAnnotations;
 
-namespace Restino.App.ViewModels
+namespace Restino.App.ViewModels.Accommodation
 {
     public class AccommodationDetailViewModel
     {

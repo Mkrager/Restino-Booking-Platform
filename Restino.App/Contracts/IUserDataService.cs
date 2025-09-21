@@ -1,18 +1,21 @@
 ﻿using Restino.App.Infrastructure.Api;
-using Restino.App.ViewModels;
+using Restino.App.ViewModels.ResetPassword;
+using Restino.App.ViewModels.TwoFactor;
+using Restino.App.ViewModels.User;
 
 namespace Restino.App.Contracts
 {
     public interface IUserDataService
     {
-        Task<GetUserDetailsResponse> GetUserDetails(string userId);
+        Task<GetUserDetailsResponse> GetUserById(string userId);
+        Task<GetUserDetailsResponse> GetUserDetails();
         Task<List<GetUserDetailsResponse>> GetUserList();
         Task<List<SearchUserResponse>> SearchUser(string searchInput);
-        Task<ApiResponse<bool>> DeleteUser(string id);
-        Task<ApiResponse<bool>> SendPasswordResetCodeAsync(string email);
-        Task<ApiResponse<bool>> ChangePasswordAsync(string email, string newPassword, string code);
-        Task<ApiResponse<bool>> AddTwoFactorAsync(string email, string twoFactorCode);
-        Task<ApiResponse<bool>> DeleteTwoFactorAsync(string email, string twoFactorCode);
-        Task<ApiResponse<bool>> SendTwoFactorCodeAsync(string email);
+        Task<ApiResponse> DeleteUser(string id);
+        Task<ApiResponse> SendPasswordResetCodeAsync(SendPasswordResetCodeRequest sendPasswordResetCodeRequest);
+        Task<ApiResponse> ResetPasswordAsync(ResetPasswordRequest resetPasswordRequest);
+        Task<ApiResponse> AddTwoFactorAsync(AddTwoFactorRequest addTwoFactorRequest);
+        Task<ApiResponse> DeleteTwoFactorAsync(DeleteTwoFactorRequest deleteTwoFactorRequest);
+        Task<ApiResponse> SendTwoFactorCodeAsync(SendTwoFactorCodeRequest sendTwoFactorCodeRequest);
     }
 }

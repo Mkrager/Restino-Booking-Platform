@@ -1,5 +1,6 @@
 ﻿using Restino.App.Infrastructure.Api;
 using Restino.App.ViewModels;
+using Restino.App.ViewModels.Authenticate;
 
 namespace Restino.App.Contracts
 {

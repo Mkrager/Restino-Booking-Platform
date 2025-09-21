@@ -1,6 +1,6 @@
-﻿namespace Restino.App.ViewModels
+﻿namespace Restino.App.ViewModels.TwoFactor
 {
-    public class VerifyTwoFactorCodeResponse
+    public class AddTwoFactorRequest
     {
         public string Email { get; set; } = string.Empty;
         public string TwoFactorCode { get; set; } = string.Empty;

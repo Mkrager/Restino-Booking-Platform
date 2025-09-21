@@ -22,7 +22,6 @@ namespace Restino.Api.Controllers
         [HttpGet("search")]
         [Authorize(Roles = "Admin")]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status204NoContent)]
         public async Task<IActionResult> SearchUser([FromQuery] string? userName)
         {
             var query = new SearchUserQuery { UserName = userName };
@@ -37,7 +36,24 @@ namespace Restino.Api.Controllers
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> GetUserById(string userId)
         {
-            var result = await mediator.Send(new GetUserDetailsQuery { UserId = userId });
+            var result = await mediator.Send(new GetUserDetailsQuery
+            {
+                UserId = userId
+            });
+
+            return Ok(result);
+        }
+
+        [HttpGet("details")]
+        [Authorize]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        public async Task<IActionResult> GetUserDetails()
+        {
+            var result = await mediator.Send(new GetUserDetailsQuery
+            {
+                UserId = currentUserService.UserId
+            });
+
             return Ok(result);
         }
 

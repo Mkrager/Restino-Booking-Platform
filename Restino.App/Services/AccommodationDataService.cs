@@ -1,7 +1,7 @@
 ﻿using Restino.App.Contracts;
 using Restino.App.Infrastructure.Api;
 using Restino.App.Infrastructure.BaseServices;
-using Restino.App.ViewModels;
+using Restino.App.ViewModels.Accommodation;
 using System.Text;
 using System.Text.Json;
 

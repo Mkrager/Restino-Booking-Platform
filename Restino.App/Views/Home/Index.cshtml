@@ -1,4 +1,6 @@
-﻿@model Tuple<List<Restino.App.ViewModels.AccommodationListViewModel>, List<Restino.App.ViewModels.CategoryViewModel>>
+﻿@using Restino.App.ViewModels.Accommodation
+@using Restino.App.ViewModels.Category
+@model Tuple<List<AccommodationListViewModel>, List<CategoryViewModel>>
 
 @{
     var successMessage = TempData["Message"] as string;

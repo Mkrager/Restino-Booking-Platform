@@ -1,4 +1,6 @@
-﻿namespace Restino.App.ViewModels
+﻿using Restino.App.ViewModels.Accommodation;
+
+namespace Restino.App.ViewModels.Reservation
 {
     public class ReservationListViewModel
     {

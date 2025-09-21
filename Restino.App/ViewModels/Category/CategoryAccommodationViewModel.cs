@@ -1,4 +1,6 @@
-﻿namespace Restino.App.ViewModels
+﻿using Restino.App.ViewModels.Accommodation;
+
+namespace Restino.App.ViewModels.Category
 {
     public class CategoryAccommodationViewModel
     {
