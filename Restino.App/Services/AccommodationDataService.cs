@@ -76,7 +76,7 @@ namespace Restino.App.Services
 
         public async Task<List<AccommodationListViewModel>> GetAllAccommodations(bool isAccommodationHot = false)
         {
-            var response = await _httpClient.GetAsync($"accommodation?isHot={isAccommodationHot}");
+            var response = await _httpClient.GetAsync($"accommodation?isAccommodationHot={isAccommodationHot}");
 
             if (response.IsSuccessStatusCode)
             {

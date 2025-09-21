@@ -1,5 +1,6 @@
 ﻿@using Restino.App.ViewModels.Accommodation
 @using Restino.App.ViewModels.Reservation
+@using Restino.App.ViewModels.User;
 @model GetUserDetailsResponse
 @inject JwtHelper JwtHelper
 @inject IHttpContextAccessor HttpContextAccessor
@@ -15,12 +16,12 @@
     <div class="element">
         <div class="user-flex container">
             <div class="el-data">
-                <p class="el-p">User id: @Model.UserId</p>
+                @* <p class="el-p">User id: @Model.UserId</p> *@
                 <p class="el-p">User name: @Model.UserName</p>
                 <p class="el-p">First name: @Model.FirstName</p>
                 <p class="el-p">Last name: @Model.LastName</p>
                 <p class="el-p">User email: @Model.Email</p>
-                <a class="el-btn" onclick="deleteUser('@Model.UserId.Trim()')">Delete user</a>
+                @* <a class="el-btn" onclick="deleteUser('@Model.UserId.Trim()')">Delete user</a> *@
             </div>
 
             <h2 class="h2-1">User accommodations</h2>
