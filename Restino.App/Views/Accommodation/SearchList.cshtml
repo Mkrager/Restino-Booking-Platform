@@ -1,13 +1,9 @@
 ﻿@using Restino.App.ViewModels.Accommodation
 @model List<AccommodationDetailViewModel>
 
-@{
-    var successMessage = TempData["SearchMessage"] as string;
-}
-
 <div class="accommodation" style="margin-top: 0px;">
     <div class="container">
-        <h2 class="h2">@successMessage</h2>
+        <h2 class="h2">@TempData["SearchMessage"]</h2>
         <div class="accommodation-flex">
             @foreach (var searchResult in Model)
             {

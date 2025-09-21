@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Restino.App.Contracts;
-using Restino.App.Services;
+using Restino.App.Helpers;
 using Restino.App.ViewModels.Accommodation;
 
 namespace Restino.App.Controllers
@@ -27,7 +27,7 @@ namespace Restino.App.Controllers
         public async Task<IActionResult> SearchList(string searchString)
         {
             var searchResult = await _accommodationDataService.SearchAccommodation(searchString);
-            TempData["SearchMessage"] = HandleResponse<List<AccommodationListViewModel>>(searchResult, $"Result {searchString}");
+            TempData["SearchMessage"] = $"Result {searchString}";
             return View(searchResult.Data);
         }
 
@@ -50,7 +50,7 @@ namespace Restino.App.Controllers
         {
             var newAccommodation = await _accommodationDataService.CreateAccommodation(accommodation);
             TempData["Categories"] = await Categories();
-            TempData["Message"] = HandleResponse<Guid>(newAccommodation);
+            TempData["Message"] = HandleErrors.HandleResponse(newAccommodation);
             return View();
         }
 
@@ -83,20 +83,8 @@ namespace Restino.App.Controllers
             }
 
             var updatedAccommodation = await _accommodationDataService.UpdateAccommodation(accommodation);
-            TempData["Message"] = HandleResponse<Guid>(updatedAccommodation);
+            TempData["Message"] = HandleErrors.HandleResponse(updatedAccommodation);
             return Json(new { redirectToUrl = Url.Action("Update", "Accommdoation") });
-        }
-
-        private string HandleResponse<T>(ApiResponse<T> response, string successMessage = "Success")
-        {
-            if (response.StatusCode == System.Net.HttpStatusCode.OK)
-            {
-                return successMessage;
-            }
-            else
-            {
-                return response.ErrorText;
-            }
         }
     }
 }

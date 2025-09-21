@@ -24,11 +24,6 @@ namespace Restino.App.Controllers
 
             var model = new Tuple<List<AccommodationListViewModel>, List<CategoryViewModel>>(allAccommodation, allCategories);
 
-            var token = Request.Cookies["access_token"];
-            bool isAuthenticated = !string.IsNullOrEmpty(token);
-
-            ViewBag.IsAuthenticated = isAuthenticated;
-
             return View(model);
         }
     }

@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Restino.App.Contracts;
-using Restino.App.Services;
+using Restino.App.Helpers;
 using Restino.App.ViewModels.Reservation;
 
 namespace Restino.App.Controllers
@@ -46,7 +46,7 @@ namespace Restino.App.Controllers
         public async Task<IActionResult> Create(ReservationDetailViewModel reservation)
         {
             var newReservation = await _reservationDataService.CreateReservation(reservation);
-            TempData["Message"] = HandleResponse<Guid>(newReservation);
+            TempData["Message"] = HandleErrors.HandleResponse(newReservation);
             return RedirectToAction(nameof(Create), new { id = reservation.AccommodationId });
         }
 
@@ -55,17 +55,6 @@ namespace Restino.App.Controllers
         {
             var response = await _reservationDataService.DeleteReservation(reservationId);
             return Json(new { success = true });
-        }
-        private string HandleResponse<T>(ApiResponse<T> response, string successMessage = "Success")
-        {
-            if (response.StatusCode == System.Net.HttpStatusCode.OK)
-            {
-                return successMessage;
-            }
-            else
-            {
-                return response.ErrorText;
-            }
         }
     }
 }

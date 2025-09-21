@@ -1,7 +1,11 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Identity.Data;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.IdentityModel.Tokens;
+using Microsoft.Win32;
 using Restino.App.Contracts;
-using Restino.App.Services;
+using Restino.App.Helpers;
 using Restino.App.ViewModels;
+using Restino.App.ViewModels.Authenticate;
 
 namespace Restino.App.Controllers
 {
@@ -26,10 +30,10 @@ namespace Restino.App.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Register(string firstName, string lastName, string userName, string email, string password)
+        public async Task<IActionResult> Register(RegistrationRequest registerRequest)
         {
-            var register = await _authenticationService.Register(firstName, lastName, userName, email, password);
-            TempData["Message"] = HandleResponse<bool>(register);
+            var register = await _authenticationService.Register(registerRequest);
+            TempData["Message"] = HandleErrors.HandleResponse(register);
             return View();
         }
 
@@ -40,20 +44,15 @@ namespace Restino.App.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Login(string email, string password)
+        public async Task<IActionResult> Login(AuthenticateRequest authenticateRequest)
         {
-            var login = await _authenticationService.Authenticate(email, password);
-            TempData["Message"] = HandleResponse<LoginRequest>(login);
+            var login = await _authenticationService.Authenticate(authenticateRequest);
+            TempData["Message"] = HandleErrors.HandleResponse(login);
 
-            if(login.Data == null)
-            {
-                return View();
-            }
-
-            if (login.Data.TwoFactorRequired)
-            {
-                return RedirectToAction("VerifyTwoFactor", new { email = email });
-            }
+            //if (login.Data.TwoFactorRequired)
+            //{
+            //    return RedirectToAction("VerifyTwoFactor", new { email = authenticateRequest.Email });
+            //}
 
             if (login.IsSuccess)
             {
@@ -63,26 +62,26 @@ namespace Restino.App.Controllers
             return View();
         }
 
-        [HttpGet]
-        public IActionResult VerifyTwoFactor(string email)
-        {
-            var model = new VerifyTwoFactorCodeResponse { Email = email };
-            return View(model);
-        }
+        //[HttpGet]
+        //public IActionResult VerifyTwoFactor(string email)
+        //{
+        //    var model = new VerifyTwoFactorCodeResponse { Email = email };
+        //    return View(model);
+        //}
 
-        [HttpPost]
-        public async Task<IActionResult> VerifyTwoFactor(string email, string twoFactorCode)
-        {
-            var login = await _authenticationService.AuthenticateTwoFactor(email, twoFactorCode);
-            TempData["Message"] = HandleResponse<LoginRequest>(login);
+        //[HttpPost]
+        //public async Task<IActionResult> VerifyTwoFactor(string email, string twoFactorCode)
+        //{
+        //    var login = await _authenticationService.AuthenticateTwoFactor(email, twoFactorCode);
+        //    TempData["Message"] = HandleResponse<LoginRequest>(login);
 
-            if (login.IsSuccess)
-            {
-                return RedirectToAction("Index", "Home");
-            }
+        //    if (login.IsSuccess)
+        //    {
+        //        return RedirectToAction("Index", "Home");
+        //    }
 
-            return View();
-        }
+        //    return View();
+        //}
 
         //TODO: Refactor
         [HttpGet]
@@ -99,18 +98,6 @@ namespace Restino.App.Controllers
         {
             await _authenticationService.Logout();
             return Redirect("/Home");
-        }
-
-        private string HandleResponse<T>(ApiResponse<T> response, string successMessage = "")
-        {
-            if (response.StatusCode == System.Net.HttpStatusCode.OK)
-            {
-                return successMessage;
-            }
-            else
-            {
-                return response.ErrorText;
-            }
         }
     }
 }

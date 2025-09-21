@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Restino.App.Contracts;
-using Restino.App.Services;
+using Restino.App.Helpers;
 using Restino.App.ViewModels.Category;
 
 namespace Restino.App.Controllers
@@ -40,7 +40,7 @@ namespace Restino.App.Controllers
         public async Task<IActionResult> Create(CategoryViewModel categoryViewModel)
         {
             var createdCategory = await _categoryDataService.CreateCategory(categoryViewModel);
-            TempData["Message"] = HandleResponse<Guid>(createdCategory);
+            TempData["Message"] = HandleErrors.HandleResponse(createdCategory);
             return View();
         }
 
@@ -50,17 +50,6 @@ namespace Restino.App.Controllers
             var response = await _categoryDataService.DeleteCategory(id);
             TempData["Message"] = "Deleted success";
             return Json(new { redirectUrl = Url.Action("Index", "Home") });
-        }
-        private string HandleResponse<T>(ApiResponse<T> response, string successMessage = "Success")
-        {
-            if (response.StatusCode == System.Net.HttpStatusCode.OK)
-            {
-                return successMessage;
-            }
-            else
-            {
-                return response.ErrorText;
-            }
         }
     }
 }
