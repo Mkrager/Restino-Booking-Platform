@@ -2,11 +2,6 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Restino.Application.Contracts;
-using Restino.Application.Features.PasswordReset.Commands.ResetPassword;
-using Restino.Application.Features.PasswordReset.Queries.SendPasswoedResetCode;
-using Restino.Application.Features.TwoFactor.Commands.AddTwoFactorAuth;
-using Restino.Application.Features.TwoFactor.Commands.DeleteTwofActorAuth;
-using Restino.Application.Features.TwoFactor.Queries.SendTwoFactoreCode;
 using Restino.Application.Features.User.Commands.DeleteUser;
 using Restino.Application.Features.User.Queries.GetUserDetails;
 using Restino.Application.Features.User.Queries.GetUserList;
@@ -74,56 +69,6 @@ namespace Restino.Api.Controllers
         public async Task<IActionResult> Delete(string userId)
         {
             await mediator.Send(new DeleteUserCommand { UserId = userId });
-            return NoContent();
-        }
-
-        [HttpPost("password/reset-code")]
-        [ProducesResponseType(StatusCodes.Status204NoContent)]
-        [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<IActionResult> SendPasswordResetCode([FromBody] SendPasswordResetCodeQuery query)
-        {
-            await mediator.Send(query);
-            return NoContent();
-        }
-
-        [HttpPut("password/change")]
-        [ProducesResponseType(StatusCodes.Status204NoContent)]
-        [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public async Task<IActionResult> ChangePassword([FromBody] ResetPasswordCommand command)
-        {
-            await mediator.Send(command);
-            return NoContent();
-        }
-
-        [HttpPost("2fa/send")]
-        [ProducesResponseType(StatusCodes.Status204NoContent)]
-        [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<IActionResult> SendTwoFactorAuthCode([FromBody] SendTwoFactoreCodeQuery query)
-        {
-            await mediator.Send(query);
-            return NoContent();
-        }
-
-        [HttpPost("2fa/add")]
-        [ProducesResponseType(StatusCodes.Status204NoContent)]
-        [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<IActionResult> AddTwoFactorAuth([FromBody] AddTwoFactorAuthCommand command)
-        {
-            command.UserId = currentUserService.UserId;
-
-            await mediator.Send(command);
-            return NoContent();
-        }
-
-        [HttpDelete("2fa/remove")]
-        [ProducesResponseType(StatusCodes.Status204NoContent)]
-        [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<IActionResult> DeleteTwoFactorAuth([FromBody] DeleteTwoFactorAuthCommand command)
-        {
-            command.UserId = currentUserService.UserId;
-
-            await mediator.Send(command);
             return NoContent();
         }
     }
