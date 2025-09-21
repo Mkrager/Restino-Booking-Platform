@@ -14,6 +14,8 @@ builder.Services.AddScoped<ICategoryDataService, CategoryDataService>();
 builder.Services.AddScoped<IReservationDataService, ReservationDataService>();
 builder.Services.AddScoped<IAuthenticationService, AuthenticationService>();
 builder.Services.AddScoped<IUserDataService, UserDataService>();
+builder.Services.AddScoped<IPasswordDataService, PasswordDataService>();
+builder.Services.AddScoped<ITwoFactorDataService, TwoFactorDataService>();
 builder.Services.AddScoped<ITokenProvider, TokenProvider>();
 
 builder.Services.AddSingleton<JwtHelper>();

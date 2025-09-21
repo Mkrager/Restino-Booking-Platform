@@ -1,6 +1,4 @@
 ﻿using Restino.App.Infrastructure.Api;
-using Restino.App.ViewModels.ResetPassword;
-using Restino.App.ViewModels.TwoFactor;
 using Restino.App.ViewModels.User;
 
 namespace Restino.App.Contracts
@@ -12,10 +10,5 @@ namespace Restino.App.Contracts
         Task<List<GetUserDetailsResponse>> GetUserList();
         Task<List<SearchUserResponse>> SearchUser(string searchInput);
         Task<ApiResponse> DeleteUser(string id);
-        Task<ApiResponse> SendPasswordResetCodeAsync(SendPasswordResetCodeRequest sendPasswordResetCodeRequest);
-        Task<ApiResponse> ResetPasswordAsync(ResetPasswordRequest resetPasswordRequest);
-        Task<ApiResponse> AddTwoFactorAsync(AddTwoFactorRequest addTwoFactorRequest);
-        Task<ApiResponse> DeleteTwoFactorAsync(DeleteTwoFactorRequest deleteTwoFactorRequest);
-        Task<ApiResponse> SendTwoFactorCodeAsync(SendTwoFactorCodeRequest sendTwoFactorCodeRequest);
     }
 }

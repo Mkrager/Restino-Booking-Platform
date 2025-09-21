@@ -1,11 +1,7 @@
 ﻿using Restino.App.Contracts;
 using Restino.App.Infrastructure.Api;
 using Restino.App.Infrastructure.BaseServices;
-using Restino.App.ViewModels.ResetPassword;
-using Restino.App.ViewModels.TwoFactor;
 using Restino.App.ViewModels.User;
-using System.Text;
-using System.Text.Json;
 
 namespace Restino.App.Services
 {
@@ -74,136 +70,6 @@ namespace Restino.App.Services
                 if (response.IsSuccessStatusCode)
                 {
                     return new ApiResponse(System.Net.HttpStatusCode.NoContent);
-                }
-
-                var errorMessages = await DeserializeResponse<List<string>>(response);
-                return new ApiResponse(System.Net.HttpStatusCode.BadRequest, errorMessages.FirstOrDefault());
-            }
-            catch (Exception ex)
-            {
-                return new ApiResponse(System.Net.HttpStatusCode.BadRequest, ex.Message);
-            }
-        }
-
-        public async Task<ApiResponse> SendPasswordResetCodeAsync(SendPasswordResetCodeRequest sendPasswordResetCodeRequest)
-        {
-            try
-            {
-                var content = new StringContent(
-                    JsonSerializer.Serialize(sendPasswordResetCodeRequest),
-                    Encoding.UTF8,
-                    "application/json");
-
-                var response = await _httpClient.PostAsync("user/password/reset-code", content);
-
-                if (response.IsSuccessStatusCode)
-                {
-                    return new ApiResponse(System.Net.HttpStatusCode.OK);
-                }
-
-                var errorMessages = await DeserializeResponse<List<string>>(response);
-                return new ApiResponse(System.Net.HttpStatusCode.BadRequest, errorMessages.FirstOrDefault());
-            }
-            catch (Exception ex)
-            {
-                return new ApiResponse(System.Net.HttpStatusCode.BadRequest, ex.Message);
-            }
-        }
-
-        public async Task<ApiResponse> ResetPasswordAsync(ResetPasswordRequest resetPasswordRequest)
-        {
-            try
-            {
-                var content = new StringContent(
-                    JsonSerializer.Serialize(resetPasswordRequest),
-                    Encoding.UTF8,
-                    "application/json");
-
-                var response = await _httpClient.PutAsync("user/password/change", content);
-
-                if (response.IsSuccessStatusCode)
-                {
-                    return new ApiResponse(System.Net.HttpStatusCode.OK);
-                }
-
-                var errorMessages = await DeserializeResponse<List<string>>(response);
-                return new ApiResponse(System.Net.HttpStatusCode.BadRequest, errorMessages.FirstOrDefault());
-            }
-            catch (Exception ex)
-            {
-                return new ApiResponse(System.Net.HttpStatusCode.BadRequest, ex.Message);
-            }
-        }
-
-        public async Task<ApiResponse> AddTwoFactorAsync(AddTwoFactorRequest addTwoFactorRequest)
-        {
-            try
-            {
-                var content = new StringContent(
-                    JsonSerializer.Serialize(addTwoFactorRequest),
-                    Encoding.UTF8,
-                    "application/json");
-
-                var response = await _httpClient.PostAsync("user/2fa/add", content);
-
-                if (response.IsSuccessStatusCode)
-                {
-                    return new ApiResponse(System.Net.HttpStatusCode.OK);
-                }
-
-                var errorMessages = await DeserializeResponse<List<string>>(response);
-                return new ApiResponse(System.Net.HttpStatusCode.BadRequest, errorMessages.FirstOrDefault());
-            }
-            catch (Exception ex)
-            {
-                return new ApiResponse(System.Net.HttpStatusCode.BadRequest, ex.Message);
-            }
-        }
-
-        public async Task<ApiResponse> DeleteTwoFactorAsync(DeleteTwoFactorRequest deleteTwoFactorRequest)
-        {
-            try
-            {
-                var content = new StringContent(
-                    JsonSerializer.Serialize(deleteTwoFactorRequest),
-                    Encoding.UTF8,
-                    "application/json");
-
-                var request = new HttpRequestMessage(HttpMethod.Delete, "user/2fa/remove")
-                {
-                    Content = content
-                };
-
-                var response = await _httpClient.SendAsync(request);
-
-                if (response.IsSuccessStatusCode)
-                {
-                    return new ApiResponse(System.Net.HttpStatusCode.OK);
-                }
-
-                var errorMessages = await DeserializeResponse<List<string>>(response);
-                return new ApiResponse(System.Net.HttpStatusCode.BadRequest, errorMessages.FirstOrDefault());
-            }
-            catch (Exception ex)
-            {
-                return new ApiResponse(System.Net.HttpStatusCode.BadRequest, ex.Message);
-            }
-        }
-
-        public async Task<ApiResponse> SendTwoFactorCodeAsync(SendTwoFactorCodeRequest sendTwoFactorCodeRequest)
-        {
-            try
-            {
-                var content = new StringContent(
-                    JsonSerializer.Serialize(sendTwoFactorCodeRequest),
-                    Encoding.UTF8,
-                    "application/json");
-
-                var response = await _httpClient.PostAsync("user/2fa/send", content);
-
-                if (response.IsSuccessStatusCode)
-                {
-                    return new ApiResponse(System.Net.HttpStatusCode.OK);
                 }
 
                 var errorMessages = await DeserializeResponse<List<string>>(response);
